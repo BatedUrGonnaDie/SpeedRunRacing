@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
+    %title= yield(:title) || "SpeedRunRacing!"
+    = stylesheet_link_tag "application.css"
+    = javascript_include_tag "application.js", async: Rails.env.production?, defer: Rails.env.production?
+    = csrf_meta_tags
+    = favicon_link_tag
+    = content_for(:html_head)
+  %body
+    = render 'layouts/header'
+    .container
+      - flash.each do |key, value|
+        %div{class: "alert alert-#{key} alert-dismissible fade in", role: "alert"}
+          %button{type: "button", class: "close", "data-dismiss" => "alert", "aria-label" => "Close"}
+            %span{"aria-hidden" => "true"} &times;
+          = value
+      = yield
+      = render 'layouts/footer'

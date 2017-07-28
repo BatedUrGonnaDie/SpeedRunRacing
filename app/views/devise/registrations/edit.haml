@@ -1,0 +1,40 @@
+= provide(:title, "Edit Your Profile")
+%h2= "Edit Profile"
+
+.row
+  .col-md-offset-3.col-md-6.col-md-offset-3
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = devise_error_messages!
+
+      .form-group
+        = f.label :username
+        = f.text_field :username, autofocus: true, class: "form-control"
+
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div= "Currently waiting confirmation for: #{resource.unconfirmed_email}"
+
+      .form-group
+        = f.label :display_name
+        = f.text_field :display_name, class: "form-control", value: "#{current_user.username}"
+
+      .form-group
+        = f.label :password
+        = f.password_field :password, autocomplete: "off", class: "form-control"
+        - if @minimum_password_length
+          %em= "#{@minimum_password_length} characters minimum"
+          %br
+
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
+
+      .form-group
+        = f.label :current_password
+        = f.password_field :current_password, autocomplete: "off", class: "form-control"
+
+      = f.submit "Update", class: "btn btn-default"
+
+    %h3 Delete Account
+
+    %p
+      This is an irreversable action, only click the button if you are 100% sure you want to erase everything!
+      = button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger inline-button"
