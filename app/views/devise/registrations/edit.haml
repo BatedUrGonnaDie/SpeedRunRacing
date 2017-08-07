@@ -1,5 +1,5 @@
 = provide(:title, "Edit Your Profile")
-%h2= "Edit Profile"
+%h2 Edit Profile
 
 .row
   .col-md-offset-3.col-md-6.col-md-offset-3
@@ -15,7 +15,7 @@
 
       .form-group
         = f.label :display_name
-        = f.text_field :display_name, class: "form-control", value: "#{current_user.username}"
+        = f.text_field :display_name, class: "form-control", value: "#{current_user.display_name}"
 
       .form-group
         = f.label :password
