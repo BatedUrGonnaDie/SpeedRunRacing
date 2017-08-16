@@ -1,0 +1,12 @@
+development:
+  # required to run dev server
+  DATABASE_URL: 
+
+test:
+  # required to be able to run tests
+  DATABASE_URL: 
+
+# you don't need to fill out anything past here unless you're deploying this somewhere
+production:
+  DATABASE_URL:
+
