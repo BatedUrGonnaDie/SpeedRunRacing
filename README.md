@@ -1,24 +1,18 @@
-# README
+# SpeedRunRacing
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A modern racing website for speedrunners to compete against eachother.
 
-Things you may want to cover:
+# Development
 
-* Ruby version
+- Ruby 2.4.1
+- Postgres
 
-* System dependencies
+Fill out the application.example.yml in the config folder and rename
+to appliction.yml.  Run any pending migrations and you are good to go.
 
-* Configuration
+# Goals
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Full user login, with the ability to link twitch accounts
+2. Race coordinator
+3. Websocket server that connects users to coordinator to allow native
+in browser racing
