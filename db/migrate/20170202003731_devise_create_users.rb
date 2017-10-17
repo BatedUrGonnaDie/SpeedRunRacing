@@ -3,7 +3,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
     create_table :users do |t|
       ## Database authenticatable
       t.string :username,           null: false, default: ""
-      t.string :display_name,                    defualt: ""
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
@@ -31,7 +30,13 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
        t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
        t.string   :unlock_token # Only if unlock strategy is :email or :both
        t.datetime :locked_at
-
+       
+      # Custom values
+       t.string :display_name
+       t.string :twitch_id
+       t.string :twitch_name
+       t.string :twitch_display_name
+       t.string :twitch_email
 
       t.timestamps null: false
     end

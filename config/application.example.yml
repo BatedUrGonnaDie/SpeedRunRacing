@@ -1,6 +1,8 @@
 development:
   # required to run dev server
   DATABASE_URL: 
+  SRR_TWITCH_CLIENT_ID:
+  SRR_TWITCH_CLENT_SECRET:
 
 test:
   # required to be able to run tests

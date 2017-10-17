@@ -1,7 +1,5 @@
 class RacesController < ApplicationController
-
   def index
-    @races = Race.active
+    @races = []
   end
-
 end

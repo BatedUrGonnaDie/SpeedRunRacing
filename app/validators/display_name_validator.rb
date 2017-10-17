@@ -5,10 +5,10 @@ class DisplayNameValidator < ActiveModel::Validator
 
   private
 
-    def validate_user_record(user)
-      user.display_name = user.username if user.display_name.blank?
-      user.display_name.strip!
-      return if user.display_name.downcase() == user.username.downcase()
-      user.errors[:base] << "Display name may only contain case differences from username."
-    end
+  def validate_user_record(user)
+    user.display_name = user.username if user.display_name.blank?
+    user.display_name.strip!
+    return if user.display_name.casecmp(user.username.downcase).zero?
+    user.errors[:base] << 'Display name may only contain case differences from username.'
+  end
 end

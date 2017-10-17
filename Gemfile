@@ -2,10 +2,9 @@ source 'https://rubygems.org'
 ruby '2.4.2'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
-
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
@@ -19,21 +18,30 @@ gem 'uglifier'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
+# API Generation
 gem 'active_model_serializers'
+gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis'
 gem 'pg'
+gem 'redis'
 
-gem 'bootstrap-sass'
-gem 'bootswatch-rails'
-gem 'slim-rails'
-gem 'haml-rails'
+# Configuration
 gem 'figaro'
 
+# View styles and building
+gem 'bootstrap-sass'
+gem 'bootswatch-rails'
+gem 'haml-rails'
+gem 'slim-rails'
+
+# Authentication
 gem 'devise'
+gem 'omniauth-oauth2'
+gem 'omniauth-twitch'
+
+# Externam Communications
+gem 'httparty'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -45,16 +53,16 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  gem 'meta_request'
-  gem 'pry-rails'
-  gem 'rails-erd', require: false
-  gem 'rubocop', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'rack-mini-profiler'
-  gem 'stackprof'
   gem 'flamegraph'
   gem 'memory_profiler'
+  gem 'meta_request'
+  gem 'pry-rails'
+  gem 'rack-mini-profiler'
+  gem 'rails-erd', require: false
+  gem 'rubocop', require: false
+  gem 'stackprof'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
