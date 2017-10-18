@@ -1,9 +1,9 @@
-= provide(:title, "Edit Your Profile")
+= provide(:title, "Profile - Edit")
 %h2 Edit Profile
 
 .row
   .col-md-offset-3.col-md-6.col-md-offset-3
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }) do |f|
       = devise_error_messages!
 
       .form-group
@@ -22,8 +22,8 @@
         = f.password_field :password, autocomplete: "off", class: "form-control"
         - if @minimum_password_length
           %em= "#{@minimum_password_length} characters minimum"
-          %br
 
+      .form-group
         = f.label :password_confirmation
         = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
 
@@ -33,6 +33,7 @@
 
       = f.submit "Update", class: "btn btn-default"
 
+.row
   .col-md-6
     .panel.panel-default
       .panel-body{style: 'background: rgba(100, 65, 164, 1); color: #fff;'}
@@ -54,8 +55,10 @@
             - else
               You will not be able to particiapte in races until you link a Twitch account.
   .col-md-6
-    %h3 Delete Account
-
-    %center
-      This is an irreversable action, only click the button if you are 100% sure you want to erase everything!
-      = button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger inline-button"
+    .panel.panel-danger
+      .panel-heading
+        Delete my account
+      .panel-footer
+        This is an irreversable action, only click the button if you are 100% sure you want to erase everything!
+        %center
+          = button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger"
