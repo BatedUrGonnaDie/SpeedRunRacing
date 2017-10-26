@@ -4,7 +4,7 @@ A modern racing website for speedrunners to compete against eachother.
 
 # Development
 
-- Ruby 2.4.1
+- Ruby 2.4.2
 - Postgres
 
 Fill out the application.example.yml in the config folder and rename

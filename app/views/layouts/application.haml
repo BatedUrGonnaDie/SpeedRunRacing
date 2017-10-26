@@ -12,10 +12,6 @@
   %body
     = render 'layouts/header'
     .container
-      - flash.each do |key, value|
-        %div{class: "alert alert-#{key} alert-dismissible fade in", role: "alert"}
-          %button{type: "button", class: "close", "data-dismiss" => "alert", "aria-label" => "Close"}
-            %span{"aria-hidden" => "true"} &times;
-          = value
+      = render partial: 'shared/alerts'
       = yield
       = render 'layouts/footer'

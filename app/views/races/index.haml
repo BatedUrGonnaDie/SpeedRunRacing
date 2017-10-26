@@ -1,0 +1,9 @@
+= provide(:title, "SpeedRunRacing!")
+- if @races.empty?
+  %h4 There seems to be no races going on right now, why not create one!
+  = form_for(:race) do |f|
+    .input-group
+      Still need a from
+
+- else
+  = render partial: 'shared/race_table'

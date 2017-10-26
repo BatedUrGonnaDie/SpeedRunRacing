@@ -6,23 +6,15 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
-# Use Puma as the app server
+# Framework and Servers
 gem 'puma'
-# Use SCSS for stylesheets
-gem 'sass-rails'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'rails'
 
 # API Generation
 gem 'active_model_serializers'
 gem 'jbuilder'
 
-# Use Redis adapter to run Action Cable in production
+# Databases and Information Storage
 gem 'pg'
 gem 'redis'
 
@@ -33,14 +25,20 @@ gem 'figaro'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'haml-rails'
+gem 'jquery-rails'
+gem 'sass-rails'
 gem 'slim-rails'
+gem 'uglifier'
 
 # Authentication
 gem 'devise'
 gem 'omniauth-oauth2'
 gem 'omniauth-twitch'
 
-# Externam Communications
+# Jobs
+gem 'delayed_job_active_record'
+
+# External Communications
 gem 'httparty'
 
 group :development, :test do
