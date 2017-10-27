@@ -2,6 +2,7 @@ LineLength:
   Max: 120
 AllCops:
   Include:
+    - Gemfile
     - Rakefile
     - config.ru
   Exclude:
@@ -13,3 +14,6 @@ Documentation:
 
 Style/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
