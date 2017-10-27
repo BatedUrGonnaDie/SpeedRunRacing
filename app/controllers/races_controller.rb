@@ -1,24 +1,22 @@
 class RacesController < ApplicationController
   def index
-    @races = []
+    @races = Race.active
   end
 
   def create
-    @race = Race.new(race_params)
-    puts @race.inspect
+    @category = Category.find(params[:race][:category_id])
+    @race = Race.new(category: @category)
+    if @race.save
+      redirect_to race_path(@race)
+    else
+      flash[:danger] = "Error creating race: #{@race.errors.full_messages.join(', ')}."
+    end
   end
 
   def show
-    # TODO: Add include for game, category, and entraints
-    @race = Race.find(params[:id])
+    @race = Race.includes(:game, :category).find(params[:id])
   end
 
   def update
-  end
-
-  private
-
-  def race_params
-    params.permit(:category)
   end
 end

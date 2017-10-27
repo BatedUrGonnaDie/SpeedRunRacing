@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   get '/auth/failure', to: 'twitch#failure'
   get '/auth/:provider/callback', to: 'twitch#create'
 
+  get '/games/autocomplete/:query', to: 'games#autocomplete'
   resources :races, except: [:new, :edit, :destroy]
 end
