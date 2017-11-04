@@ -1,1 +1,26 @@
-Actually make the table
+.panel.panel-default
+  .panel-heading Active Races
+  .panel-body
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th
+          %th Game
+          %th Category
+          %th Entrants
+          %th Time
+      %tbody
+        - @races.each do |race|
+          %td
+            %img{src: race.game.cover_small}
+          %td
+            = race.game.name
+          %td
+            = race.category.name
+          %td
+            = race.entrants.count
+          %td
+            - if race.started?
+              .updating-time= race.start_time
+            - else
+              = "-"
