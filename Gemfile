@@ -12,7 +12,6 @@ gem 'rails'
 
 # API Generation
 gem 'active_model_serializers'
-gem 'jbuilder'
 
 # Databases and Information Storage
 gem 'pg'
@@ -24,8 +23,10 @@ gem 'figaro'
 # View styles and building
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
+gem 'gon'
 gem 'haml-rails'
 gem 'jquery-rails'
+gem 'momentjs-rails'
 gem 'sass-rails'
 gem 'slim-rails'
 gem 'turbolinks'
