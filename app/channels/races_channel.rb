@@ -1,9 +1,9 @@
 class RacesChannel < ApplicationCable::Channel
   def subscribed
-    # stream_from "some_channel"
+    stream_for(Race.find(params['race_id']))
   end
 
   def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
+    stop_all_streams
   end
 end
