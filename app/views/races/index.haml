@@ -1,13 +1,6 @@
 = provide(:title, 'SpeedRunRacing!')
 - if @races.empty?
   %h4 There seems to be no races going on right now, why not create one!
-
-= form_for(:race, url: races_path, method: :post) do |f|
-  .form-group
-    .input-group
-      = f.text_field :category_id, class: 'form-control'
-  .form-group
-    = f.submit 'Create Race!', class: 'btn btn-default'
-
-
-= render partial: 'shared/race_table'
+  Races can be created from the games page so head on over to your favorite games page.
+- else
+  = render partial: 'shared/race_table'

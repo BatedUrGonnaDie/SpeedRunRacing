@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
   root to: 'races#index'
-  devise_for :users
   mount ActionCable.server => "/cable"
 
-  get '/auth/failure', to: 'twitch#failure'
-  get '/auth/:provider/callback', to: 'twitch#create'
+  devise_for :users
+  get '/users/:user', to: 'users#index', as: :user_public_profile
+
+  get '/auth/failure',             to: 'twitch#failure'
+  get '/auth/:provider/callback',  to: 'twitch#create'
 
   get '/games/autocomplete/:query', to: 'games#autocomplete'
-  resources :races, except: [:new, :edit, :destroy]
+
+  get '/races/completed/', to: 'races#completed', as: :completed_races
+  resources :races, only: [:index, :show]
+
+  resources :games, only: [:show]
 end

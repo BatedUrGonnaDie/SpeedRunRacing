@@ -1,1 +1,4 @@
 = provide(:title, "#{@race.game.name} - #{@race.category.name}")
+%h2
+  = link_to "#{@race.game.name}", game_path(@race.game)
+  = " - #{@race.category.name}"
