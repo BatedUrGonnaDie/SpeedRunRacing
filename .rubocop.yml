@@ -12,6 +12,9 @@ AllCops:
 Documentation:
   Enabled: false
 
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
 Style/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
