@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20171026083958) do
   create_table "categories", force: :cascade do |t|
     t.bigint "game_id"
     t.string "name", null: false
+    t.string "weblink", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_categories_on_game_id"
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 20171026083958) do
     t.bigint "user_id"
     t.bigint "race_id"
     t.integer "place"
+    t.bigint "finish_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["race_id"], name: "index_entrants_on_race_id"
@@ -51,14 +53,18 @@ ActiveRecord::Schema.define(version: 20171026083958) do
   create_table "games", force: :cascade do |t|
     t.string "name", null: false
     t.string "shortname", null: false
+    t.string "cover_large", null: false
+    t.string "cover_small", null: false
+    t.string "weblink", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "races", id: :serial, force: :cascade do |t|
-    t.boolean "archived", default: false, null: false
     t.string "status_text", default: "Open Entry", null: false
     t.integer "category_id", null: false
+    t.datetime "start_time"
+    t.datetime "finish_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_races_on_category_id"
