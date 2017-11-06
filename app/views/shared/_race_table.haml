@@ -5,6 +5,7 @@
       %thead
         %tr
           %th Game
+          %th
           %th Category
           %th Entrants
           %th Status
@@ -13,10 +14,9 @@
         - @races.each do |race|
           %tr{'data-href' => "#{race_path(race)}"}
             %td
-              .col-md-1
-                %img{src: race.game.cover_small}
-              .col-md-11
-                = race.game.name
+              %img{src: race.game.cover_small}
+            %td
+              = race.game.name
             %td
               = race.category.name
             %td
