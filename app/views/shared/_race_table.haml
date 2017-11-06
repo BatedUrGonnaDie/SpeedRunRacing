@@ -4,23 +4,27 @@
     %table.table.table-striped.table-hover
       %thead
         %tr
-          %th
           %th Game
           %th Category
           %th Entrants
+          %th Status
           %th Time
       %tbody
         - @races.each do |race|
-          %td
-            %img{src: race.game.cover_small}
-          %td
-            = race.game.name
-          %td
-            = race.category.name
-          %td
-            = race.entrants.count
-          %td
-            - if race.started?
-              .updating-time= race.start_time
-            - else
-              = "-"
+          %tr{'data-href' => "#{race_path(race)}"}
+            %td
+              .col-md-1
+                %img{src: race.game.cover_small}
+              .col-md-11
+                = race.game.name
+            %td
+              = race.category.name
+            %td
+              = race.entrants.count
+            %td
+              = race.status_text
+            %td
+              - if race.started?
+                .updating-time= race.start_time
+              - else
+                = "-"
