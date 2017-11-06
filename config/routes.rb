@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   get '/races/completed/', to: 'races#completed', as: :completed_races
   resources :races, only: [:index, :show]
 
-  resources :games, only: [:show]
+  resources :games, only: [:show, :index]
 end

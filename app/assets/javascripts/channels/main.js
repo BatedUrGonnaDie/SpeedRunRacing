@@ -18,7 +18,7 @@ App.main = App.cable.subscriptions.create("MainChannel", {
   },
 
   create_race: function(cat_id) {
-    temp = this.perform("create_race", {cat_id: cat_id});
+    return this.perform("create_race", {cat_id: cat_id});
   },
 
   received: function(data) {
