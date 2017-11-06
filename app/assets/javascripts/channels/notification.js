@@ -10,7 +10,7 @@ App.notification = App.cable.subscriptions.create("NotificationChannel", {
   received: function(data) {
      switch (data.update) {
         case "race_create_success":
-            turbolinks.visit(data.location);
+            Turbolinks.visit(data.location);
             break;
         case "race_create_failure":
             console.log("do something about the failure");
