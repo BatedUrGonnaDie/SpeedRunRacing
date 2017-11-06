@@ -14,4 +14,24 @@ class Race < ApplicationRecord
   def started?
     start_time.present?
   end
+
+  def finished?
+    finish_time.present?
+  end
+
+  def start
+    return if started?
+    update_attributes(
+      start_time: DateTime.now.utc,
+      status_text: Race::PROGRESS
+    )
+  end
+
+  def finish
+    return if finished?
+    update_attributes(
+      finish_time: DateTime.now.utc,
+      status_text: Race::ENDED
+    )
+  end
 end
