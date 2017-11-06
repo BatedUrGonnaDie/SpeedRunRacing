@@ -3,8 +3,8 @@ class MainChannel < ApplicationCable::Channel
     stream_from 'main_channel'
   end
 
-  def create_race(cat_id)
-    race = Race.new(category: Category.find(cat_id['cat_id']))
+  def create_race(data)
+    race = Race.new(category: Category.find(data['cat_id']))
     if race.save
       # TODO: Need to actually figure this out
     else
