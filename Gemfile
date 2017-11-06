@@ -15,7 +15,7 @@ gem 'active_model_serializers'
 
 # Databases and Information Storage
 gem 'pg'
-gem 'redis'
+gem 'redis', '~> 3.0'
 
 # Configuration
 gem 'figaro'
