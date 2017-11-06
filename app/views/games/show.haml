@@ -12,7 +12,8 @@
     .tab-content
       - @game.categories.each_with_index do |c, i|
         .tab-pane{'id' => "#{c.id}", 'class' => "#{i==0 ? 'active' : ''}"}
-          %h3
-            %button{'class' => 'btn btn-default btn-create-race', 'data-category' => "#{c.id}"}
-              = "Create Race for #{c.name}"
+          - if current_user
+            %h3
+              %button{'class' => 'btn btn-default btn-create-race', 'data-category' => "#{c.id}"}
+                = "Create Race for #{c.name}"
           = "Insert races for #{c.name}"
