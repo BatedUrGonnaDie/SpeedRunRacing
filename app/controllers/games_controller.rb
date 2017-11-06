@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   def index
+    @games = Game.page(params[:page]).order(:name)
   end
 
   def show

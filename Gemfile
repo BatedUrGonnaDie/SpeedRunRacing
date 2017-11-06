@@ -21,11 +21,13 @@ gem 'redis', '~> 3.0'
 gem 'figaro'
 
 # View styles and building
+gem 'bootstrap-kaminari-views'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'gon'
 gem 'haml-rails'
 gem 'jquery-rails'
+gem 'kaminari'
 gem 'momentjs-rails'
 gem 'sass-rails'
 gem 'slim-rails'

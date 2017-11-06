@@ -5,4 +5,8 @@ class Game < ApplicationRecord
   def to_param
     shortname
   end
+
+  def completed_races_count
+    races.where(status_text: Race::ENDED).count
+  end
 end
