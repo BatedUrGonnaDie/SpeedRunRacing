@@ -1,13 +1,13 @@
 class RaceBroadcastJob < ApplicationJob
   queue_as :default
 
-  def perform(race, game, category, entrants)
+  def perform(race)
     ActionCable.server.broadcast(
-      'races_channel_global',
+      'main_channel',
       race: race,
-      game: game,
-      category: category,
-      entrants: entrants
+      game: race.game,
+      category: race.category,
+      update: 'race_created'
     )
   end
 end

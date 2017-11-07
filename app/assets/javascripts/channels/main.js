@@ -22,7 +22,14 @@ App.main = App.cable.subscriptions.create("MainChannel", {
   },
 
   received: function(data) {
-    // Called when there's incoming data on the websocket for this channel
-    console.log(data);
+    switch (data.update) {
+        case "race_created":
+            console.log(data);
+            break;
+        default:
+            console.log("Default case shit yo");
+            console.log(data);
+            break;
+    }
   }
 });
