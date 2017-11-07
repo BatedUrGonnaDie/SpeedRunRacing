@@ -27,5 +27,6 @@ $(document).on("turbolinks:load", function() {
 $(document).on("page:before-change turbolinks:before-visit", function() {
   if (App.races !== undefined) {
     App.races.perform("unsubscribed");
+    delete App.races;
   }
 });

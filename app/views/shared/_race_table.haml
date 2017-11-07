@@ -4,9 +4,8 @@
     %table.table.table-striped.table-hover
       %thead
         %tr
-          %th Game
+          %th Game & Category
           %th
-          %th Category
           %th Entrants
           %th Status
           %th Time
@@ -15,14 +14,9 @@
           %tr{'data-href' => "#{race_path(race)}"}
             %td
               %img{src: race.game.cover_small}
-            %td
-              = race.game.name
-            %td
-              = race.category.name
-            %td
-              = race.entrants.count
-            %td
-              = race.status_text
+            %td= link_to "#{race.game.name} - #{race.category.name}", race_path(race)
+            %td= race.entrants.count
+            %td= race.status_text
             %td
               - if race.started?
                 .updating-time= race.start_time
