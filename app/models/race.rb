@@ -12,6 +12,14 @@ class Race < ApplicationRecord
   scope :active, -> { includes(:game, :category, :entrants).where(status_text: Race::ACTIVE_RACES) }
   scope :completed, -> { includes(:game, :category, :entrants).where(status_text: Race::ENDED) }
 
+  def in_progress?
+    status_text == Race::PROGRESS
+  end
+
+  def contains_user?(user)
+    users.map(&:id).include?(user.id)
+  end
+
   def started?
     start_time.present?
   end
