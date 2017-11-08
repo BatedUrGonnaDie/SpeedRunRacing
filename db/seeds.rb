@@ -15,7 +15,3 @@ Category.create([
   {name: 'Any%', game: games.first, weblink: 'https://www.speedrun.com/sms#Any%'},
   {name: '120 Shines', game: games.first, weblink: 'https://www.speedrun.com/sms#120_Shines'}
 ])
-
-Entrant.create([
-  {user_id: 1, game_id: 1}
-])

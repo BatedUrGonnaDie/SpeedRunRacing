@@ -4,7 +4,7 @@ class CreateEntrants < ActiveRecord::Migration[5.1]
       t.belongs_to :user, index: true
       t.belongs_to :race, index: true
       t.integer    :place
-      t.bigint     :finish_time
+      t.datetime   :finish_time
       t.boolean    :ready, default: false
 
       t.timestamps

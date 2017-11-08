@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 20171026083958) do
     t.bigint "user_id"
     t.bigint "race_id"
     t.integer "place"
-    t.bigint "finish_time"
-    t.boolean "ready"
+    t.datetime "finish_time"
+    t.boolean "ready", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["race_id"], name: "index_entrants_on_race_id"
