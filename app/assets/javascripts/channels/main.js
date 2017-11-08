@@ -26,6 +26,9 @@ App.main = App.cable.subscriptions.create("MainChannel", {
         case "race_created":
             console.log(data);
             break;
+        case "race_completed":
+            console.log(data);
+            break;
         default:
             console.log("Default case shit yo");
             console.log(data);

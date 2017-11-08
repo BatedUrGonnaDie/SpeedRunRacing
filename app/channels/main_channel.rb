@@ -6,7 +6,7 @@ class MainChannel < ApplicationCable::Channel
   def create_race(data)
     race = Race.new(category: Category.find(data['cat_id']))
     if race.save
-      RaceBroadcastJob.perform_later(race)
+      MainBroadcastJob.perform_later(race, 'race_created')
       NotificationBroadcastJob.perform_later(current_user, race, 'race_create_success')
     else
       NotificationBroadcastJob.perform_later(current_user, nil, 'race_create_failure')
