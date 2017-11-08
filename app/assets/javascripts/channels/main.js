@@ -1,11 +1,3 @@
-$(document).on("turbolinks:load", function() {
-  $(".btn-create-race").each(function(index) {
-    $(this).click(function() {
-      App.main.create_race($(this).data("category"));
-    });
-  });
-});
-
 App.main = App.cable.subscriptions.create("MainChannel", {
   connected: function() {
     // Called when the subscription is ready for use on the server
