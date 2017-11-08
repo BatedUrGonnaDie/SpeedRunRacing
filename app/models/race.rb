@@ -2,6 +2,7 @@ class Race < ApplicationRecord
   has_many :entrants
   belongs_to :category
   has_one :game, through: :category
+  has_many :users, through: :entrants
 
   OPEN = 'Open Entry'.freeze
   PROGRESS = 'In Progress'.freeze
@@ -22,9 +23,15 @@ class Race < ApplicationRecord
   def start
     return if started?
     update_attributes(
-      start_time: DateTime.now.utc,
+      start_time: DateTime.now.utc + 20.seconds,
       status_text: Race::PROGRESS
     )
+    RaceBroadcastJob.perform_later(self, 'race_started')
+    MainBroadcastJob.perform_later(self, 'race_started')
+  end
+
+  def start_if_possible
+    start if entrants.count == entrants.readied.count && entrants.readied.count >= 2
   end
 
   def finish
@@ -33,5 +40,16 @@ class Race < ApplicationRecord
       finish_time: DateTime.now.utc,
       status_text: Race::ENDED
     )
+    RaceBroadcastJob.perform_later(self, 'race_completed')
+    MainBroadcastJob.perform_later(self, 'race_completed')
+  end
+
+  def finish_if_possible
+    finish if entrants.count == entrants.finished.count
+  end
+
+  def duration
+    return nil unless finished?
+    (finish_time - start_time) * 1000
   end
 end
