@@ -2,7 +2,7 @@ class RaceBroadcastJob < ApplicationJob
   queue_as :default
 
   def perform(race, status)
-    RaceChannel.broadcast_to(
+    RacesChannel.broadcast_to(
       race,
       race: race,
       game: race.game,
