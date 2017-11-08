@@ -1,7 +1,7 @@
 $(document).on("turbolinks:load", function() {
-  if (gon.race_id !== undefined) {
+  if (gon.race !== undefined) {
     if (App.races === undefined) {
-      App.races = App.cable.subscriptions.create({channel: "RacesChannel", race_id: gon.race_id}, {
+      App.races = App.cable.subscriptions.create({channel: "RacesChannel", race_id: gon.race.id}, {
         connected: function() {
           // Called when the subscription is ready for use on the server
           console.log("We are live in races bois");

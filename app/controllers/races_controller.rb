@@ -5,7 +5,7 @@ class RacesController < ApplicationController
 
   def show
     @race = Race.includes(:game, :category, :entrants).find(params[:id])
-    gon.race_id = @race.id
+    gon.race = @race
   end
 
   def completed
