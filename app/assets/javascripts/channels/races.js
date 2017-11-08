@@ -16,10 +16,28 @@ $(document).on("turbolinks:load", function() {
           // Called when there's incoming data on the websocket for this channel
           console.log("Races received");
           console.log(data);
+        },
+
+        join_race: function() {
+          this.perform("join_race");
+        },
+
+        part_race: function() {
+          this.perform("part_race");
+        },
+
+        ready_up: function() {
+          this.perform("ready");
+        },
+
+        unready: function() {
+          this.perform("unready");
+        },
+
+        done: function() {
+          this.perform("done");
         }
       });
-    } else {
-      App.races.perform("subscribed");
     }
   }
 });
