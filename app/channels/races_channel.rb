@@ -37,8 +37,9 @@ class RacesChannel < ApplicationCable::Channel
   def ready
     race = Race.find(params['race_id'])
     return if race.started?
-    entrant = entrant.find_by(user: current_user, race: race)
-    entrant.update_attributes(ready: true)
+    entrant = Entrant.find_by(user: current_user, race: race)
+    return if entrant.nil?
+    entrant.update(ready: true)
     RaceBroadcastJob.perform_later(race, 'race_entrants_updated')
     NotificationBroadcastJob.perform_later(current_user, race, 'race_entry_ready')
     race.start_if_possible
@@ -50,7 +51,7 @@ class RacesChannel < ApplicationCable::Channel
       NotificationBroadcastJob.perform_later(current_user, race, 'race_in_progress')
     else
       entrant = Entrant.find_by(user: current_user, race: race)
-      entrant.update_attributes(ready: false)
+      entrant.update(ready: false)
       RaceBroadcastJob.perform_later(race, 'race_entrants_updated')
       NotificationBroadcastJob.perform_later(current_user, race, 'race_entry_unready')
     end
@@ -60,7 +61,7 @@ class RacesChannel < ApplicationCable::Channel
     race = Race.find(params['race_id'])
     return unless race.started?
     entrant = Entrant.find_by(user: current_user, race: race)
-    entrant.update_attributes(finish_time: DateTime.now.utc, place: (race.entrants.finished.count + 1))
+    entrant.update(finish_time: DateTime.now.utc, place: (race.entrants.finished.count + 1))
     race.finish_if_possible
   end
 end

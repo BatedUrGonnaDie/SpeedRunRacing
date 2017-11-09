@@ -1,21 +1,42 @@
 = provide(:title, "#{@race.game.name} - #{@race.category.name}")
 - user_active = @race.contains_user?(current_user)
 - race_progress = @race.in_progress?
+- cur_en_ready = @race.entrant_for_user(current_user).try(:ready)
 .col-md-6
   %h4
     = link_to "#{@race.game.name}", game_path(@race.game)
     = " - #{@race.category.name}"
 .col-md-1
   %h4
-    - if race_progress
-      %button.btn.btn-danger.btn-abandon-race Abandon Race
-    - else
-      %button.btn.btn-success.btn-join-race{class: "#{user_active ? 'hidden' : 'show'}"} Join Race
-      %button.btn.btn-danger.btn-part-race{class: "#{user_active ? 'show' : 'hidden'}"} Part Race
+    %button.btn.btn-success.btn-join-race{class: user_active && !race_progress ? 'hidden' : 'show'}
+      Join Race
+    %button.btn.btn-danger.btn-part-race{class: user_active && !race_progress ? 'show' : 'hidden'}
+      Part Race
+    %button.btn.btn-danger.btn-abandon-race{class: race_progress ? 'show' : 'hidden'} Abandon Race
 .col-md-1
   %h4
-    %button.btn.btn-success.btn-done-race{class: "#{race_progress ? '' : 'disabled'}"} Done!
+    %button.btn.btn-success.btn-ready-race{class: cur_en_ready && !race_progress ? 'hidden' : 'show'}
+      Ready Up
+    %button.btn.btn-danger.btn-unready-race{class: cur_en_ready && !race_progress ? 'show' : 'hidden'}
+      Unready
+    %button.btn.btn-success.btn-done-race{class: race_progress ? 'show' : 'hidden'} Done!
 
 .col-md-4
-  %h4#entrants-list
-    Add entrants table here
+  #entrants-list
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Entrants
+      %tbody
+        - @race.entrants.each do |e|
+          %td
+            .col-md-4{id: "entrant-id-#{e.user.id}"}
+              = e.user.display_name
+            .col-md-2.ready-column
+              .glyphicon{class: e.ready ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'}
+            .col-md-4
+              .format-time
+                = e.finished? ? e.duration : '-'
+            .col-md-2
+              .format-place
+                = e.place.present? ? e.place : '-'

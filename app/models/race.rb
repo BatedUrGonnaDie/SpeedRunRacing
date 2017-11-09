@@ -20,6 +20,10 @@ class Race < ApplicationRecord
     users.map(&:id).include?(user.id)
   end
 
+  def entrant_for_user(user)
+    entrants.where(user_id: user.id).try(:[], 0)
+  end
+
   def started?
     start_time.present?
   end
@@ -30,7 +34,7 @@ class Race < ApplicationRecord
 
   def start
     return if started?
-    update_attributes(
+    update(
       start_time: DateTime.now.utc + 20.seconds,
       status_text: Race::PROGRESS
     )
@@ -44,7 +48,7 @@ class Race < ApplicationRecord
 
   def finish
     return if finished?
-    update_attributes(
+    update(
       finish_time: DateTime.now.utc,
       status_text: Race::ENDED
     )

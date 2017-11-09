@@ -11,7 +11,11 @@ class User < ApplicationRecord
   validates_uniqueness_of :username
   validates_with DisplayNameValidator
 
+  def active_races
+    races.active
+  end
+
   def in_active_race?
-    races.active.count > 0
+    active_races.count > 0
   end
 end

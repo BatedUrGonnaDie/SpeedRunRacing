@@ -7,6 +7,10 @@ class Entrant < ApplicationRecord
   scope :readied, -> { where(ready: true) }
   scope :finished, -> { where.not(finish_time: nil) }
 
+  def finished?
+    finish_time.present?
+  end
+
   def duration
     return nil unless race.finished?
     (finish_time - race.start_time) * 1000

@@ -6,7 +6,7 @@ class EntrantValidator < ActiveModel::Validator
   private
 
   def validate_entrant_record(entrant)
-    return unless entrant.user.in_active_race?
+    return unless entrant.user.active_races.count > 1
     entrant.errors[:base] << 'Entrant in another active race!'
   end
 end

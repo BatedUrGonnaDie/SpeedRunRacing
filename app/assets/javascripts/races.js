@@ -20,6 +20,24 @@ $(document).on("turbolinks:load", function() {
     });
   }
 
+  if ($(".btn-ready-race").length) {
+    $(".btn-ready-race").click(function() {
+      App.races.ready_up();
+    });
+  }
+
+  if ($(".btn-unready-race").length) {
+    $(".btn-unready-race").click(function() {
+      App.races.unready();
+    });
+  }
+
+  if ($(".btn-abandon-race").length) {
+    $(".btn-abandon-race").click(function() {
+      App.races.part_race();
+    });
+  }
+
   if ($(".btn-done-race").length) {
     $(".btn-done-race").click(function() {
       App.races.done();
