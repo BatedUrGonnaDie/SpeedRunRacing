@@ -17,10 +17,12 @@ class Race < ApplicationRecord
   end
 
   def contains_user?(user)
+    return nil if user.nil?
     users.map(&:id).include?(user.id)
   end
 
   def entrant_for_user(user)
+    return nil if user.nil?
     entrants.where(user_id: user.id).try(:[], 0)
   end
 

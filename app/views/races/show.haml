@@ -8,19 +8,17 @@
     = link_to "#{@race.game.name}", game_path(@race.game)
     = " - #{@race.category.name}"
 .col-md-1
-  %h4
-    %button.btn.btn-success.btn-join-race{class: user_active && !race_progress ? 'hidden' : 'show'}
-      Join Race
-    %button.btn.btn-danger.btn-part-race{class: user_active && !race_progress ? 'show' : 'hidden'}
-      Part Race
-    %button.btn.btn-danger.btn-abandon-race{class: race_progress ? 'show' : 'hidden'} Abandon Race
+  %button.btn.btn-success.btn-join-race{class: user_active && !race_progress ? 'hidden' : 'show'}
+    Join Race
+  %button.btn.btn-danger.btn-part-race{class: user_active && !race_progress ? 'show' : 'hidden'}
+    Part Race
+  %button.btn.btn-danger.btn-abandon-race{class: race_progress ? 'show' : 'hidden'} Abandon Race
 .col-md-1
-  %h4
-    %button.btn.btn-success.btn-ready-race{class: cur_en_ready && !race_progress ? 'hidden' : 'show', disabled: !current_entrant.present?}
-      Ready Up
-    %button.btn.btn-danger.btn-unready-race{class: cur_en_ready && !race_progress ? 'show' : 'hidden'}
-      Unready
-    %button.btn.btn-success.btn-done-race{class: race_progress ? 'show' : 'hidden'} Done!
+  %button.btn.btn-success.btn-ready-race{class: cur_en_ready && !race_progress ? 'hidden' : 'show', disabled: !current_entrant.present?}
+    Ready Up
+  %button.btn.btn-danger.btn-unready-race{class: cur_en_ready && !race_progress ? 'show' : 'hidden'}
+    Unready
+  %button.btn.btn-success.btn-done-race{class: race_progress ? 'show' : 'hidden'} Done!
 
 .col-md-4
   #entrants-list

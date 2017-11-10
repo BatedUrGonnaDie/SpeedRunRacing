@@ -4,11 +4,14 @@ class RaceBroadcastJob < ApplicationJob
   def perform(race, status)
     RacesChannel.broadcast_to(
       race,
-      race: race,
-      game: race.game,
-      category: race.category,
-      entrants: race.entrants.load,
+      race: serialize_race(race),
       update: status
     )
+  end
+
+  private
+
+  def serialize_race(r)
+    ActiveModelSerializers::SerializableResource.new(r).as_json
   end
 end
