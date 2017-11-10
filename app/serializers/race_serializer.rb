@@ -4,5 +4,4 @@ class RaceSerializer < ActiveModel::Serializer
   belongs_to :category
   has_one :game
   has_many :entrants
-  has_many :users
 end

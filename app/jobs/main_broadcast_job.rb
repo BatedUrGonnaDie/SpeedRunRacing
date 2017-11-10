@@ -12,6 +12,9 @@ class MainBroadcastJob < ApplicationJob
   private
 
   def serialize_race(r)
-    ActiveModelSerializers::SerializableResource.new(r).as_json
+    ActiveModelSerializers::SerializableResource.new(
+      r,
+      include: ['entrants', 'entrants.user', 'game', 'category']
+    ).as_json
   end
 end
