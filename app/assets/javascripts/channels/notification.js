@@ -18,14 +18,14 @@ App.notification = App.cable.subscriptions.create("NotificationChannel", {
       case "race_entry_success":
         $(".btn-join-race").addClass("hidden").removeClass("show");
         $(".btn-part-race").addClass("show").removeClass("hidden");
-        $(".btn-race-ready").removeClass("disabled");
+        $(".btn-ready-race").prop("disabled", false);
         break;
       case "race_entry_removed":
         $(".btn-join-race").addClass("show").removeClass("hidden");
         $(".btn-part-race").addClass("hidden").removeClass("show");
         $(".btn-ready-race").addClass("show").removeClass("hidden");
         $(".btn-unready-race").addClass("hidden").removeClass("show");
-        $(".btn-ready-race").addClass("disabled");
+        $(".btn-ready-race").prop("disabled", true);
         break;
       case "race_entry_ready":
         $(".btn-ready-race").addClass("hidden").removeClass("show");

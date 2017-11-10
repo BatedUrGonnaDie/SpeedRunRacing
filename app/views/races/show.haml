@@ -1,7 +1,8 @@
 = provide(:title, "#{@race.game.name} - #{@race.category.name}")
 - user_active = @race.contains_user?(current_user)
 - race_progress = @race.in_progress?
-- cur_en_ready = @race.entrant_for_user(current_user).try(:ready)
+- current_entrant = @race.entrant_for_user(current_user)
+- cur_en_ready = current_entrant.try(:ready)
 .col-md-6
   %h4
     = link_to "#{@race.game.name}", game_path(@race.game)
@@ -15,7 +16,7 @@
     %button.btn.btn-danger.btn-abandon-race{class: race_progress ? 'show' : 'hidden'} Abandon Race
 .col-md-1
   %h4
-    %button.btn.btn-success.btn-ready-race{class: cur_en_ready && !race_progress ? 'hidden' : 'show'}
+    %button.btn.btn-success.btn-ready-race{class: cur_en_ready && !race_progress ? 'hidden' : 'show', disabled: !current_entrant.present?}
       Ready Up
     %button.btn.btn-danger.btn-unready-race{class: cur_en_ready && !race_progress ? 'show' : 'hidden'}
       Unready
@@ -27,16 +28,19 @@
       %thead
         %tr
           %th Entrants
+          %th Ready?
+          %th Time
+          %th Place
       %tbody
         - @race.entrants.each do |e|
-          %td
-            .col-md-4{id: "entrant-id-#{e.user.id}"}
+          %tr{id: "entrant-id-#{e.id}"}
+            %td.name-column
               = e.user.display_name
-            .col-md-2.ready-column
+            %td.ready-column
               .glyphicon{class: e.ready ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'}
-            .col-md-4
+            %td.time-column
               .format-time
                 = e.finished? ? e.duration : '-'
-            .col-md-2
+            %td.place-column
               .format-place
                 = e.place.present? ? e.place : '-'
