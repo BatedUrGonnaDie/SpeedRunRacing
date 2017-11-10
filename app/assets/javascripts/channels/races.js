@@ -16,6 +16,30 @@ $(document).on("turbolinks:load", function() {
           // Called when there's incoming data on the websocket for this channel
           console.log("Races received");
           console.log(data);
+          switch (data.update) {
+            case "race_entrants_updated":
+              for (var i = 0; i < data.race.entrants.length; i++) {
+                var e = data.race.entrants[i];
+                var row = $("tr#entrant-id-" + e.id);
+                if (row.length){
+                  row.find(".name-column").html(e.user.display_name);
+                  var cls;
+                  if (e.ready)
+                    cls = "glyphicon glyphicon-ok text-success";
+                  else
+                    cls = "glyphicon glyphicon-remove text-danger";
+                  row.find(".ready-column > i").removeClass().addClass(cls);
+                  row.find(".time-column .format-time").html = "-";
+                  row.find(".place-column .format-place").html(e.place ? e.place : '-');
+                } else {
+                  // TODO: create the column instead of modifying
+                }
+              }
+              break;
+            default:
+              console.log("Default case shit yo");
+              console.log(data);
+          }
         },
 
         join_race: function() {
