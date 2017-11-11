@@ -31,7 +31,7 @@
           %th Place
       %tbody
         - @race.entrants.each do |e|
-          %tr{id: "entrant-id-#{e.id}"}
+          %tr{'id' => "entrant-id-#{e.id}", 'data-entrant-id' => e.id}
             %td.name-column
               = e.user.display_name
             %td.ready-column

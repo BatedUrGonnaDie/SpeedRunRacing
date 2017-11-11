@@ -18,23 +18,7 @@ $(document).on("turbolinks:load", function() {
           console.log(data);
           switch (data.update) {
             case "race_entrants_updated":
-              for (var i = 0; i < data.race.entrants.length; i++) {
-                var e = data.race.entrants[i];
-                var row = $("tr#entrant-id-" + e.id);
-                if (row.length){
-                  row.find(".name-column").html(e.user.display_name);
-                  var cls;
-                  if (e.ready)
-                    cls = "glyphicon glyphicon-ok text-success";
-                  else
-                    cls = "glyphicon glyphicon-remove text-danger";
-                  row.find(".ready-column > i").removeClass().addClass(cls);
-                  row.find(".time-column .format-time").html = "-";
-                  row.find(".place-column .format-place").html(e.place ? e.place : '-');
-                } else {
-                  // TODO: create the column instead of modifying
-                }
-              }
+              update_entrant_tables(data.race);
               break;
             default:
               console.log("Default case shit yo");
@@ -72,3 +56,46 @@ $(document).on("page:before-change turbolinks:before-visit", function() {
     delete App.races;
   }
 });
+
+var update_entrant_tables = function(race) {
+  for (var i = 0; i < race.entrants.length; i++) {
+    var e = race.entrants[i];
+    var row = $("tr#entrant-id-" + e.id);
+    console.log(row);
+    console.log(e);
+    if (row.length){
+      row.find(".name-column").html(e.user.display_name);
+      var cls;
+      if (e.ready)
+        cls = "glyphicon glyphicon-ok text-success";
+      else
+        cls = "glyphicon glyphicon-remove text-danger";
+      row.find(".ready-column > i").removeClass().addClass(cls);
+      row.find(".time-column .format-time").html = "-";
+      row.find(".place-column .format-place").html(e.place ? e.place : '-');
+    } else {
+      var new_row = "";
+      new_row += "<tr id='entrant-id-" + e.id + "' data-entrant-id='" + e.id + "'>";
+      new_row += "<td class='name-column'>" + e.user.display_name + "</td>";
+      new_row += "<td class='ready-column'><i class='glyphicon glyphicon-remove text-danger' /></td>";
+      new_row += "<td class='time-column'>-</td>";
+      new_row += "<td class='place-column'>-</td>";
+      new_row += "</tr>";
+      $("#entrants-list tbody").append(new_row);
+    }
+  }
+  if (race.entrants.length < $("#entrants-list tbody tr").length) {
+    var current_entrants = $.map($("#entrants-list tbody tr"), function(val, i) {
+      return val.dataset.entrantId;
+    });
+    var new_entrants = race.entrants.map(function(i, elem) {return elem.id;});
+    var to_remove = current_entrants.filter(function(el) {return new_entrants.indexOf(el) < 0;});
+    console.log(to_remove);
+    for (i = 0; i < to_remove.length; i++) {
+      var selector = "#entrants-list tbody tr#entrant-id-" + to_remove[i];
+      console.log($(selector));
+      if ($(selector).length)
+        $(selector).remove();
+    }
+  }
+};
