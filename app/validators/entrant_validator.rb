@@ -6,7 +6,12 @@ class EntrantValidator < ActiveModel::Validator
   private
 
   def validate_entrant_record(entrant)
-    return unless entrant.user.active_races.count > 1
-    entrant.errors[:base] << 'Entrant in another active race!'
+    if entrant.user.active_races.count > 1
+      entrant.errors[:base] << 'User in another active race!'
+    end
+
+    if entrant.user.twitch_id.nil?
+      entrant.errors[:base] << 'User MUST link Twitch account to race.'
+    end
   end
 end
