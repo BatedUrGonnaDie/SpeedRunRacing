@@ -1,16 +1,13 @@
 $(document).on("turbolinks:load", function() {
   $(".format-time").each(function() {
-    var time = $(this).html();
-    if (time === "-" || isNaN(time))
-      return;
-    var new_time = format_time(time);
+    var new_time = format_time($(this).html());
     $(this).html(new_time);
   });
 });
 
 var format_time = function(time_string) {
-  if (time_string === '-')
-    return;
+  if (time_string === '-' || isNaN(time_string))
+    return time_string;
   var seconds = time_string % 60;
   var minutes = ~~(time_string / 60);
   var hours = ~~(minutes / 60);
@@ -23,4 +20,4 @@ var format_time = function(time_string) {
   if (hours > 0)
     formatted_time = hours + ":" + formatted_time;
   return formatted_time;
-}
+};
