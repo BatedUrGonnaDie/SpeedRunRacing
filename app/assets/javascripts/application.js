@@ -15,4 +15,5 @@
 //= require bootstrap-sprockets
 //= require twitter/typeahead
 //= require turbolinks
+//= require moment/moment
 //= require_tree .
