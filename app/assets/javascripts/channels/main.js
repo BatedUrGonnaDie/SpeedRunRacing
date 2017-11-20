@@ -1,30 +1,34 @@
-App.main = App.cable.subscriptions.create("MainChannel", {
-  connected: function() {
-    // Called when the subscription is ready for use on the server
-    console.log("We are live bois");
-  },
+$(document).on("turbolinks:load", function() {
+  if (gon.current_user_id) {
+    App.main = App.cable.subscriptions.create("MainChannel", {
+      connected: function() {
+          // Called when the subscription is ready for use on the server
+          console.log("We are live bois");
+        },
 
-  disconnected: function() {
-    // Called when the subscription has been terminated by the server
-    console.log("We dead now bois");
-  },
+        disconnected: function() {
+          // Called when the subscription has been terminated by the server
+          console.log("We dead now bois");
+        },
 
-  create_race: function(cat_id) {
-    return this.perform("create_race", {cat_id: cat_id});
-  },
+        create_race: function(cat_id) {
+          return this.perform("create_race", {cat_id: cat_id});
+        },
 
-  received: function(data) {
-    switch (data.update) {
-        case "race_created":
+        received: function(data) {
+          switch (data.update) {
+            case "race_created":
             console.log(data);
             break;
-        case "race_completed":
+            case "race_completed":
             console.log(data);
             break;
-        default:
+            default:
             console.log("Default case shit yo");
             console.log(data);
             break;
-    }
+          }
+        }
+      });
   }
 });

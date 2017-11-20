@@ -9,7 +9,7 @@
       = link_to "#{@race.game.name}", game_path(@race.game)
       = " - #{@race.category.name}"
   .col-md-2
-    %button.btn.btn-success.btn-join-race{class: user_active && !race_progress ? 'hidden' : 'show', disabled: race_progress}
+    %button.btn.btn-success.btn-join-race{class: user_active && !race_progress ? 'hidden' : 'show', disabled: race_progress || current_user.nil?}
       Join Race
     %button.btn.btn-danger.btn-part-race{class: user_active && !race_progress ? 'show' : 'hidden'}
       Part Race

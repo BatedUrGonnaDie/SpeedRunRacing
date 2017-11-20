@@ -1,5 +1,5 @@
 $(document).on("turbolinks:load", function() {
-  if (gon.race !== undefined) {
+  if (gon.race && gon.current_user_id) {
     App.races = App.cable.subscriptions.create({channel: "RacesChannel", race_id: gon.race.id}, {
       connected: function() {
         // Called when the subscription is ready for use on the server
@@ -59,8 +59,6 @@ var update_entrant_tables = function(race) {
   for (var i = 0; i < race.entrants.length; i++) {
     var e = race.entrants[i];
     var row = $("tr#entrant-id-" + e.id);
-    console.log(row);
-    console.log(e);
     if (row.length){
       row.find(".name-column").html(e.user.display_name);
       var cls;
@@ -88,10 +86,8 @@ var update_entrant_tables = function(race) {
     });
     var new_entrants = race.entrants.map(function(i, elem) {return elem.id;});
     var to_remove = current_entrants.filter(function(el) {return new_entrants.indexOf(el) < 0;});
-    console.log(to_remove);
     for (i = 0; i < to_remove.length; i++) {
       var selector = "#entrants-list tbody tr#entrant-id-" + to_remove[i];
-      console.log($(selector));
       if ($(selector).length)
         $(selector).remove();
     }

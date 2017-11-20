@@ -10,6 +10,6 @@ class EntrantValidator < ActiveModel::Validator
       entrant.errors[:base] << 'User in another active race!'
     end
 
-    entrant.errors[:base] << 'User MUST link Twitch account to race.' if entrant.user.twitch_id.nil?
+    # entrant.errors[:base] << 'User MUST link Twitch account to race.' if entrant.user.twitch_id.nil?
   end
 end
