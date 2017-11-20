@@ -28,6 +28,7 @@ class Entrant < ApplicationRecord
   def rejoin
     return false unless race.in_progress?
     update(place: nil, finish_time: nil)
+    race.recalculate_places
   end
 
   def disqualify

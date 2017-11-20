@@ -34,6 +34,12 @@ class Race < ApplicationRecord
     finish_time.present?
   end
 
+  def recalculate_places
+    # TODO: needs testing to make sure this acutally works correctly
+    finished_entrants = entrants.where.not(finish_time: nil).order('entrants.finish_time ASC')
+    finished_entrants.each_with_index { |e, i| e.place = i + 1 }
+  end
+
   def start
     return if started?
     update(
@@ -54,6 +60,7 @@ class Race < ApplicationRecord
       finish_time: entrants.order('entrants.place DESC').limit(1).first.finish_time,
       status_text: Race::ENDED
     )
+    recalculate_places
     RaceBroadcastJob.perform_later(self, 'race_completed')
     MainBroadcastJob.perform_later(self, 'race_completed')
   end
