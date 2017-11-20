@@ -63,6 +63,7 @@ class Race < ApplicationRecord
       if entrants.completed > 0
         finish
       else
+        # If everyone forfeit the race or were disqualified, delete the race from history
         race.destroy
       end
     end

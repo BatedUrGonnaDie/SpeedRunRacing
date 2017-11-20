@@ -12,6 +12,7 @@ class Entrant < ApplicationRecord
   scope :finished, -> { where.not(finish_time: nil) }
 
   def part
+    return false if race.finished?
     if race.started?
       update(place: Entrant::FORFEITED, finish_time: nil)
     else
