@@ -1,5 +1,5 @@
 class Race < ApplicationRecord
-  has_many :entrants
+  has_many :entrants, dependant: :destroy
   belongs_to :category
   has_one :game, through: :category
   has_many :users, through: :entrants
@@ -37,7 +37,7 @@ class Race < ApplicationRecord
   def start
     return if started?
     update(
-      start_time: DateTime.now.utc + 20.seconds,
+      start_time: DateTime.now.utc + 10.seconds,
       status_text: Race::PROGRESS
     )
     RaceBroadcastJob.perform_later(self, 'race_started')
@@ -51,7 +51,7 @@ class Race < ApplicationRecord
   def finish
     return if finished?
     update(
-      finish_time: DateTime.now.utc,
+      finish_time: entrants.order('entrants.place DESC').limit(1).first.finish_time,
       status_text: Race::ENDED
     )
     RaceBroadcastJob.perform_later(self, 'race_completed')
@@ -59,7 +59,13 @@ class Race < ApplicationRecord
   end
 
   def finish_if_possible
-    finish if entrants.count == entrants.finished.count
+    if entrants.count == entrants.finished.count
+      if entrants.completed > 0
+        finish
+      else
+        race.destroy
+      end
+    end
   end
 
   def duration

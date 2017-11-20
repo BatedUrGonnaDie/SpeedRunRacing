@@ -25,13 +25,24 @@ class RacesChannel < ApplicationCable::Channel
   def part_race
     race = Race.find(params['race_id'])
     entrant = Entrant.find_by(race: race, user: current_user)
-    if race.started?
-      entrant.abandon_race
+    if entrant.part
+      RaceBroadcastJob.perform_later(race, 'race_entrants_updated')
+      NotificationBroadcastJob.perform_later(current_user, race, 'race_part_success')
     else
-      entrant.destroy
+      NotificationBroadcastJob.perform_later(current_user, race, 'race_part_failure')
     end
-    RaceBroadcastJob.perform_later(race, 'race_entrants_updated')
-    NotificationBroadcastJob.perform_later(current_user, race, 'race_entry_removed')
+  end
+
+  def rejoin_race
+    race = Race.find(params['race_id'])
+    entrant = Entrant.find_by(race: race, user: current_user)
+    did_rejoin = entrant.rejoin
+    if did_rejoin
+      RaceBroadcastJob.perform_later(race, 'race_entrants_updated')
+      NotificationBroadcastJob.perform_later(current_user, race, 'race_rejoin_success')
+    else
+      NotificationBroadcastJob.perform_later(current_user, race, 'race_rejoin_failure')
+    end
   end
 
   def ready
@@ -59,9 +70,13 @@ class RacesChannel < ApplicationCable::Channel
 
   def done
     race = Race.find(params['race_id'])
-    return unless race.started?
     entrant = Entrant.find_by(user: current_user, race: race)
-    entrant.update(finish_time: DateTime.now.utc, place: (race.entrants.finished.count + 1))
-    race.finish_if_possible
+    if entrant.done
+      RaceBroadcastJob.perform_later(race, 'race_entrants_updated')
+      NotificationBroadcastJob.perform_later(current_user, race, 'race_done_success')
+      race.finish_if_possible
+    else
+      NotificationBroadcastJob.perform_later(current_user, race, 'race_done_failure')
+    end
   end
 end

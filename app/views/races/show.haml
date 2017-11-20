@@ -47,7 +47,7 @@
               %i.glyphicon{class: e.ready ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'}
             %td.time-column
               .format-time
-                = e.finished? ? e.duration : '-'
+                = e.completed? ? e.duration : '-'
             %td.place-column
               .format-place
                 = e.place.present? ? e.place : '-'

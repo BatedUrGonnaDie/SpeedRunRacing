@@ -25,7 +25,7 @@ $(document).on("turbolinks:load", function() {
           case "race_entry_failure":
             alert("Failed To Join Race");
             break;
-          case "race_entry_removed":
+          case "race_part_success":
             $(".btn-join-race").addClass("show").removeClass("hidden");
             $(".btn-part-race").addClass("hidden").removeClass("show");
             $(".btn-ready-race").addClass("show").removeClass("hidden");
