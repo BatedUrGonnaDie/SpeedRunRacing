@@ -43,7 +43,7 @@ class Race < ApplicationRecord
   def start
     return if started?
     update(
-      start_time: DateTime.now.utc + 10.seconds,
+      start_time: Time.now.utc + 10.seconds,
       status_text: Race::PROGRESS
     )
     RaceBroadcastJob.perform_later(self, 'race_started')

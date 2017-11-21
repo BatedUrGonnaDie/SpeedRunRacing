@@ -21,8 +21,8 @@ class Entrant < ApplicationRecord
   end
 
   def done
-    return false unless race.started?
-    update(finish_time: DateTime.now.utc, place: (race.entrants.completed.count + 1))
+    return false unless race.in_progress?
+    update(finish_time: Time.now.utc, place: (race.entrants.completed.count + 1))
   end
 
   def rejoin
