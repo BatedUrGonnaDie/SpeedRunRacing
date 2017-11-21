@@ -9,6 +9,7 @@ AllCops:
     - db/**/*
     - config/**/*
     - script/**/*
+    - bin/**/*
 Documentation:
   Enabled: false
 
