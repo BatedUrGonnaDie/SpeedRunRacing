@@ -1,5 +1,5 @@
 class Race < ApplicationRecord
-  has_many :entrants, dependant: :destroy
+  has_many :entrants, dependent: :destroy
   belongs_to :category
   has_one :game, through: :category
   has_many :users, through: :entrants
