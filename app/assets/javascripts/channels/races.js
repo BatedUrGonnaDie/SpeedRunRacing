@@ -43,6 +43,10 @@ $(document).on("turbolinks:load", function() {
 
       done: function() {
         this.perform("done");
+      },
+
+      rejoin: function() {
+        this.perform("rejoin_race");
       }
     });
   }
