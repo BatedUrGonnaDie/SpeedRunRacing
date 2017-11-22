@@ -29,6 +29,17 @@ class RacesChannel < ApplicationCable::Channel
     end
   end
 
+  def abandon_race
+    entrant = Entrant.find_by(race: @race, user: current_user)
+    if entrant.part
+      notify_race('race_entrants_updated')
+      notify_user('race_abandon_success')
+      @race.finish_if_possible
+    else
+      notify_user('race_abandon_failure')
+    end
+  end
+
   def rejoin_race
     return if @race.finished?
     entrant = Entrant.find_by(race: @race, user: current_user)
