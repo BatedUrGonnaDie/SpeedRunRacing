@@ -37,7 +37,7 @@ class Race < ApplicationRecord
   def recalculate_places
     # TODO: needs testing to make sure this acutally works correctly
     finished_entrants = entrants.where.not(finish_time: nil).order('entrants.finish_time ASC')
-    finished_entrants.each_with_index { |e, i| e.place = i + 1 }
+    finished_entrants.each_with_index { |e, i| e.update(place: (i + 1)) }
   end
 
   def start
@@ -66,18 +66,17 @@ class Race < ApplicationRecord
   end
 
   def finish_if_possible
-    if entrants.count == entrants.finished.count
-      if entrants.completed > 0
-        finish
-      else
-        # If everyone forfeit the race or were disqualified, delete the race from history
-        race.destroy
-      end
+    return unless entrants.count >= 2 && entrants.count == entrants.finished.count
+    if entrants.completed.count > 0
+      finish
+    else
+      # If everyone forfeit the race or were disqualified, delete the race from history
+      destroy
     end
   end
 
   def duration
     return nil unless finished?
-    (finish_time - start_time) * 1000
+    (finish_time - start_time)
   end
 end
