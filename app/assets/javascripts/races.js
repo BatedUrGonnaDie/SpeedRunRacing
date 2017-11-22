@@ -34,13 +34,19 @@ $(document).on("turbolinks:load", function() {
 
   if ($(".btn-abandon-race").length) {
     $(".btn-abandon-race").click(function() {
-      App.races.part_race();
+      App.races.abandon_race();
     });
   }
 
   if ($(".btn-done-race").length) {
     $(".btn-done-race").click(function() {
       App.races.done();
+    });
+  }
+
+  if ($(".btn-rejoin-race").length) {
+    $(".btn-rejoin-race").click(function() {
+      App.races.rejoin();
     });
   }
 });

@@ -40,14 +40,20 @@ $(document).on("turbolinks:load", function() {
             $(".btn-ready-race").addClass("show").removeClass("hidden");
             $(".btn-unready-race").addClass("hidden").removeClass("show");
             break;
-          case "race_started":
-            $(".btn-join-race").addClass("hidden").removeClass("show");
-            $(".btn-part-race").addClass("hidden").removeClass("show");
-            $(".btn-ready-race").addClass("hidden").removeClass("show");
-            if ($(".btn-unready-race").hasClass("show")) {
-              $(".btn-abandon-race").addClass("show").removeClass("hidden");
-              $(".btn-done-race").addClass("show").removeClass("hidden");
-            }
+          case "race_done_success":
+            $(".btn-done-race").prop("disabled", true);
+            $(".btn-rejoin-race").addClass("show").removeClass("hidden");
+            $(".btn-abandon-race").addClass("hidden").removeClass("show");
+            break;
+          case "race_rejoin_success":
+            $(".btn-done-race").prop("disabled", false);
+            $(".btn-rejoin-race").addClass("hidden").removeClass("show");
+            $(".btn-abandon-race").addClass("show").removeClass("hidden");
+            break;
+          case "race_abandon_success":
+            $(".btn-done-race").prop("disabled", true);
+            $(".btn-rejoin-race").addClass("show").removeClass("hidden");
+            $(".btn-abandon-race").addClass("hidden").removeClass("show");
             break;
           default:
             console.log("Default case reached for notifications");

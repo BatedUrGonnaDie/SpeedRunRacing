@@ -19,9 +19,34 @@ $(document).on("turbolinks:load", function() {
           case "race_entrants_updated":
             update_entrant_tables(data.race);
             break;
+          case "race_started":
+            $(".btn-join-race").addClass("hidden").removeClass("show");
+            $(".btn-part-race").addClass("hidden").removeClass("show");
+            $(".btn-ready-race").addClass("hidden").removeClass("show");
+            if ($(".btn-unready-race").hasClass("show")) {
+              $(".btn-abandon-race").addClass("show").removeClass("hidden");
+              $(".btn-done-race").addClass("show").removeClass("hidden");
+            }
+            $(".btn-unready-race").addClass("hidden").removeClass("show");
+            $("#race-status-text").addClass("text-warning").removeClass("text-success");
+            $("#race-status-text").html(data.race.status_text);
+            $("#race-duration").addClass("updating-time");
+            break;
+          case "race_completed":
+            $(".btn-join-race").addClass("hidden").removeClass("show");
+            $(".btn-part-race").addClass("hidden").removeClass("show");
+            $(".btn-unready-race").addClass("hidden").removeClass("show");
+            $(".btn-rejoin-race").addClass("hidden").removeClass("show");
+            $(".btn-abandon-race").addClass("hidden").removeClass("show");
+            $(".btn-done-race").addClass("hidden").removeClass("show");
+            $("#race-status-text").addClass("text-danger").removeClass("text-warning");
+            $("#race-status-text").html(data.race.status_text);
+            $("#race-duration").removeClass("updating-time");
+            break;
           default:
             console.log("Default case shit yo");
             console.log(data);
+            break;
         }
       },
 
@@ -31,6 +56,10 @@ $(document).on("turbolinks:load", function() {
 
       part_race: function() {
         this.perform("part_race");
+      },
+
+      abandon_race: function() {
+        this.perform("abandon_race");
       },
 
       ready_up: function() {
@@ -71,8 +100,8 @@ var update_entrant_tables = function(race) {
       else
         cls = "glyphicon glyphicon-remove text-danger";
       row.find(".ready-column > i").removeClass().addClass(cls);
-      row.find(".time-column .format-time").html = "-";
-      row.find(".place-column .format-place").html(e.place ? e.place : '-');
+      row.find(".time-column .format-time").html(format_time(e.duration || "-"));
+      row.find(".place-column .format-place").html(format_place(e.place || "-"));
     } else {
       var new_row = "";
       new_row += "<tr id='entrant-id-" + e.id + "' data-entrant-id='" + e.id + "'>";
