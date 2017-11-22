@@ -1,32 +1,17 @@
 = provide(:title, "#{@race.game.name} - #{@race.category.name}")
-- user_active = @race.contains_user?(current_user)
-- race_progress = @race.in_progress?
-- current_entrant = @race.entrant_for_user(current_user)
-- cur_en_ready = current_entrant.try(:ready)
 .col-md-8
   .col-md-8
     %h4
       = link_to "#{@race.game.name}", game_path(@race.game)
       = " - #{@race.category.name}"
-  .col-md-2
-    %button.btn.btn-success.btn-join-race{class: user_active && !race_progress ? 'hidden' : 'show', disabled: race_progress || current_user.nil?}
-      Join Race
-    %button.btn.btn-danger.btn-part-race{class: user_active && !race_progress ? 'show' : 'hidden'}
-      Part Race
-    %button.btn.btn-danger.btn-abandon-race{class: race_progress ? 'show' : 'hidden'} Abandon Race
-  .col-md-2
-    %button.btn.btn-success.btn-ready-race{class: cur_en_ready && !race_progress ? 'hidden' : 'show', disabled: !current_entrant.present?}
-      Ready Up
-    %button.btn.btn-danger.btn-unready-race{class: cur_en_ready && !race_progress ? 'show' : 'hidden'}
-      Unready
-    %button.btn.btn-success.btn-done-race{class: race_progress ? 'show' : 'hidden'} Done!
+  = render partial: 'shared/race_buttons'
   .col-md-8
     %h4
       #race-status-text{class: race_color(@race)}
         = @race.status_text
   .col-md-4
     %h4
-      .updating-time{data: {race_start_time: @race.start_time}}
+      #race-duration{class: !@race.finished? ? "updating-time" : "format-time", data: {race_start_time: @race.start_time}}
         = @race.started? ? @race.duration : "0:00"
 
 .col-md-4
