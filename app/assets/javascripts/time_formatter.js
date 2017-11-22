@@ -8,13 +8,14 @@ $(document).on("turbolinks:load", function() {
 var format_time = function(time_string) {
   if (time_string === '-' || isNaN(time_string))
     return time_string;
-  var seconds = time_string % 60;
-  var minutes = ~~(time_string / 60);
-  var hours = ~~(minutes / 60);
+  var m = moment.duration(time_string);
+  var seconds = m.seconds();
+  var minutes = m.minutes();
+  var hours = m.hours();
   var formatted_time = "" + seconds;
   if (seconds < 10)
     formatted_time = "0" + formatted_time;
-  formatted_time = minutes + ":" + formatted_time;
+  formatted_time = (minutes % 60) + ":" + formatted_time;
   if (minutes < 10 && hours === 0)
     formatted_time = "0" + formatted_time;
   if (hours > 0)
