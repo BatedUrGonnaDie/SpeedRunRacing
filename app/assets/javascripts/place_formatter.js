@@ -8,6 +8,8 @@ $(document).on("turbolinks:load", function() {
 var format_place = function(place_string) {
   if (place_string === "-" || isNaN(place_string))
     return place_string;
+  if (place_string < 0)
+    return "<i class='glyphicon glyphicon-remove text-danger' />";
   var suffix_hash = {1: "st", 2: "nd", 3: "rd"};
   var exceptions = [11, 12, 13];
   var suffix;
@@ -17,5 +19,6 @@ var format_place = function(place_string) {
     suffix = suffix_hash[place_string % 10];
   if (suffix === undefined)
     suffix = "th";
+  place_string = "" + place_string;
   return place_string.replace(/\s/g, '') + suffix;
 };
