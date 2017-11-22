@@ -6,32 +6,11 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# Framework and Servers
-gem 'puma'
-gem 'rails'
-
 # API Generation
 gem 'active_model_serializers'
 
-# Databases and Information Storage
-gem 'pg'
-gem 'redis', '~> 3.0'
-
-# Configuration
-gem 'figaro'
-
-# View styles and building
-gem 'bootstrap-kaminari-views'
-gem 'bootstrap-sass'
-gem 'bootswatch-rails'
-gem 'gon'
-gem 'haml-rails'
-gem 'jquery-rails'
-gem 'kaminari'
+# Asset Generation
 gem 'sass-rails'
-gem 'slim-rails'
-gem 'turbolinks'
-gem 'twitter-typeahead-rails'
 gem 'uglifier'
 
 # Authentication
@@ -39,11 +18,36 @@ gem 'devise'
 gem 'omniauth-oauth2'
 gem 'omniauth-twitch'
 
-# Jobs
-gem 'delayed_job_active_record'
+# Configuration
+gem 'figaro'
+
+# Databases and Information Storage
+gem 'pg'
+gem 'redis', '~> 3.0'
 
 # External Communications
 gem 'httparty'
+
+# Framework and Servers
+gem 'puma'
+gem 'rails'
+
+# Jobs
+gem 'delayed_job_active_record'
+
+# View Building
+gem 'gon'
+gem 'haml-rails'
+gem 'kaminari'
+gem 'slim-rails'
+gem 'turbolinks'
+
+# View styles
+gem 'bootstrap-kaminari-views'
+gem 'bootstrap-sass'
+gem 'bootswatch-rails'
+gem 'jquery-rails'
+gem 'twitter-typeahead-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
