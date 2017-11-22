@@ -9,7 +9,7 @@ class Entrant < ApplicationRecord
 
   scope :readied, -> { where(ready: true) }
   scope :completed, -> { where('place > 0') }
-  scope :finished, -> { where.not(finish_time: nil) }
+  scope :finished, -> { where.not(place: nil) }
 
   def part
     return false if race.finished?
@@ -27,12 +27,14 @@ class Entrant < ApplicationRecord
 
   def rejoin
     return false unless race.in_progress?
-    update(place: nil, finish_time: nil)
+    update_success = update(place: nil, finish_time: nil)
     race.recalculate_places
+    update_success
   end
 
   def disqualify
     update(place: Entrant::DISQUALIFIED, finish_time: nil)
+    race.recalculate_places
   end
 
   def completed?
@@ -44,7 +46,7 @@ class Entrant < ApplicationRecord
   end
 
   def duration
-    return nil unless race.finished?
-    (finish_time - race.start_time) * 1000
+    return nil if !race.started? || finish_time.nil?
+    (finish_time - race.start_time)
   end
 end
