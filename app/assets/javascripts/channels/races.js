@@ -117,8 +117,8 @@ var update_entrant_tables = function(race) {
     var current_entrants = $.map($("#entrants-list tbody tr"), function(val, i) {
       return val.dataset.entrantId;
     });
-    var new_entrants = race.entrants.map(function(i, elem) {return elem.id;});
-    var to_remove = current_entrants.filter(function(el) {return new_entrants.indexOf(el) < 0;});
+    var new_entrants = race.entrants.map(function(elem, i) {return "" + elem.id;});
+    var to_remove = $(current_entrants).not(new_entrants).get();
     for (i = 0; i < to_remove.length; i++) {
       var selector = "#entrants-list tbody tr#entrant-id-" + to_remove[i];
       if ($(selector).length)

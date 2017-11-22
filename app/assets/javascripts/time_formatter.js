@@ -8,7 +8,7 @@ $(document).on("turbolinks:load", function() {
 var format_time = function(time_string) {
   if (time_string === '-' || isNaN(time_string))
     return time_string;
-  var m = moment.duration(time_string);
+  var m = moment.duration(parseInt(time_string), "seconds");
   var seconds = m.seconds();
   var minutes = m.minutes();
   var hours = m.hours();
