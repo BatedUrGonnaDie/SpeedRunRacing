@@ -1,7 +1,10 @@
 var global_time_updater;
+
 $(document).on("turbolinks:load", function() {
-  update_time();
-  global_time_updater = setInterval(update_time, 1000);
+  if (!global_time_updater) {
+    update_time();
+    global_time_updater = setInterval(update_time, 1000);
+  }
 });
 
 var update_time = function() {

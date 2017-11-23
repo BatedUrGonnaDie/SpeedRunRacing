@@ -19,6 +19,6 @@
             %td{class: race_color(race)}= race.status_text
             %td
               - if race.started?
-                .updating-time= race.start_time
+                .updating-time{data: {duration: race.duration}}= race.start_time
               - else
                 = "-"
