@@ -76,7 +76,11 @@ class Race < ApplicationRecord
   end
 
   def duration
-    return nil unless finished?
-    (finish_time - start_time)
+    return nil unless started?
+    if finished?
+      (finish_time - start_time)
+    else
+      (Time.now.utc - start_time)
+    end
   end
 end
