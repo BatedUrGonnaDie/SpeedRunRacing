@@ -20,17 +20,15 @@ $(document).on("turbolinks:load", function() {
             update_entrant_tables(data.race);
             break;
           case "race_started":
-            $(".btn-join-race").addClass("hidden").removeClass("show");
-            $(".btn-part-race").addClass("hidden").removeClass("show");
-            $(".btn-ready-race").addClass("hidden").removeClass("show");
-            if ($(".btn-unready-race").hasClass("show")) {
-              $(".btn-abandon-race").addClass("show").removeClass("hidden");
-              $(".btn-done-race").addClass("show").removeClass("hidden");
-            }
-            $(".btn-unready-race").addClass("hidden").removeClass("show");
-            $("#race-status-text").addClass("text-warning").removeClass("text-success");
-            $("#race-status-text").html(data.race.status_text);
-            $("#race-duration").addClass("updating-time");
+            $("footer").before("<h1 id='race-start-text'>RACE STARTING IN: 10 Seconds</h1>");
+            var counter = new Countdown({
+              seconds: 10,
+              onUpdateStatus: function(sec){
+                $("#race-start-text").html("RACE STARTING IN: " + sec + " Seconds");
+              },
+              onCounterEnd: start_race
+            });
+            counter.start();
             break;
           case "race_completed":
             $(".btn-join-race").addClass("hidden").removeClass("show");
@@ -125,4 +123,22 @@ var update_entrant_tables = function(race) {
         $(selector).remove();
     }
   }
+};
+
+var start_race = function() {
+  $(".btn-join-race").addClass("hidden").removeClass("show");
+  $(".btn-part-race").addClass("hidden").removeClass("show");
+  $(".btn-ready-race").addClass("hidden").removeClass("show");
+  if ($(".btn-unready-race").hasClass("show")) {
+    $(".btn-abandon-race").addClass("show").removeClass("hidden");
+    $(".btn-done-race").addClass("show").removeClass("hidden");
+  }
+  $(".btn-unready-race").addClass("hidden").removeClass("show");
+  $("#race-status-text").addClass("text-warning").removeClass("text-success");
+  $("#race-status-text").html("In Progress");
+  $("#race-duration").addClass("updating-time");
+  $("#race-start-text").html("GO YOU FOOLS");
+  setTimeout(function() {
+    $("#race-start-text").remove();
+  }, 10000);
 };
