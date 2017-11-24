@@ -16,9 +16,11 @@ var format_time = function(time_string) {
   if (seconds < 10)
     formatted_time = "0" + formatted_time;
   formatted_time = (minutes % 60) + ":" + formatted_time;
-  if (minutes < 10 && hours === 0)
-    formatted_time = "0" + formatted_time;
-  if (hours > 0)
+  if (hours > 0){
+    if (minutes < 10) {
+      formatted_time = "0" + formatted_time
+    }
     formatted_time = hours + ":" + formatted_time;
+  }
   return formatted_time;
 };
