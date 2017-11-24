@@ -1,3 +1,8 @@
+var ts = timesync.create({
+  server: '/timesync',
+  interval: 10 * 60 * 1000
+});
+
 $(document).on("turbolinks:load", function() {
   $(".format-time").each(function() {
     var new_time = format_time($(this).html());
@@ -18,9 +23,15 @@ var format_time = function(time_string) {
   formatted_time = (minutes % 60) + ":" + formatted_time;
   if (hours > 0){
     if (minutes < 10) {
-      formatted_time = "0" + formatted_time
+      formatted_time = "0" + formatted_time;
     }
     formatted_time = hours + ":" + formatted_time;
   }
   return formatted_time;
+};
+
+var get_seconds_from_data_diff = function(date_string) {
+  var start = moment(date_string);
+  var current = moment(ts.now());
+  return (current.diff(start) / 1000);
 };

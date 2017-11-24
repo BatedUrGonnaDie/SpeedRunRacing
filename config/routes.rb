@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   resources :races, only: [:index, :show]
 
   resources :games, only: [:show, :index]
+
+  post '/timesync', to: 'time#timesync', as: :timesync
 end

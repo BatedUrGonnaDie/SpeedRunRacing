@@ -2,6 +2,7 @@
     "name": "SpeedRunRacing",
     "private": true,
     "dependencies": {
-        "moment": "^2.19.2"
+        "moment": "^2.19.2",
+        "timesync": "^0.4.2"
     }
 }

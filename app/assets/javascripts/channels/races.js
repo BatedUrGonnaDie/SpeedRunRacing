@@ -29,6 +29,7 @@ $(document).on("turbolinks:load", function() {
               onCounterEnd: start_race
             });
             counter.start();
+            $("#race-duration").data("start-time", data.race.start_time);
             break;
           case "race_completed":
             $(".btn-join-race").addClass("hidden").removeClass("show");

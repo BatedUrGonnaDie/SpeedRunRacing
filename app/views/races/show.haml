@@ -12,7 +12,7 @@
   .col-md-4
     %h4
       %span Race Time:
-      %span#race-duration.format-time{class: @race.started? ? "updating-time" : "", data: {duration: @race.duration || 0}}
+      %span#race-duration.format-time{class: @race.started? ? "updating-time" : "", data: {start_time: @race.start_time.to_formatted_s(:iso8601)}}
         = @race.started? ? @race.duration : "0:00"
 
 .col-md-4
@@ -35,5 +35,4 @@
               .format-time
                 = e.completed? ? e.duration : '-'
             %td.place-column
-              .format-place
-                = e.place.present? ? e.place : '-'
+              .format-place= e.place.present? ? e.place : '-'

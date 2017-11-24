@@ -16,4 +16,5 @@
 //= require twitter/typeahead
 //= require turbolinks
 //= require moment/moment
+//= require timesync/dist/timesync
 //= require_tree .
