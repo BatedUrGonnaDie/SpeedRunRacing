@@ -12,7 +12,7 @@
   .col-md-4
     %h4
       %span Race Time:
-      %span#race-duration.format-time{class: @race.started? ? "updating-time" : "", data: {start_time: @race.start_time.to_formatted_s(:iso8601)}}
+      %span#race-duration.format-time{class: @race.started? ? "updating-time" : "", data: {start_time: @race.start_time.try(:to_formatted_s, :iso8601)}}
         = @race.started? ? @race.duration : "0:00"
 
 .col-md-4
