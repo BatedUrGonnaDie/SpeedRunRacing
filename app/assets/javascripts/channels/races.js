@@ -20,13 +20,14 @@ $(document).on("turbolinks:load", function() {
             update_entrant_tables(data.race);
             break;
           case "race_started":
-            $("footer").before("<h1 id='race-start-text'>RACE STARTING IN: 10 Seconds</h1>");
+            $("footer").before("<h1 id='race-start-text'>RACE STARTING SOON</h1>");
             var counter = new Countdown({
-              seconds: 10,
-              onUpdateStatus: function(sec){
+              start_time: data.race.start_time,
+              on_update_status: function(sec, options) {
                 $("#race-start-text").html("RACE STARTING IN: " + sec + " Seconds");
               },
-              onCounterEnd: start_race
+              on_end_status: start_race,
+              end_args: {data: data}
             });
             counter.start();
             $("#race-duration").data("start-time", data.race.start_time);
@@ -82,7 +83,7 @@ $(document).on("turbolinks:load", function() {
 
 $(document).on("page:before-change turbolinks:before-visit", function() {
   if (App.races !== undefined) {
-    App.races.perform("unsubscribed");
+    App.cable.subscriptions.remove(App.races);
     delete App.races;
   }
 });
@@ -126,7 +127,8 @@ var update_entrant_tables = function(race) {
   }
 };
 
-var start_race = function() {
+var start_race = function(args) {
+  var race = args.data.race;
   $(".btn-join-race").addClass("hidden").removeClass("show");
   $(".btn-part-race").addClass("hidden").removeClass("show");
   $(".btn-ready-race").addClass("hidden").removeClass("show");
@@ -135,8 +137,7 @@ var start_race = function() {
     $(".btn-done-race").addClass("show").removeClass("hidden");
   }
   $(".btn-unready-race").addClass("hidden").removeClass("show");
-  $("#race-status-text").addClass("text-warning").removeClass("text-success");
-  $("#race-status-text").html("In Progress");
+  $("#race-status-text").addClass("text-warning").removeClass("text-success").html(race.status_text);
   $("#race-duration").addClass("updating-time");
   $("#race-start-text").html("GO YOU FOOLS");
   setTimeout(function() {
