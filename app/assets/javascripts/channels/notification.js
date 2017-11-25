@@ -10,7 +10,7 @@ $(document).on("turbolinks:load", function() {
       },
 
       received: function(data) {
-        switch (data.update) {
+        switch (data.status) {
           case "race_create_success":
             Turbolinks.visit(data.location);
             break;

@@ -5,3 +5,26 @@
 .table > tbody > tr > td {
     vertical-align: middle;
 }
+
+#race-start-dim {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 999;
+}
+
+#race-start-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-size: 3em;
+    z-index: 1000;
+}

@@ -13,42 +13,44 @@ class RacesChannel < ApplicationCable::Channel
     entrant = Entrant.new(user: current_user, race: @race)
     if entrant.save
       notify_race('race_entrants_updated')
-      notify_user('race_entry_success')
+      notify_user('race_join_success', false)
     else
-      notify_user('race_entry_failure')
+      notify_user('race_join_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
   def part_race
+    return if @race.started?
     entrant = Entrant.find_by(race: @race, user: current_user)
     if entrant.part
       notify_race('race_entrants_updated')
-      notify_user('race_part_success')
+      notify_user('race_part_success', false)
     else
-      notify_user('race_part_failure')
+      notify_user('race_part_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
   def abandon_race
+    return unless @race.in_progress?
     entrant = Entrant.find_by(race: @race, user: current_user)
     if entrant.part
       notify_race('race_entrants_updated')
-      notify_user('race_abandon_success')
+      notify_user('race_abandon_success', false)
       @race.finish_if_possible
     else
-      notify_user('race_abandon_failure')
+      notify_user('race_abandon_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
   def rejoin_race
-    return if @race.finished?
+    return unless @race.in_progress?
     entrant = Entrant.find_by(race: @race, user: current_user)
     return if entrant.nil?
     if entrant.rejoin
       notify_race('race_entrants_updated')
-      notify_user('race_rejoin_success')
+      notify_user('race_rejoin_success', false)
     else
-      notify_user('race_rejoin_failure')
+      notify_user('race_rejoin_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
@@ -56,20 +58,23 @@ class RacesChannel < ApplicationCable::Channel
     return if @race.started?
     entrant = Entrant.find_by(user: current_user, race: @race)
     return if entrant.nil?
-    entrant.update(ready: true)
-    notify_race('race_entrants_updated')
-    notify_user('race_entry_ready')
-    @race.start_if_possible
+    if entrant.update(ready: true)
+      notify_race('race_entrants_updated')
+      notify_user('race_ready_success', false)
+      @race.start_if_possible
+    else
+      notify_user('race_ready_failure', true, reason: get_errors_sentence(entrant))
+    end
   end
 
   def unready
-    if @race.started?
-      notify_user('race_in_progress')
-    else
-      entrant = Entrant.find_by(user: current_user, race: @race)
-      entrant.update(ready: false)
+    return if @race.started?
+    entrant = Entrant.find_by(user: current_user, race: @race)
+    if entrant.update(ready: false)
       notify_race('race_entrants_updated')
-      notify_user('race_entry_unready')
+      notify_user('race_unready_success', false)
+    else
+      notify_user('race_unready_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
@@ -78,17 +83,17 @@ class RacesChannel < ApplicationCable::Channel
     entrant = Entrant.find_by(user: current_user, race: @race)
     if entrant.done
       notify_race('race_entrants_updated')
-      notify_user('race_done_success')
+      notify_user('race_done_success', false)
       @race.finish_if_possible
     else
-      notify_user('race_done_failure')
+      notify_user('race_done_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
   private
 
-  def notify_user(msg)
-    NotificationBroadcastJob.perform_later(current_user, @race, msg)
+  def notify_user(msg, error, extras = {})
+    NotificationRaceBroadcastJob.perform_later(current_user, @race, msg, error, extras)
   end
 
   def notify_race(msg)

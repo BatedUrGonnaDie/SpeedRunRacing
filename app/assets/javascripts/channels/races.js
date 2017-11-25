@@ -20,7 +20,8 @@ $(document).on("turbolinks:load", function() {
             update_entrant_tables(data.race);
             break;
           case "race_started":
-            $("footer").before("<h1 id='race-start-text'>RACE STARTING SOON</h1>");
+            $("footer").before("<div id='race-start-dim'></div>")
+            $("footer").before("<div id='race-start-text'>RACE STARTING SOON</div>");
             var counter = new Countdown({
               start_time: data.race.start_time,
               on_update_status: function(sec, options) {
@@ -139,8 +140,9 @@ var start_race = function(args) {
   $(".btn-unready-race").addClass("hidden").removeClass("show");
   $("#race-status-text").addClass("text-warning").removeClass("text-success").html(race.status_text);
   $("#race-duration").addClass("updating-time");
-  $("#race-start-text").html("GO YOU FOOLS");
+  $("#race-start-text").html("GO GO GO!");
   setTimeout(function() {
+    $("#race-start-dim").remove();
     $("#race-start-text").remove();
   }, 10000);
 };
