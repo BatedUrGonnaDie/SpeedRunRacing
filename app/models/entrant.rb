@@ -2,7 +2,8 @@ class Entrant < ApplicationRecord
   belongs_to :race
   belongs_to :user
 
-  validates_with EntrantValidator
+  validates_with EntrantCreateValidator, on: :create
+  validates_with EntrantAlwaysValidator
 
   FORFEITED    = -1
   DISQUALIFIED = -2
