@@ -1,5 +1,5 @@
 $(document).on("turbolinks:load", function() {
-  if (gon.current_user_id) {
+  if (gon.current_user_id && App.main === undefined) {
     App.main = App.cable.subscriptions.create("MainChannel", {
       connected: function() {
           // Called when the subscription is ready for use on the server
