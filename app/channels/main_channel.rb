@@ -1,4 +1,6 @@
 class MainChannel < ApplicationCable::Channel
+  include Rails.application.routes.url_helpers
+
   def subscribed
     stream_from 'main_channel'
   end
