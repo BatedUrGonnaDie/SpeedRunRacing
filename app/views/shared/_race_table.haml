@@ -1,7 +1,7 @@
 .panel.panel-default
   .panel-heading= description
   .panel-body
-    %table.table.table-striped.table-hover
+    %table.table.table-striped.table-hover{id: id}
       %thead
         %tr
           - if cols.include?(:game_cat)
@@ -17,17 +17,17 @@
             %th Finished
       %tbody
         - @races.each do |race|
-          %tr{'data-href' => "#{race_path(race)}"}
+          %tr{id: "race-id-#{race.id}", data: {race_id: race.id}}
             - if cols.include?(:game_cat)
-              %td
+              %td.cover-column
                 %img{src: race.game.cover_small}
-              %td= link_to "#{race.game.name} - #{race.category.name}", race_path(race)
+              %td.game-cat-column= link_to "#{race.game.name} - #{race.category.name}", race_path(race)
             - if cols.include?(:entrants)
-              %td= race.entrants.count
+              %td.entrants-column= race.entrants.count
             - if cols.include?(:status_text)
-              %td{class: race_color(race)}= race.status_text
+              %td.status-column{class: race_color(race)}= race.status_text
             - if cols.include?(:duration)
-              %td
+              %td.duration-column
                 - if race.finished?
                   .format-time= race.duration
                 - elsif race.started?
@@ -35,4 +35,4 @@
                 - else
                   = "-"
             - if cols.include?(:finished)
-              %td.format-past= iso_time_string(race.start_time)
+              %td.time-since-column.format-past= iso_time_string(race.start_time)
