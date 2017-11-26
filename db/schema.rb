@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026083958) do
+ActiveRecord::Schema.define(version: 20171126155540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20171026083958) do
     t.bigint "user_id"
     t.bigint "race_id"
     t.integer "place"
-    t.datetime "finish_time"
+    t.datetime "finish_time", precision: 6
     t.boolean "ready", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20171026083958) do
   create_table "races", id: :serial, force: :cascade do |t|
     t.string "status_text", default: "Open Entry", null: false
     t.integer "category_id", null: false
-    t.datetime "start_time"
-    t.datetime "finish_time"
+    t.datetime "start_time", precision: 6
+    t.datetime "finish_time", precision: 6
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_races_on_category_id"
