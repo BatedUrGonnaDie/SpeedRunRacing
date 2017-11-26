@@ -1,6 +1,6 @@
 class RacesController < ApplicationController
   def index
-    @races = Race.active
+    @races = Race.includes(:game, :category).active.order(status_text: :desc)
   end
 
   def show
@@ -9,6 +9,6 @@ class RacesController < ApplicationController
   end
 
   def completed
-    @races = Race.completed
+    @races = Race.includes(:game, :category).completed.order(finish_time: :desc).page(params[:page])
   end
 end

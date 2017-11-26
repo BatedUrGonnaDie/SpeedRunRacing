@@ -8,6 +8,11 @@ $(document).on("turbolinks:load", function() {
     var new_time = format_time($(this).html());
     $(this).html(new_time);
   });
+
+  $(".format-past").each(function() {
+    var time = format_past($(this).html());
+    $(this).html(time);
+  });
 });
 
 var format_time = function(time_string) {
@@ -28,6 +33,10 @@ var format_time = function(time_string) {
     formatted_time = hours + ":" + formatted_time;
   }
   return formatted_time;
+};
+
+var format_past = function(date_string) {
+  return moment(date_string).fromNow();
 };
 
 var get_seconds_from_data_diff = function(date_string) {
