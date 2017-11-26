@@ -16,7 +16,7 @@ var format_time = function(time_string) {
   var m = moment.duration(parseInt(time_string), "seconds");
   var seconds = m.seconds();
   var minutes = m.minutes();
-  var hours = m.hours();
+  var hours = Math.floor(m.asHours());
   var formatted_time = "" + seconds;
   if (seconds < 10)
     formatted_time = "0" + formatted_time;
