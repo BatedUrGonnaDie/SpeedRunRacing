@@ -17,4 +17,5 @@
 //= require turbolinks
 //= require moment/moment
 //= require timesync/dist/timesync
+//= require alertifyjs/build/alertify
 //= require_tree .
