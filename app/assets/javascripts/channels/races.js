@@ -20,7 +20,7 @@ $(document).on("turbolinks:load", function() {
             update_entrant_tables(data.race);
             break;
           case "race_started":
-            $("footer").before("<div id='race-start-dim'></div>")
+            $("footer").before("<div id='race-start-dim'></div>");
             $("footer").before("<div id='race-start-text'>RACE STARTING SOON</div>");
             var counter = new Countdown({
               start_time: data.race.start_time,

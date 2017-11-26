@@ -15,7 +15,7 @@ $(document).on("turbolinks:load", function() {
             Turbolinks.visit(data.location);
             break;
           case "race_create_failure":
-            console.log("do something about the failure");
+            push_alert("Race couldn't be created!<br>" + data.reason, "danger");
             break;
 
           case "race_join_success":
@@ -24,7 +24,7 @@ $(document).on("turbolinks:load", function() {
             $(".btn-ready-race").prop("disabled", false);
             break;
           case "race_join_failure":
-            alert("Failed To Join Race");
+            push_alert("Race couldn't be joined!<br>" + data.reason, "danger");
             break;
 
           case "race_part_success":
@@ -35,7 +35,7 @@ $(document).on("turbolinks:load", function() {
             $(".btn-ready-race").prop("disabled", true);
             break;
           case "race_part_failure":
-
+            push_alert("Race couldn't be parted!<br>" + data.reason, "danger");
             break;
 
           case "race_ready_success":
@@ -43,7 +43,7 @@ $(document).on("turbolinks:load", function() {
             $(".btn-unready-race").addClass("show").removeClass("hidden");
             break;
           case "race_ready_failure":
-
+            push_alert("We couldn't record your ready!<br>" + data.reason, "danger");
             break;
 
           case "race_unready_success":
@@ -51,7 +51,7 @@ $(document).on("turbolinks:load", function() {
             $(".btn-unready-race").addClass("hidden").removeClass("show");
             break;
           case "race_unready_failure":
-
+            push_alert("We couldn't record your unready!<br>" + data.reason, "danger");
             break;
 
           case "race_done_success":
@@ -60,7 +60,7 @@ $(document).on("turbolinks:load", function() {
             $(".btn-abandon-race").addClass("hidden").removeClass("show");
             break;
           case "race_done_failure":
-
+            push_alert("We couldn't record your time!<br>" + data.reason, "danger");
             break;
 
           case "race_rejoin_success":
@@ -69,7 +69,7 @@ $(document).on("turbolinks:load", function() {
             $(".btn-abandon-race").addClass("show").removeClass("hidden");
             break;
           case "race_rejoin_failure":
-
+            push_alert("Race couldn't be rejoined!<br>" + data.reason, "danger");
             break;
 
           case "race_abandon_success":
@@ -78,7 +78,7 @@ $(document).on("turbolinks:load", function() {
             $(".btn-abandon-race").addClass("hidden").removeClass("show");
             break;
           case "race_abandon_failure":
-
+            push_alert("Race couldn't be abandoned!<br>" + data.reason, "danger");
             break;
           default:
             console.log("Default case reached for notifications");

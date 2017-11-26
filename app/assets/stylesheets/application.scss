@@ -6,11 +6,12 @@
 @import "alertifyjs/build/css/alertify";
 
 @import "races";
+@import "custom_alertify";
 
 .alert-notice {
     @extend .alert-info;
 }
 
 .alert-alert {
-  @extend .alert-danger;
+    @extend .alert-danger;
 }
