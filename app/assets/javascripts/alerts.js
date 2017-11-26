@@ -6,5 +6,5 @@ alertify.defaults.theme.cancel = "btn btn-danger";
 alertify.defaults.theme.input = "form-control";
 
 var push_alert = function(msg, css_class) {
-    alertify.notify(msg, css_class);
+    alertify.notify(msg, css_class, 5);
 };
