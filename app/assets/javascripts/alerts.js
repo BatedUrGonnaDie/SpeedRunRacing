@@ -1,5 +1,4 @@
 alertify.defaults.notifier.position = "top-right";
-alertify.defaults.notifier.closeButton = true;
 alertify.defaults.transition = "slide";
 alertify.defaults.theme.ok = "btn btn-primary";
 alertify.defaults.theme.cancel = "btn btn-danger";

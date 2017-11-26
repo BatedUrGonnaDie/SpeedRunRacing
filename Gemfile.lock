@@ -231,6 +231,8 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rollbar (2.15.5)
+      multi_json
     rubocop (0.51.0)
       parallel (~> 1.10)
       parser (>= 2.3.3.1, < 3.0)
@@ -324,6 +326,7 @@ DEPENDENCIES
   rails
   rails-erd
   redis (~> 3.0)
+  rollbar
   rubocop
   sass-rails
   slim-rails
