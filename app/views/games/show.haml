@@ -11,9 +11,10 @@
           %a{'href' => "##{c.id}", 'data-toggle' => 'tab'}= c.name
     .tab-content
       - @game.categories.each_with_index do |c, i|
+        - options = {description: "#{c.name} Races", id: "#{c.name}-race-table"}
         .tab-pane{'id' => "#{c.id}", 'class' => "#{i==0 ? 'active' : ''}"}
           - if current_user
             %h3
               %button{'class' => 'btn btn-default btn-create-race', 'data-category' => "#{c.id}"}
                 = "Create Race for #{c.name}"
-          = "Insert races for #{c.name}"
+          = render partial: 'shared/race_table', locals: race_table_locals(:category_races, c.races.completed.order(finish_time: :desc), options)

@@ -4,9 +4,10 @@
     %table.table.table-striped.table-hover{id: id}
       %thead
         %tr
-          - if cols.include?(:game_cat)
+          - if cols.include?(:cover)
             %th Game & Category
-            %th
+          - if cols.include?(:game_cat)
+            %th= 'Game & Category' unless cols.include?(:cover)
           - if cols.include?(:entrants)
             %th Entrants
           - if cols.include?(:status_text)
@@ -16,11 +17,12 @@
           - if cols.include?(:finished)
             %th Finished
       %tbody
-        - @races.each do |race|
+        - races.each do |race|
           %tr{id: "race-id-#{race.id}", data: {race_id: race.id}}
-            - if cols.include?(:game_cat)
+            - if cols.include?(:cover)
               %td.cover-column
                 %img{src: race.game.cover_small}
+            - if cols.include?(:game_cat)
               %td.game-cat-column= link_to "#{race.game.name} - #{race.category.name}", race_path(race)
             - if cols.include?(:entrants)
               %td.entrants-column= race.entrants.count

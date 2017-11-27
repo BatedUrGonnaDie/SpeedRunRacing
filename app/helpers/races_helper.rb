@@ -15,7 +15,7 @@ module RacesHelper
     field.try(:to_formatted_s, :iso8601)
   end
 
-  def race_table_locals(table_type, races)
+  def race_table_locals(table_type, races, options = {})
     case table_type
     when :active_races
       {
@@ -31,6 +31,15 @@ module RacesHelper
         description: 'Completed Races',
         id: 'completed-race-table'
       }.merge(sorting_info)
+    when :category_races
+      {
+        races: races,
+        cols: %i[game_cat entrants duration finished],
+        description: options[:description],
+        id: options[:id]
+      }
+    else
+      raise Error
     end
   end
 
