@@ -8,7 +8,11 @@ class MainChannel < ApplicationCable::Channel
   def create_race(data)
     race = Race.new(category: Category.find(data['cat_id']))
     if race.save
-      MainBroadcastJob.perform_later(race, 'race_created')
+      MainBroadcastJob.perform_later(
+        'race_created',
+        race,
+        html: ApplicationController.render(partial: 'races/active_race_td', locals: {race: race})
+      )
       NotificationRaceBroadcastJob.perform_later(
         current_user,
         race,

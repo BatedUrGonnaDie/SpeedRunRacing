@@ -23,6 +23,8 @@ var format_time = function(time_string) {
   var minutes = m.minutes();
   var hours = Math.floor(m.asHours());
   var formatted_time = "" + seconds;
+  if (seconds < 0)
+    return formatted_time;
   if (seconds < 10)
     formatted_time = "0" + formatted_time;
   formatted_time = (minutes % 60) + ":" + formatted_time;
