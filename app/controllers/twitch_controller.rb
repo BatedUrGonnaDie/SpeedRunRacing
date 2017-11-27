@@ -23,7 +23,8 @@ class TwitchController < ApplicationController
     user.update(
       twitch_name: auth.info.nickname,
       twitch_display_name: auth.info.name,
-      twitch_id: auth.uid
+      twitch_id: auth.uid,
+      twitch_email: auth.email
     )
   end
 end
