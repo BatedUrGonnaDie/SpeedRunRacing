@@ -21,13 +21,15 @@ module RacesHelper
       {
         races: races,
         cols: %i[cover game_cat entrants status_text duration],
-        description: 'Active Races'
+        description: 'Active Races',
+        id: 'active-race-table'
       }
     when :completed_races
       {
         races: races,
         cols: %i[cover game_cat entrants duration finished],
-        description: 'Completed Races'
+        description: 'Completed Races',
+        id: 'completed-race-table'
       }.merge(sorting_info)
     end
   end
