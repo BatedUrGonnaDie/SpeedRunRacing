@@ -47,7 +47,7 @@ class Race < ApplicationRecord
       status_text: Race::PROGRESS
     )
     RaceBroadcastJob.perform_later(self, 'race_started')
-    MainBroadcastJob.perform_later(self, 'race_started')
+    MainBroadcastJob.perform_later('race_started', self)
   end
 
   def start_if_possible
@@ -62,7 +62,7 @@ class Race < ApplicationRecord
     )
     recalculate_places
     RaceBroadcastJob.perform_later(self, 'race_completed')
-    MainBroadcastJob.perform_later(self, 'race_completed')
+    MainBroadcastJob.perform_later('race_completed', self)
   end
 
   def finish_if_possible
