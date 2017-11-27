@@ -3,6 +3,7 @@ class Race < ApplicationRecord
   belongs_to :category
   has_one :game, through: :category
   has_many :users, through: :entrants
+  has_one :chat_room
 
   OPEN = 'Open Entry'.freeze
   PROGRESS = 'In Progress'.freeze

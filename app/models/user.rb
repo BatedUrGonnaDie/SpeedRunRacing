@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :entrants
   has_many :races, through: :entrants
+  has_many :chat_messages
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
