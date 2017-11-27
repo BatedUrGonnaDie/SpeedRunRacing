@@ -7,7 +7,7 @@
     = stylesheet_link_tag "application.css"
     = javascript_include_tag "application.js", async: Rails.env.production?, defer: Rails.env.production?
     = csrf_meta_tags
-    = favicon_link_tag
+    = render partial: 'shared/favicons'
     = content_for(:html_head)
   %body
     = Gon::Base.render_data
