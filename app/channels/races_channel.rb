@@ -1,6 +1,6 @@
 class RacesChannel < ApplicationCable::Channel
   def subscribed
-    @race = Race.find(params['race_id'])
+    update_race_instance
     stream_for(@race)
   end
 
@@ -9,6 +9,7 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def join_race
+    update_race_instance
     return if @race.started?
     entrant = Entrant.new(user: current_user, race: @race)
     if entrant.save
@@ -20,6 +21,7 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def part_race
+    update_race_instance
     return if @race.started?
     entrant = Entrant.find_by(race: @race, user: current_user)
     if entrant.part
@@ -31,6 +33,7 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def abandon_race
+    update_race_instance
     return unless @race.in_progress?
     entrant = Entrant.find_by(race: @race, user: current_user)
     if entrant.part
@@ -43,6 +46,7 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def rejoin_race
+    update_race_instance
     return unless @race.in_progress?
     entrant = Entrant.find_by(race: @race, user: current_user)
     return if entrant.nil?
@@ -55,6 +59,7 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def ready
+    update_race_instance
     return if @race.started?
     entrant = Entrant.find_by(user: current_user, race: @race)
     return if entrant.nil?
@@ -68,6 +73,7 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def unready
+    update_race_instance
     return if @race.started?
     entrant = Entrant.find_by(user: current_user, race: @race)
     if entrant.update(ready: false)
@@ -79,6 +85,7 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def done
+    update_race_instance
     return unless @race.in_progress?
     entrant = Entrant.find_by(user: current_user, race: @race)
     if entrant.done
@@ -91,6 +98,10 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   private
+
+  def update_race_instance
+    @race = Race.find(params['race_id'])
+  end
 
   def notify_user(msg, error, extras = {})
     NotificationRaceBroadcastJob.perform_later(current_user, @race, msg, error, extras)
