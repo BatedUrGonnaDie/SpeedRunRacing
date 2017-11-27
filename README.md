@@ -24,5 +24,6 @@ A modern racing website for speedrunners to compete against eachother.
 in browser racing~~ Completed
 4. ~~Better handling of errors from the server~~ Completed
 5. Finish last pages that have holes in them
-6. Read-only developer JSON REST API
-7. Developer access to the websocket interface to allow write access to 3rd party applications
+6. Chat rooms and messages for race rooms
+7. Read-only developer JSON REST API
+8. Developer access to the websocket interface to allow write access to 3rd party applications
