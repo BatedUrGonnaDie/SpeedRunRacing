@@ -32,22 +32,24 @@ gem 'httparty'
 gem 'puma'
 gem 'rails'
 
+# Frontend Resources
+gem 'gon'
+gem 'jquery-rails'
+gem 'turbolinks'
+gem 'twitter-typeahead-rails'
+
 # Jobs
 gem 'delayed_job_active_record'
 
 # View Building
-gem 'gon'
 gem 'haml-rails'
 gem 'kaminari'
 gem 'slim-rails'
-gem 'turbolinks'
 
 # View styles
 gem 'bootstrap-kaminari-views'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
-gem 'jquery-rails'
-gem 'twitter-typeahead-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
