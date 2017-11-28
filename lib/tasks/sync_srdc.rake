@@ -24,8 +24,8 @@ task sync_srdc: [:environment] do
         shortname: game['abbreviation'],
         name: game['names']['international'],
         weblink: game['weblink'],
-        cover_small: game['assets']['cover-small'],
-        cover_large: game['assets']['cover-large']
+        cover_small: game['assets']['cover-small']['uri'],
+        cover_large: game['assets']['cover-large']['uri']
       )
       g.save
 
