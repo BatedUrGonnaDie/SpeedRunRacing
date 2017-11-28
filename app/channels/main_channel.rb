@@ -8,6 +8,7 @@ class MainChannel < ApplicationCable::Channel
   def create_race(data)
     race = Race.new(category: Category.find(data['cat_id']))
     if race.save
+      ChatRoom.create(race: race)
       MainBroadcastJob.perform_later(
         'race_created',
         race,
