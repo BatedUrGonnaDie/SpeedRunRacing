@@ -5,10 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 games = Game.create([
   {name: 'Super Mario Sunshine', shortname: 'sms',
     weblink: 'https://www.speedrun.com/sms', cover_large: 'https://www.speedrun.com/themes/sms/cover-256.png',
-    cover_small: 'https://www.speedrun.com/themes/sms/cover-32.png'}
+    cover_small: 'https://www.speedrun.com/themes/sms/cover-32.png', srdc_id: '1kgr75w4'}
 ])
 
 Category.create([

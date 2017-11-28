@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20171127190526) do
 
   create_table "categories", force: :cascade do |t|
     t.bigint "game_id"
+    t.string "srdc_id", null: false
     t.string "name", null: false
     t.string "weblink", null: false
     t.datetime "created_at", null: false
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 20171127190526) do
   end
 
   create_table "games", force: :cascade do |t|
+    t.string "srdc_id", null: false
     t.string "name", null: false
     t.string "shortname", null: false
     t.string "cover_large", null: false
