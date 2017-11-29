@@ -1,4 +1,4 @@
 class ChatMessage < ApplicationRecord
-  belongs_to :chat_room
-  belongs_to :user
+  belongs_to :chat_room, required: true
+  belongs_to :user, required: true
 end

@@ -8,13 +8,29 @@ class MessagesChannel < ApplicationCable::Channel
     stop_all_streams
   end
 
+  def send_message(data)
+    update_chat_room_instance
+    msg = data['message']
+    return if msg.empty? || @chat_room.locked
+    chat_msg = ChatMessage.create(chat_room: @chat_room, user: current_user, body: msg)
+    if chat_msg.valid?
+      push_message(chat_msg, 'chat_message_created')
+    else
+      notify_user('chat_message_create_failure', true, reason: get_errors_sentence(chat_msg))
+    end
+  end
+
   private
 
   def update_chat_room_instance
     @chat_room = ChatRoom.find(params['room_id'])
   end
 
-  def push_message(chat_msg)
-    MessageBroadcastJob.perform_later(@chat_room, chat_msg)
+  def push_message(chat_msg, status)
+    MessageBroadcastJob.perform_later(@chat_room, chat_msg, status)
+  end
+
+  def notify_user(msg, error, extras = {})
+    NotificationMessageBroadcastJob.perform_later(current_user, @chat_room, msg, error, extras)
   end
 end

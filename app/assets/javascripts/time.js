@@ -13,6 +13,10 @@ $(document).on("turbolinks:load", function() {
     var time = format_past($(this).html());
     $(this).html(time);
   });
+
+  $(".chat-timestamp").each(function() {
+    $(this).html(format_timestamp($(this).html()));
+  });
 });
 
 var format_time = function(time_string) {
@@ -39,6 +43,15 @@ var format_time = function(time_string) {
 
 var format_past = function(date_string) {
   return moment(date_string).fromNow();
+};
+
+var format_timestamp = function(date_string) {
+  var m = moment(date_string);
+  var formatted_time = "" + m.hours() + ":";
+  if (m.minutes() < 10)
+    formatted_time += "0";
+  formatted_time += m.minutes();
+  return formatted_time;
 };
 
 var get_seconds_from_data_diff = function(date_string) {

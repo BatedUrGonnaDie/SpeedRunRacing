@@ -5,7 +5,9 @@ class RacesController < ApplicationController
 
   def show
     @race = Race.includes(:game, :category, :entrants, :users).find(params[:id])
+    @chat_messages = @race.chat_messages.includes(:user)
     gon.race = @race
+    gon.chat_room = @race.chat_room
   end
 
   def completed
