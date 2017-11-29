@@ -12,7 +12,7 @@ class TwitchController < ApplicationController
   end
 
   def failure
-    redirect_to redirect_path, alert: "Error: #{params[:message]}"
+    redirect_to root_path, alert: "Error: #{params[:message]}"
   end
 
   private
