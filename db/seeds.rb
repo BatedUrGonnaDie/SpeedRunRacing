@@ -9,10 +9,10 @@
 games = Game.create([
   {name: 'Super Mario Sunshine', shortname: 'sms',
     weblink: 'https://www.speedrun.com/sms', cover_large: 'https://www.speedrun.com/themes/sms/cover-256.png',
-    cover_small: 'https://www.speedrun.com/themes/sms/cover-32.png', srdc_id: '1kgr75w4'}
+    cover_small: 'https://www.speedrun.com/themes/sms/cover-32.png', srdc_id: 'v1pxjz68'}
 ])
 
 Category.create([
-  {name: 'Any%', game: games.first, weblink: 'https://www.speedrun.com/sms#Any%'},
-  {name: '120 Shines', game: games.first, weblink: 'https://www.speedrun.com/sms#120_Shines'}
+  {name: 'Any%', game: games.first, weblink: 'https://www.speedrun.com/sms#Any%', srdc_id: 'n2y3r8do'},
+  {name: '120 Shines', game: games.first, weblink: 'https://www.speedrun.com/sms#120_Shines', srdc_id: 'z27o9gd0'}
 ])
