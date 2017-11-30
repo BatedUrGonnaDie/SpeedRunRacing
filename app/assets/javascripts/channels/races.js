@@ -96,7 +96,7 @@ var update_entrant_tables = function(race) {
     var e = race.entrants[i];
     var row = $("tr#entrant-id-" + e.id);
     if (row.length){
-      row.find(".name-column").html(e.user.display_name);
+      row.find(".name-column").text(e.user.display_name);
       var cls;
       if (e.ready)
         cls = "glyphicon glyphicon-ok text-success";
