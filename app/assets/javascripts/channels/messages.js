@@ -60,7 +60,7 @@ $(document).on("turbolinks:load", function() {
 
 var append_message = function(time, name, body) {
   var list = $("#message-list");
-  var scroll = list.prop("scrollHeight") - list.scrollTop() == list.height();
+  var scroll = list.prop("scrollHeight") - list.scrollTop() == list.outerHeight();
   var $new_item = $("<li />").addClass("chat-message");
   $new_item.append($("<span />").addClass("chat-timestamp").text(format_timestamp(time)));
   $new_item.append($("<span />").addClass("chat-name").text(name));
