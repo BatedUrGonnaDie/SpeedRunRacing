@@ -47,6 +47,6 @@
   %form#new-message-form{action: '#'}
     %span
       = label_tag "message-input-box", "Message Body Input", class: "sr-only"
-      = text_field_tag "message-input-box", nil, class: "form-control", placeholder: "Message..."
+      = text_field_tag "message-input-box", nil, class: "form-control", placeholder: "Message...", disabled: current_user.nil?, autocomplete: 'off'
     %span
-      = submit_tag "Send", class: "btn btn-primary", id: "btn-message-send"
+      = submit_tag "Send", class: "btn btn-primary", id: "btn-message-send", disabled: current_user.nil?

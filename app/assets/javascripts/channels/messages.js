@@ -43,7 +43,7 @@ $(document).on("turbolinks:load", function() {
     $("#new-message-form").submit(function(e) {
       var message_box = $("#message-input-box");
       var message = message_box.val();
-      if ($.trim(message.length) > 1) {
+      if ($.trim(message.length) > 1 && App.messages) {
         App.messages.send_message(message);
         message_box.val("");
       }
@@ -68,5 +68,5 @@ var append_message = function(time, name, body) {
   $new_item.append($("<span />").addClass("chat-body").text(body));
   list.append($new_item);
   if (scroll)
-    list.scrollTop(list.prop("scrollHeight"));
+    list.animate({scrollTop: list.prop("scrollHeight")});
 };

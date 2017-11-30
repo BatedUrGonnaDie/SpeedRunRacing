@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => "/cable"
 
   devise_for :users
-  get '/users/:user', to: 'users#index', as: :user_public_profile
+  get '/users/:username', to: 'users#index', as: :user_public_profile
 
   get '/auth/failure',             to: 'twitch#failure'
   get '/auth/:provider/callback',  to: 'twitch#create'
