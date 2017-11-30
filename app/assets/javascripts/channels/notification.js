@@ -80,6 +80,10 @@ $(document).on("turbolinks:load", function() {
           case "race_abandon_failure":
             push_alert("Race couldn't be abandoned!<br>" + data.reason, "danger");
             break;
+
+          case "chat_message_create_failure":
+            push_alert("Error creating message!<br>" + data.reason, "danger");
+            break;
           default:
             console.log("Default case reached for notifications");
             console.log(data);
