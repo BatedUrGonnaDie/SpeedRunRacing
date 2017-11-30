@@ -25,6 +25,8 @@ $(document).on("turbolinks:load", function() {
             var counter = new Countdown({
               start_time: data.race.start_time,
               on_update_status: function(sec, options) {
+                if (sec > 10)
+                  return;
                 $("#race-start-text").html("RACE STARTING IN: " + sec + " Seconds");
               },
               on_end_status: start_race,
