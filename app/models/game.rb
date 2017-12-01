@@ -4,6 +4,10 @@ class Game < ApplicationRecord
 
   validates :srdc_id, uniqueness: true
 
+  def self.searchable_columns
+    %i[name shortname]
+  end
+
   def to_param
     shortname
   end

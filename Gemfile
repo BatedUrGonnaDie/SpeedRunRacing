@@ -24,10 +24,11 @@ gem 'figaro'
 # Databases and Information Storage
 gem 'pg'
 gem 'redis', '~> 3.0'
+gem 'textacular', '~> 5.0'
 
 # External Communications
 gem 'httparty'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 
 # Framework and Servers
 gem 'puma'

@@ -12,6 +12,10 @@ class User < ApplicationRecord
   validates_uniqueness_of :username
   validates_with DisplayNameValidator
 
+  def self.searchable_columns
+    [:username]
+  end
+
   def active_races
     races.active
   end
