@@ -27,6 +27,7 @@ gem 'redis', '~> 3.0'
 
 # External Communications
 gem 'httparty'
+gem 'rack-cors', :require => 'rack/cors'
 
 # Framework and Servers
 gem 'puma'

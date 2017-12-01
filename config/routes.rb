@@ -15,5 +15,9 @@ Rails.application.routes.draw do
 
   resources :games, only: [:show, :index]
 
-  post '/timesync', to: 'time#timesync', as: :timesync
+  namespace :api do
+    namespace :v1 do
+      post '/timesync', to: 'time#create', as: :timesync
+    end
+  end
 end

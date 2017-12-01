@@ -1,5 +1,5 @@
 var ts = timesync.create({
-  server: '/timesync',
+  server: '/api/v1/timesync',
   interval: 10 * 60 * 1000
 });
 
