@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   resources :games, only: [:show, :index]
 
+  get '/search(?q=:q)', to: 'search#search', as: :search
+
   namespace :api do
     namespace :v1 do
       post '/timesync', to: 'time#create', as: :timesync

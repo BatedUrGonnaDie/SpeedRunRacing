@@ -38,7 +38,6 @@ gem 'rails'
 gem 'gon'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'twitter-typeahead-rails'
 
 # Jobs
 gem 'delayed_job_active_record'

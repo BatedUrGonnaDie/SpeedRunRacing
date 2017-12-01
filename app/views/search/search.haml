@@ -1,0 +1,39 @@
+= provide(:title, 'Search')
+.col-md-6.col-sm-12
+  - if @games.empty?
+    %h3.center No games found ;-;
+  - else
+    .panel.panel-default
+      .panel-heading Races
+      %table.panel-body.table.table-striped.table-hover
+        %thead
+          %tr
+            %th Cover
+            %th Name
+            %th Shortname
+            %th # of Races
+        %tbody
+          - @games.each do |game|
+            %tr
+              %td
+                %img{src: game.cover_small}
+              %td= link_to game.name, game_path(game)
+              %td= game.shortname
+              %td= game.completed_races_count
+
+.col-md-6.col-sm-12
+  - if @users.empty?
+    %h3.center No users found ;-;
+  - else
+    .panel.panel-default
+      .panel-heading Users
+      %table.panel-body.table.table-striped.table-hover
+        %thead
+          %tr
+            %th Display Name
+            %th # of Races
+        %tbody
+          - @users.each do |user|
+            %tr
+              %td= user.display_name
+              %td= user.races.count

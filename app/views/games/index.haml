@@ -2,23 +2,20 @@
 
 .panel.panel-default
   .panel-heading Games
-  .panel-body
-    .center
-      = paginate @games, theme: 'twitter-bootstrap-3'
-    %table.table.table-striped.table-hover
-      %thead
+  %table.panel-body.table.table-striped.table-hover
+    %thead
+      %tr
+        %th Cover
+        %th Name
+        %th Shortname
+        %th # of Races
+    %tbody
+      - @games.each do |game|
         %tr
-          %th Cover
-          %th Name
-          %th Shortname
-          %th # of Races
-      %tbody
-        - @games.each do |game|
-          %tr
-            %td
-              %img{src: game.cover_small}
-            %td= link_to game.name, game_path(game)
-            %td= game.shortname
-            %td= game.completed_races_count
-    .center
-      = paginate @games, theme: 'twitter-bootstrap-3'
+          %td
+            %img{src: game.cover_small}
+          %td= link_to game.name, game_path(game)
+          %td= game.shortname
+          %td= game.completed_races_count
+  .center
+    = paginate @games, theme: 'twitter-bootstrap-3'

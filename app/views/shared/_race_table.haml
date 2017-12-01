@@ -1,40 +1,39 @@
 .panel.panel-default
   .panel-heading= description
-  .panel-body
-    %table.table.table-striped.table-hover{id: id}
-      %thead
-        %tr
+  %table.panel-body.table.table-striped.table-hover{id: id}
+    %thead
+      %tr
+        - if cols.include?(:cover)
+          %th Game & Category
+        - if cols.include?(:game_cat)
+          %th= 'Game & Category' unless cols.include?(:cover)
+        - if cols.include?(:entrants)
+          %th Entrants
+        - if cols.include?(:status_text)
+          %th Status
+        - if cols.include?(:duration)
+          %th Time
+        - if cols.include?(:finished)
+          %th Finished
+    %tbody
+      - races.each do |race|
+        %tr{id: "race-id-#{race.id}", data: {race_id: race.id}}
           - if cols.include?(:cover)
-            %th Game & Category
+            %td.cover-column
+              %img{src: race.game.cover_small}
           - if cols.include?(:game_cat)
-            %th= 'Game & Category' unless cols.include?(:cover)
+            %td.game-cat-column= link_to "#{race.game.name} - #{race.category.name}", race_path(race)
           - if cols.include?(:entrants)
-            %th Entrants
+            %td.entrants-column= race.entrants.count
           - if cols.include?(:status_text)
-            %th Status
+            %td.status-column{class: race_color(race)}= race.status_text
           - if cols.include?(:duration)
-            %th Time
+            %td.duration-column
+              - if race.finished?
+                .format-time= race.duration
+              - elsif race.started?
+                .updating-time{data: {start_time: iso_time_string(race.start_time)}}= race.start_time
+              - else
+                = "-"
           - if cols.include?(:finished)
-            %th Finished
-      %tbody
-        - races.each do |race|
-          %tr{id: "race-id-#{race.id}", data: {race_id: race.id}}
-            - if cols.include?(:cover)
-              %td.cover-column
-                %img{src: race.game.cover_small}
-            - if cols.include?(:game_cat)
-              %td.game-cat-column= link_to "#{race.game.name} - #{race.category.name}", race_path(race)
-            - if cols.include?(:entrants)
-              %td.entrants-column= race.entrants.count
-            - if cols.include?(:status_text)
-              %td.status-column{class: race_color(race)}= race.status_text
-            - if cols.include?(:duration)
-              %td.duration-column
-                - if race.finished?
-                  .format-time= race.duration
-                - elsif race.started?
-                  .updating-time{data: {start_time: iso_time_string(race.start_time)}}= race.start_time
-                - else
-                  = "-"
-            - if cols.include?(:finished)
-              %td.time-since-column.format-past= iso_time_string(race.start_time)
+            %td.time-since-column.format-past= iso_time_string(race.start_time)
