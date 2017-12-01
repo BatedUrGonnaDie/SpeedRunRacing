@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'races#index'
-  mount ActionCable.server => "/cable"
+  mount ActionCable.server => '/cable'
+
+  get '/faq', to: 'static#faq', as: :faq
 
   devise_for :users
   get '/users/:username', to: 'users#index', as: :user_public_profile
