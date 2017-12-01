@@ -13,8 +13,6 @@ $(document).on("turbolinks:load", function() {
 
       received: function(data) {
         // Called when there's incoming data on the websocket for this channel
-        console.log("Races received");
-        console.log(data);
         switch (data.update) {
           case "race_entrants_updated":
             update_entrant_tables(data.race);

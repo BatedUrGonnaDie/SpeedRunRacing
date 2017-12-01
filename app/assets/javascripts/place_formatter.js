@@ -20,5 +20,5 @@ var format_place = function(place_string) {
   if (suffix === undefined)
     suffix = "th";
   place_string = "" + place_string;
-  return place_string.replace(/\s/g, '') + suffix;
+  return place_string.replace(/\s/g, '') + "<sup>" + suffix + "</sup>";
 };
