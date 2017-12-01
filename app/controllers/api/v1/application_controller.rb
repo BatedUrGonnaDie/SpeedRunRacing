@@ -6,6 +6,6 @@ class Api::V1::ApplicationController < ActionController::Base
   private
 
   def force_ssl
-    render status: 301, json: {status: 301, error: "SSL is required to access SRR's API."} unless request.ssl?
+    render status: 301, json: {status: 301, error: "HTTPS is required to access SRR's API."} unless request.ssl?
   end
 end

@@ -2,7 +2,7 @@
   %header.navbar.navbar-static-top.navbar-inverse
     .container
       .navbar-header
-        %button.navbar-toggle.collapsed{type: "button", "data-toggle" => "collapse", "data-target" => "#global-nav"}
+        %button.navbar-toggle.collapsed{type: "button", data: {toggle: "collapse", target: "#global-nav"}}
           %span.sr-only Toggle navigation
           %span.icon-bar
           %span.icon-bar
@@ -12,20 +12,27 @@
       .collapse.navbar-collapse#global-nav
         %ul.nav.navbar-nav
           %li.dropdown
-            %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
+            %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
               Races
               %span.caret
-            %ul.dropdown-menu{"role" => "menu"}
+            %ul.dropdown-menu{role: "menu"}
               %li= link_to "Actice Races", races_path
               %li= link_to "Completed Races", completed_races_path
           %li= link_to "Games", games_path
+          %li= link_to "FAQ", faq_path
+          %li.dropdown
+            %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
+              Misc
+              %span.caret
+            %ul.dropdown-menu{role: "menu"}
+              %li= link_to "Source", "https://github.com/batedurgonnadie/speedrunracing", target: :_blank
         %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
             %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", "href" => "#"}
+              %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
                 = current_user.display_name
                 %span.caret
-              %ul.dropdown-menu{"role" => "menu"}
+              %ul.dropdown-menu{role: "menu"}
                 %li= link_to "View Profile", user_public_profile_path(current_user)
                 %li.divider{role: "separator"}
                 %li= link_to "Edit Profile", edit_user_registration_path
