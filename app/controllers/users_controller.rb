@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
   def index
-    @user = User.find_by(username: params[:username])
+    @user = User.includes(:races).find_by(username: params[:username])
   end
 end

@@ -17,4 +17,4 @@
             %h3
               %button{'class' => 'btn btn-default btn-create-race', 'data-category' => "#{c.id}"}
                 = "Create Race for #{c.name}"
-          = render partial: 'shared/race_table', locals: race_table_locals(:category_races, c.races.completed.order(finish_time: :desc), options)
+          = render partial: 'shared/race_table', locals: race_table_locals(:category_races, c.races.completed.newest, options)

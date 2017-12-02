@@ -13,6 +13,7 @@ class Race < ApplicationRecord
 
   scope :active, -> { includes(:game, :category, :entrants).where(status_text: Race::ACTIVE_RACES) }
   scope :completed, -> { includes(:game, :category, :entrants).where(status_text: Race::ENDED) }
+  scope :newest, -> { order(finish_time: :desc) }
 
   def in_progress?
     status_text == Race::PROGRESS

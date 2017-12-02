@@ -38,6 +38,13 @@ module RacesHelper
         description: options[:description],
         id: options[:id]
       }
+    when :user_races
+      {
+        races: races,
+        cols: %i[cover game_cat entrants duration finished],
+        description: options[:description],
+        id: options[:id]
+      }.merge(sorting_info)
     else
       raise Error
     end

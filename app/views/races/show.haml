@@ -33,10 +33,10 @@
               %td.ready-column
                 %i.glyphicon{class: e.ready ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'}
               %td.time-column
-                .format-time
+                .format-time>
                   = e.completed? ? e.duration : '-'
               %td.place-column
-                .format-place= e.place.present? ? e.place : '-'
+                .format-place>= e.place.present? ? e.place : '-'
 
 #chat-box
   #chat-menu.center Chat

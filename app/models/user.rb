@@ -16,6 +16,10 @@ class User < ApplicationRecord
     [:username]
   end
 
+  def to_param
+    username
+  end
+
   def active_races
     races.active
   end
