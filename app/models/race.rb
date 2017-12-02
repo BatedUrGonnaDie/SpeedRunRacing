@@ -29,6 +29,10 @@ class Race < ApplicationRecord
     entrants.where(user_id: user.id).try(:[], 0)
   end
 
+  def user_twitch_ids
+    users.map(&:twitch_id)
+  end
+
   def started?
     start_time.present?
   end
