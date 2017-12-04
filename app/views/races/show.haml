@@ -13,7 +13,7 @@
     .col-md-4.col-sm-12
       %h4
         %span Race Time:
-        %span#race-duration.format-time{class: @race.started? ? "updating-time" : "", data: {start_time: iso_time_string(@race.start_time)}}
+        %span#race-duration.format-time{class: @race.in_progress? ? "updating-time" : "", data: {start_time: iso_time_string(@race.start_time)}}
           = @race.started? ? @race.duration : "0:00"
 
   .col-md-4.col-sm-12

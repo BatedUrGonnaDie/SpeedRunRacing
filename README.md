@@ -27,3 +27,11 @@ in browser racing~~ Completed
 6. ~~Chat rooms and messages for race rooms~~ Completed (basic functionality done)
 7. Read-only developer JSON REST API
 8. Developer access to the websocket interface to allow write access to 3rd party applications
+
+dump from tests
+add x in time column on forfeits
+makes sm -> xs
+sort entrants table by place (FF anchor bottom)
+leave page unready entrant
+make chat not go down on entry join/leave
+back to current race
