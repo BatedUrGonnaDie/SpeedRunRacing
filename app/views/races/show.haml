@@ -38,7 +38,7 @@
               %td.place-column
                 .format-place>= e.place.present? ? e.place : '-'
 
-#chat-box
+#chat-box.col-md-8
   #chat-menu.center Chat
   %ol#message-list
     - @chat_messages.includes(:user).each do |msg|
