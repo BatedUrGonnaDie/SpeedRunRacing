@@ -1,44 +1,43 @@
 = provide(:title, "#{@race.game.name} - #{@race.category.name}")
-.row
-  .col-md-8
-    .col-md-8.col-sm-12
-      %h4
-        = link_to "#{@race.game.name}", game_path(@race.game)
-        = " - #{@race.category.name}"
-    = render partial: 'shared/race_buttons'
-    .col-md-8.col-sm-12
-      %h4
-        #race-status-text{class: race_color(@race)}
-          = @race.status_text
-    .col-md-4.col-sm-12
-      %h4
-        %span Race Time:
-        %span#race-duration.format-time{class: @race.in_progress? ? "updating-time" : "", data: {start_time: iso_time_string(@race.start_time)}}
-          = @race.started? ? @race.duration : "0:00"
-
-  .col-md-4.col-sm-12
-    #entrants-list
-      %table.table.table-hover
-        %thead
-          %tr
-            %th Entrants
-            %th Ready?
-            %th Time
-            %th Place
-        %tbody
-          - @race.entrants.each do |e|
-            %tr{'id' => "entrant-id-#{e.id}", 'data-entrant-id' => e.id}
-              %td.name-column
-                = e.user.display_name
-              %td.ready-column
-                %i.glyphicon{class: e.ready ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'}
-              %td.time-column
-                .format-time>
-                  = e.completed? ? e.duration : '-'
-              %td.place-column
-                .format-place>= e.place.present? ? e.place : '-'
-
 .col-md-8
+  .col-md-8.col-xs-12
+    %h4
+      = link_to "#{@race.game.name}", game_path(@race.game)
+      = " - #{@race.category.name}"
+  = render partial: 'shared/race_buttons'
+  .col-md-8.col-xs-12
+    %h4
+      #race-status-text{class: race_color(@race)}
+        = @race.status_text
+  .col-md-4.col-xs-12
+    %h4
+      %span Race Time:
+      %span#race-duration.format-time{class: @race.in_progress? ? "updating-time" : "", data: {start_time: iso_time_string(@race.start_time)}}
+        = @race.started? ? @race.duration : "0:00"
+
+.col-md-4.col-xs-12.pull-right
+  #entrants-list
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Entrants
+          %th Ready?
+          %th Time
+          %th Place
+      %tbody
+        - @race.entrants.each do |e|
+          %tr{'id' => "entrant-id-#{e.id}", 'data-entrant-id' => e.id}
+            %td.name-column
+              = e.user.display_name
+            %td.ready-column
+              %i.glyphicon{class: e.ready ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'}
+            %td.time-column
+              .format-time>
+                = e.completed? ? e.duration : '-'
+            %td.place-column
+              .format-place>= e.place.present? ? e.place : '-'
+
+.col-md-8.col-xs-12
   #chat-box
     #chat-menu.center Chat
     %ol#message-list

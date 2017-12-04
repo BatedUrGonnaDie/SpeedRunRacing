@@ -46,7 +46,9 @@ var format_past = function(date_string) {
 };
 
 var format_timestamp = function(date_string) {
-  var m = moment(date_string);
+  var m = moment(date_string, moment.ISO_8601);
+  if (!m.isValid())
+    return date_string;
   var formatted_time = "" + m.hours() + ":";
   if (m.minutes() < 10)
     formatted_time += "0";

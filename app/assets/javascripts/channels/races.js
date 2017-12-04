@@ -104,14 +104,12 @@ var update_entrant_tables = function(race) {
       row.find(".time-column .format-time").html(format_time(e.duration || "-"));
       row.find(".place-column .format-place").html(format_place(e.place || "-"));
     } else {
-      var new_row = "";
-      new_row += "<tr id='entrant-id-" + e.id + "' data-entrant-id='" + e.id + "'>";
-      new_row += "<td class='name-column'>" + e.user.display_name + "</td>";
-      new_row += "<td class='ready-column'><i class='glyphicon glyphicon-remove text-danger' /></td>";
-      new_row += "<td class='time-column'><div class='format-time'>-</div></td>";
-      new_row += "<td class='place-column'><div class='format-place'>-</div></td>";
-      new_row += "</tr>";
-      $("#entrants-list tbody").append(new_row);
+      var $new_row = $("<tr />").attr("data-entrant-id", e.id).prop("id", "entrant-id-" + e.id);
+      $new_row.append($("<td />").addClass("name-column").text(e.user.display_name));
+      $new_row.append($("<td />").addClass("ready-column").append($("<i />").addClass("glyphicon glyphicon-remove text-danger")));
+      $new_row.append($("<td />").addClass("time-column").append($("<div />").addClass("format-time").text("-")));
+      $new_row.append($("<td />").addClass("place-column").append($("<div />").addClass("format-place").text("-")));
+      $("#entrants-list tbody").append($new_row);
     }
   }
   if (race.entrants.length < $("#entrants-list tbody tr").length) {
