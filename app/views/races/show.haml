@@ -38,15 +38,16 @@
               %td.place-column
                 .format-place>= e.place.present? ? e.place : '-'
 
-#chat-box.col-md-8
-  #chat-menu.center Chat
-  %ol#message-list
-    - @chat_messages.includes(:user).each do |msg|
-      %li.chat-message= render partial: "shared/chat_message", locals: {chat_message: msg}
-#message-input
-  %form#new-message-form{action: '#'}
-    %span
-      = label_tag "message-input-box", "Message Body Input", class: "sr-only"
-      = text_field_tag "message-input-box", nil, class: "form-control", placeholder: "Message...", disabled: current_user.nil?, autocomplete: 'off'
-    %span
-      = submit_tag "Send", class: "btn btn-primary", id: "btn-message-send", disabled: current_user.nil?
+.col-md-8
+  #chat-box
+    #chat-menu.center Chat
+    %ol#message-list
+      - @chat_messages.includes(:user).each do |msg|
+        %li.chat-message= render partial: "shared/chat_message", locals: {chat_message: msg}
+  #message-input
+    %form#new-message-form{action: '#'}
+      %span
+        = label_tag "message-input-box", "Message Body Input", class: "sr-only"
+        = text_field_tag "message-input-box", nil, class: "form-control", placeholder: "Message...", disabled: current_user.nil?, autocomplete: 'off'
+      %span
+        = submit_tag "Send", class: "btn btn-primary", id: "btn-message-send", disabled: current_user.nil?
