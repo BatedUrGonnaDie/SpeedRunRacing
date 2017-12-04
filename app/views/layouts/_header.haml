@@ -28,6 +28,10 @@
               %li= link_to "Source", "https://github.com/batedurgonnadie/speedrunracing", target: :_blank
         %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
+            - if current_user.in_active_race? && (live_path = race_path(current_user.active_races.first)) != request.path
+              %li#live-race-button
+                %p.navbar-btn
+                  %a.btn.btn-primary{href: live_path} Live Race!
             %li.dropdown
               %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
                 = current_user.display_name

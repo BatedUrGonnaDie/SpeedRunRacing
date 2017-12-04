@@ -30,8 +30,4 @@ in browser racing~~ Completed
 
 dump from tests
 add x in time column on forfeits
-makes sm -> xs
 sort entrants table by place (FF anchor bottom)
-leave page unready entrant
-make chat not go down on entry join/leave
-back to current race

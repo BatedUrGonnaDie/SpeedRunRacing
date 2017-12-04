@@ -84,6 +84,7 @@ $(document).on("turbolinks:load", function() {
 
 $(document).on("page:before-change turbolinks:before-visit", function() {
   if (App.races !== undefined) {
+    App.races.unready();
     App.cable.subscriptions.remove(App.races);
     delete App.races;
   }
