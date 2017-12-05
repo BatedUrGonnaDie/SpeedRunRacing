@@ -27,7 +27,7 @@ $(document).on("turbolinks:load", function() {
             if ($("#active-race-table").length) {
               $(selector).prepend(data.html);
             } else {
-              if (window.location.toString() == "/")
+              if (window.location.pathname == "/")
                 Turbolinks.visit(window.location.toString(), { action: 'replace' });
             }
             break;
