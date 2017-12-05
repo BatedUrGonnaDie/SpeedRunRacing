@@ -60,19 +60,15 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'flamegraph'
   gem 'listen'
-  gem 'memory_profiler'
   gem 'meta_request'
   gem 'pry-rails'
-  gem 'rack-mini-profiler'
-  gem 'rails-erd', require: false
   gem 'rubocop', require: false
-  gem 'stackprof'
 end
 
 group :production do
   gem 'rollbar'
 end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

@@ -31,6 +31,5 @@ in browser racing~~ Completed
 dump from tests
 add x in time column on forfeits
 sort entrants table by place (FF anchor bottom) (completed in ruby already)
-update entrants on main channel
 easier to create races
 create race form
