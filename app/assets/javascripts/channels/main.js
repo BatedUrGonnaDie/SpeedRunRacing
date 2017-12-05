@@ -24,10 +24,12 @@ $(document).on("turbolinks:load", function() {
         switch (data.status) {
           case "race_created":
             selector = "#active-race-table tbody";
-            if ($("#active-race-table").length)
+            if ($("#active-race-table").length) {
               $(selector).prepend(data.html);
-            else
-              Turbolinks.visit(window.location.toString(), { action: 'replace' });
+            } else {
+              if (window.location.toString() == "/")
+                Turbolinks.visit(window.location.toString(), { action: 'replace' });
+            }
             break;
           case "race_entrants_updated":
             selector = "#active-race-table tbody tr#race-id-" + data.race.id;
