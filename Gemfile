@@ -8,6 +8,7 @@ end
 
 # API Generation
 gem 'active_model_serializers'
+gem 'api-pagination'
 
 # Asset Generation
 gem 'sass-rails'

@@ -1,6 +1,4 @@
 class Api::V1::ApplicationController < ActionController::API
-  # include Rails::Pagination
-
   before_action :force_ssl, if: -> { Rails.env.production? }
 
   private
