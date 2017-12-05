@@ -17,25 +17,29 @@
 
 .col-md-4.col-xs-12.pull-right
   #entrants-list
-    %table.table.table-hover
-      %thead
-        %tr
-          %th Entrants
-          %th Ready?
-          %th Time
-          %th Place
-      %tbody
-        - @race.sorted_entrants.each do |e|
-          %tr{'id' => "entrant-id-#{e.id}", 'data-entrant-id' => e.id}
-            %td.name-column
-              = e.user.display_name
-            %td.ready-column
-              %i.glyphicon{class: e.ready ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'}
-            %td.time-column
-              .format-time>
-                = e.completed? ? e.duration : '-'
-            %td.place-column
-              .format-place>= e.place.present? ? e.place : '-'
+    .panel
+      .panel-heading.panel-title.center
+        %a{href: '#entrants-table', data: {toggle: "collapse"}} Entrants List
+      #entrants-table.panel-collapse.collapse{class: @race.entrants.count <= 5 ? 'in' : ''}
+        %table.panel-body.table.table-hover
+          %thead
+            %tr
+              %th Entrant
+              %th Ready?
+              %th Time
+              %th Place
+          %tbody
+            - @race.sorted_entrants.each do |e|
+              %tr{'id' => "entrant-id-#{e.id}", 'data-entrant-id' => e.id}
+                %td.name-column
+                  = e.user.display_name
+                %td.ready-column
+                  %i.glyphicon{class: e.ready ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'}
+                %td.time-column
+                  .format-time>
+                    = e.completed? ? e.duration : '-'
+                %td.place-column
+                  .format-place>= e.place.present? ? e.place : '-'
 
 .col-md-8.col-xs-12
   #chat-box
