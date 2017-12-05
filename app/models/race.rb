@@ -94,13 +94,25 @@ class Race < ApplicationRecord
   def sorted_entrants
     entrants.sort do |x, y|
       if x.place.nil?
-        1
+        if y.place.nil?
+          0
+        elsif y.place < 0
+          -1
+        else
+          1
+        end
       elsif y.place.nil?
-        1
+        if x.place.nil?
+          0
+        elsif x.place < 0
+          1
+        else
+          -1
+        end
       elsif x.place < 0
         1
       elsif y.place < 0
-        1
+        -1
       else
         x.place <=> y.place
       end
