@@ -90,4 +90,20 @@ class Race < ApplicationRecord
       (Time.now.utc - start_time)
     end
   end
+
+  def sorted_entrants
+    entrants.sort do |x, y|
+      if x.place.nil?
+        1
+      elsif y.place.nil?
+        1
+      elsif x.place < 0
+        1
+      elsif y.place < 0
+        1
+      else
+        x.place <=> y.place
+      end
+    end
+  end
 end
