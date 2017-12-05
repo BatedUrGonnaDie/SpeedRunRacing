@@ -1,7 +1,7 @@
 class MainBroadcastJob < ApplicationJob
   queue_as :default
 
-  def perform(status, race = nil, extras = {})
+  def perform(status, race, extras = {})
     ActionCable.server.broadcast(
       'main_channel',
       generate_msg(status, race, extras)

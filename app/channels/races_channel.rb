@@ -15,6 +15,7 @@ class RacesChannel < ApplicationCable::Channel
     if entrant.save
       notify_race('race_entrants_updated')
       notify_user('race_join_success', false)
+      notify_main('race_entrants_updated')
     else
       notify_user('race_join_failure', true, reason: get_errors_sentence(entrant))
     end
@@ -27,6 +28,7 @@ class RacesChannel < ApplicationCable::Channel
     if entrant.part
       notify_race('race_entrants_updated')
       notify_user('race_part_success', false)
+      notify_main('race_entrants_updated')
     else
       notify_user('race_part_failure', true, reason: get_errors_sentence(entrant))
     end
@@ -109,5 +111,9 @@ class RacesChannel < ApplicationCable::Channel
 
   def notify_race(msg)
     RaceBroadcastJob.perform_later(@race, msg)
+  end
+
+  def notify_main(status, extras = {})
+    MainBroadcastJob.perform_later(status, @race, extras)
   end
 end

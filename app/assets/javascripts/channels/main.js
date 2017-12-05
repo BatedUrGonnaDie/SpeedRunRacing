@@ -23,9 +23,16 @@ $(document).on("turbolinks:load", function() {
         var selector;
         switch (data.status) {
           case "race_created":
-          selector = "#active-race-table tbody";
-            if ($("#active-race-table").length) {
+            selector = "#active-race-table tbody";
+            if ($("#active-race-table").length)
               $(selector).prepend(data.html);
+            else
+              Turbolinks.visit(window.location.toString(), { action: 'replace' });
+            break;
+          case "race_entrants_updated":
+            selector = "#active-race-table tbody tr#race-id-" + data.race.id;
+            if ($(selector).length) {
+              $(selector).find(".entrants-column").text(data.race.entrants.length);
             }
             break;
           case "race_completed":
@@ -37,10 +44,10 @@ $(document).on("turbolinks:load", function() {
             selector = "#active-race-table tbody tr#race-id-" + data.race.id;
             if ($(selector).length) {
               setTimeout(function() {
-                $(selector + " .duration-column")
+                $(selector).find(".duration-column")
                   .html("<div class='updating-time' data-start-time='" + data.race.start_time + "'>0:00</div>");
               }, Math.abs(get_seconds_from_data_diff(data.race.start_time) * 1000));
-              $(selector + " .status-column").addClass("text-warning").removeClass("text-success").html(data.race.status_text);
+              $(selector).find(".status-column").addClass("text-warning").removeClass("text-success").text(data.race.status_text);
             }
             break;
           default:
