@@ -67,6 +67,10 @@ group :development do
   gem 'rubocop', require: false
 end
 
+group :test do
+  gem 'rspec-rails', require: false
+end
+
 group :production do
   gem 'rollbar'
 end

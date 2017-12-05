@@ -29,7 +29,13 @@ in browser racing~~ Completed
 8. Developer access to the websocket interface to allow write access to 3rd party applications
 
 dump from tests
+
 add x in time column on forfeits
+
 sort entrants table by place (FF anchor bottom) (completed in ruby already)
+
 easier to create races
+
 create race form
+
+
