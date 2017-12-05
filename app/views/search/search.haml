@@ -35,5 +35,5 @@
         %tbody
           - @users.each do |user|
             %tr
-              %td= user.display_name
+              %td= link_to user.display_name, user_public_profile_path(user)
               %td= user.races.count
