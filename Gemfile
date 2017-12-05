@@ -68,7 +68,10 @@ group :development do
 end
 
 group :test do
+  gem 'action-cable-testing'
+  gem 'factory_bot_rails'
   gem 'rspec-rails', require: false
+  gem 'simplecov', require: false
 end
 
 group :production do

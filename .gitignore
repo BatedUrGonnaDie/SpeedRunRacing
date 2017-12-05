@@ -24,3 +24,5 @@ config/application.yml
 
 node_modules/*
 .DS_store
+
+/coverage/*
