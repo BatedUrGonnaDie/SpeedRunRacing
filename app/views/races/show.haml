@@ -20,7 +20,8 @@
     .panel
       .panel-heading.panel-title.center{data: {toggle: "collapse", target: '#entrants-table'}}
         Entrants List
-      #entrants-table.panel-collapse.collapse{class: @race.entrants.count <= 5 ? 'in' : ''}
+      - show_list = @race.entrants.count <= 5 || @race.finished?
+      #entrants-table.panel-collapse.collapse{class: show_list ? 'in' : ''}
         %table.panel-body.table.table-hover
           %thead
             %tr
