@@ -29,3 +29,9 @@
     font-size: 3em;
     z-index: 1000;
 }
+
+#entrants-list {
+    .panel-heading {
+        cursor: pointer;
+    }
+}

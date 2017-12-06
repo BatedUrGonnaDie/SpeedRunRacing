@@ -18,8 +18,8 @@
 .col-md-4.col-xs-12.pull-right
   #entrants-list
     .panel
-      .panel-heading.panel-title.center
-        %a{href: '#entrants-table', data: {toggle: "collapse"}} Entrants List
+      .panel-heading.panel-title.center{data: {toggle: "collapse", target: '#entrants-table'}}
+        Entrants List
       #entrants-table.panel-collapse.collapse{class: @race.entrants.count <= 5 ? 'in' : ''}
         %table.panel-body.table.table-hover
           %thead
