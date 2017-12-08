@@ -62,7 +62,7 @@ class Race < ApplicationRecord
   end
 
   def finish
-    return if finished?
+    return unless in_progress?
     update(
       finish_time: entrants.order('entrants.place DESC').limit(1).first.finish_time,
       status_text: Race::ENDED
