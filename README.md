@@ -2,6 +2,13 @@
 
 A modern racing website for speedrunners to compete against eachother.
 
+# BETA WARNING
+
+The site currently residing at [speedrunracing.com](https://speedrunracing.com) is currently
+beta status, and will have a full db wipe performed on it before a full release is made.
+Any accounts made or races done prior to the release will be lost.
+
+
 # Development
 
 ### Requirements
