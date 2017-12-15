@@ -62,13 +62,12 @@ Rails.application.configure do
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.default_url_options = { :host => ENV['MAILER_HOST'] }
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: '587',
-    domain: 'gmail.com',
+    address: ENV['EMAIL_HOSTNAME'],
+    port: ENV['EMAIL_PORT'],
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
+    user_name: ENV['EMAL_USERNAME'],
+    password: ENV['EMAIL_PASSWORD']
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
