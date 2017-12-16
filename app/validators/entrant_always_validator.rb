@@ -6,7 +6,7 @@ class EntrantAlwaysValidator < ActiveModel::Validator
   private
 
   def validate_entrant_record(entrant)
-    # entrant.errors[:base] << 'User MUST link Twitch account to race.' if entrant.user.twitch_id.nil?
+    entrant.errors[:base] << 'User MUST link Twitch account to race.' if entrant.user.twitch_id.nil?
     entrant.errors[:base] << 'Entrant is disqualified' if entrant.place == Entrant::DISQUALIFIED
   end
 end
