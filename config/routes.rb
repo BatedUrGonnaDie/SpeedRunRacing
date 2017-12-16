@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root to: 'races#index'
   mount ActionCable.server => '/cable'
 
+  get '/health', to: 'static#health'
+
   get '/faq', to: 'static#faq', as: :faq
 
   devise_for :users
