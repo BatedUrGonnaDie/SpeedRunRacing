@@ -21,9 +21,9 @@ class Entrant < ApplicationRecord
     end
   end
 
-  def done
+  def done(server_time)
     return false unless race.in_progress?
-    update(finish_time: Time.now.utc, place: (race.entrants.completed.count + 1))
+    update(finish_time: Time.parse(server_time), place: (race.entrants.completed.count + 1))
   end
 
   def rejoin

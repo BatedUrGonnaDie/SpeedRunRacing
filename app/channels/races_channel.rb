@@ -86,11 +86,11 @@ class RacesChannel < ApplicationCable::Channel
     end
   end
 
-  def done
+  def done(data)
     update_race_instance
     return unless @race.in_progress?
     entrant = Entrant.find_by(user: current_user, race: @race)
-    if entrant.done
+    if entrant.done(data['server_time'])
       notify_race('race_entrants_updated')
       notify_user('race_done_success', false)
       @race.finish_if_possible

@@ -40,7 +40,7 @@ $(document).on("turbolinks:load", function() {
 
   if ($(".btn-done-race").length) {
     $(".btn-done-race").click(function() {
-      App.races.done();
+      App.races.done(moment(ts.now()).toISOString());
     });
   }
 

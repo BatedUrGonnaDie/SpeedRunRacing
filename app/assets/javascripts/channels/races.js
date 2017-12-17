@@ -3,12 +3,18 @@ $(document).on("turbolinks:load", function() {
     App.races = App.cable.subscriptions.create({channel: "RacesChannel", race_id: gon.race.id}, {
       connected: function() {
         // Called when the subscription is ready for use on the server
-        console.log("We are live in races bois");
+        gon.race_channel_connected = true;
+        var name = "race_" + gon.race.id + "_time";
+        var time = localStorage.getItem(name);
+        if (time !== null) {
+          localStorage.removeItem(name);
+          this.done(time);
+        }
       },
 
       disconnected: function() {
         // Called when the subscription has been terminated by the server
-        console.log("We dead now in races bois");
+        gon.race_channel_connected = false;
       },
 
       received: function(data) {
@@ -71,8 +77,12 @@ $(document).on("turbolinks:load", function() {
         this.perform("unready");
       },
 
-      done: function() {
-        this.perform("done");
+      done: function(server_time) {
+        if (gon.race_channel_connected) {
+          this.perform("done", {server_time: server_time});
+        } else {
+          localStorage.setItem("race_" + gon.race.id + "_time", server_time);
+        }
       },
 
       rejoin: function() {
