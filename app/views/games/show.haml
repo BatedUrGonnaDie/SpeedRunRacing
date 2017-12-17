@@ -6,7 +6,7 @@
 .col-md-12
   #category-tabs
     %ul.nav.nav-tabs
-      - @game.categories.each_with_index do |c, i|
+      - @game.categories.order(:name).each_with_index do |c, i|
         %li{'class' => "#{i==0 ? 'active' : ''}"}
           %a{'href' => "##{c.id}", 'data-toggle' => 'tab'}= c.name
     .tab-content
