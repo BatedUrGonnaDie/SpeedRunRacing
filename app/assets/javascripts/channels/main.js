@@ -11,6 +11,7 @@ $(document).on("turbolinks:load", function() {
           return;
         var msg = "<div id='disconnect-alert' class='alert alert-danger' role='alert'>";
         msg += "Diconnected from the server, race commands will not go through until we reconnect";
+        msg += "Race finishes however will be queued and sent upon reconnection.";
         msg += "</div>";
         $("noscript").before(msg);
       },

@@ -82,6 +82,7 @@ $(document).on("turbolinks:load", function() {
           this.perform("done", {server_time: server_time});
         } else {
           localStorage.setItem("race_" + gon.race.id + "_time", server_time);
+          push_alert("Your finish time has been saved and will be sent as soon as you reconnect.", "success");
         }
       },
 
