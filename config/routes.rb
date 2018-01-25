@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get '/races/completed/', to: 'races#completed', as: :completed_races
   resources :races, only: [:index, :show]
 
-  resources :games, only: [:show, :index]
+  resources :games, only: [:show, :index], constraints: {id: /.*/}
 
   get '/search(?q=:q)', to: 'search#search', as: :search
 
