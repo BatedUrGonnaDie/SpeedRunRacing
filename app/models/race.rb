@@ -42,7 +42,6 @@ class Race < ApplicationRecord
   end
 
   def recalculate_places
-    # TODO: needs testing to make sure this acutally works correctly
     finished_entrants = entrants.where.not(finish_time: nil).order('entrants.finish_time ASC')
     finished_entrants.each_with_index { |e, i| e.update(place: (i + 1)) }
   end
