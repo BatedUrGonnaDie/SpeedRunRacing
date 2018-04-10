@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127190526) do
+ActiveRecord::Schema.define(version: 20180410230718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20171127190526) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_categories_on_game_id"
+    t.index ["srdc_id"], name: "index_categories_on_srdc_id", unique: true
   end
 
   create_table "chat_messages", force: :cascade do |t|
@@ -79,6 +80,7 @@ ActiveRecord::Schema.define(version: 20171127190526) do
     t.string "weblink", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["srdc_id"], name: "index_games_on_srdc_id", unique: true
   end
 
   create_table "races", id: :serial, force: :cascade do |t|
