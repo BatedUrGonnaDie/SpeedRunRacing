@@ -32,7 +32,6 @@ gem 'httparty'
 gem 'rack-cors', require: 'rack/cors'
 
 # Framework and Servers
-gem 'bootsnap'
 gem 'puma'
 gem 'rails'
 
@@ -40,6 +39,7 @@ gem 'rails'
 gem 'gon'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'webpacker'
 
 # Jobs
 gem 'delayed_job_active_record'

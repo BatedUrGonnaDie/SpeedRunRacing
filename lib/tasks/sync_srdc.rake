@@ -19,7 +19,7 @@ task sync_srdc: [:environment] do
 
     games['data'].each do |game|
       g = Game.find_or_initialize_by(srdc_id: game['id'])
-      g.update(
+      g.assign_attributes(
         srdc_id: game['id'],
         shortname: game['abbreviation'],
         name: game['names']['international'],
@@ -31,7 +31,7 @@ task sync_srdc: [:environment] do
 
       game['categories']['data'].each do |category|
         c = Category.find_or_initialize_by(srdc_id: category['id'], game: g)
-        c.update(
+        c.assign_attributes(
           srdc_id: category['id'],
           name: category['name'],
           weblink: category['weblink']
