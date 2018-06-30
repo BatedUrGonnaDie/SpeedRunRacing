@@ -27,3 +27,6 @@ Layout/EndOfLine:
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
+
+Metrics/MethodLength:
+  Max: 15

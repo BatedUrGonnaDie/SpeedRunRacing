@@ -9,9 +9,11 @@ class MessagesChannel < ApplicationCable::Channel
   end
 
   def send_message(data)
+    return if current_user.blank?
     update_chat_room_instance
     msg = data['message']
     return if msg.empty? || @chat_room.locked
+
     chat_msg = ChatMessage.create(chat_room: @chat_room, user: current_user, body: msg)
     if chat_msg.valid?
       push_message(chat_msg, 'chat_message_created')

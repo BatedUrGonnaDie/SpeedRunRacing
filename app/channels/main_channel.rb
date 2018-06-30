@@ -6,6 +6,7 @@ class MainChannel < ApplicationCable::Channel
   end
 
   def create_race(data)
+    return if current_user.blank?
     race = Race.new(category: Category.find(data['cat_id']))
     if race.save
       ChatRoom.create(race: race)

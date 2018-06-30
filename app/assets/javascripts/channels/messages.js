@@ -1,5 +1,5 @@
 $(document).on("turbolinks:load", function() {
-  if (gon.chat_room && gon.current_user_id) {
+  if (gon.chat_room) {
     App.messages = App.cable.subscriptions.create({channel: "MessagesChannel", room_id: gon.chat_room.id}, {
       connected: function() {
         // Called when the subscription is ready for use on the server

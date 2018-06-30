@@ -9,8 +9,10 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def join_race
+    return if current_user.blank?
     update_race_instance
     return if @race.started?
+
     entrant = Entrant.new(user: current_user, race: @race)
     if entrant.save
       notify_race('race_entrants_updated')
@@ -22,9 +24,12 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def part_race
+    return if current_user.blank?
     update_race_instance
     return if @race.started?
     entrant = Entrant.find_by(race: @race, user: current_user)
+    return if entrant.nil?
+
     if entrant.part
       notify_race('race_entrants_updated')
       notify_user('race_part_success', false)
@@ -35,9 +40,12 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def abandon_race
+    return if current_user.blank?
     update_race_instance
     return unless @race.in_progress?
     entrant = Entrant.find_by(race: @race, user: current_user)
+    return if entrant.nil?
+
     if entrant.part
       notify_race('race_entrants_updated')
       notify_user('race_abandon_success', false)
@@ -48,10 +56,12 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def rejoin_race
+    return if current_user.blank?
     update_race_instance
     return unless @race.in_progress?
     entrant = Entrant.find_by(race: @race, user: current_user)
     return if entrant.nil?
+
     if entrant.rejoin
       notify_race('race_entrants_updated')
       notify_user('race_rejoin_success', false)
@@ -61,10 +71,12 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def ready
+    return if current_user.blank?
     update_race_instance
     return if @race.started?
     entrant = Entrant.find_by(user: current_user, race: @race)
     return if entrant.nil?
+
     if entrant.update(ready: true)
       notify_race('race_entrants_updated')
       notify_user('race_ready_success', false)
@@ -75,9 +87,12 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def unready
+    return if current_user.blank?
     update_race_instance
     return if @race.started?
     entrant = Entrant.find_by(user: current_user, race: @race)
+    return if entrant.nil?
+
     if entrant.update(ready: false)
       notify_race('race_entrants_updated')
       notify_user('race_unready_success', false)
@@ -87,9 +102,12 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def done(data)
+    return if current_user.blank?
     update_race_instance
     return unless @race.in_progress?
     entrant = Entrant.find_by(user: current_user, race: @race)
+    return if entrant.nil?
+
     if entrant.done(data['server_time'])
       notify_race('race_entrants_updated')
       notify_user('race_done_success', false)

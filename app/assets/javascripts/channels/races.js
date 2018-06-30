@@ -1,5 +1,5 @@
 $(document).on("turbolinks:load", function() {
-  if (gon.race && gon.current_user_id) {
+  if (gon.race) {
     App.races = App.cable.subscriptions.create({channel: "RacesChannel", race_id: gon.race.id}, {
       connected: function() {
         // Called when the subscription is ready for use on the server
