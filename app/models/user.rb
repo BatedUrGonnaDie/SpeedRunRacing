@@ -10,6 +10,8 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable
 
   validates_uniqueness_of :username
+  validates_format_of :username, with: /^[a-zA-Z0-9_]*$/, multiline: true
+  validates :username, length: {minimum: 3, maximum: 16}
   validates_with DisplayNameValidator
 
   def self.searchable_columns
@@ -25,6 +27,6 @@ class User < ApplicationRecord
   end
 
   def in_active_race?
-    active_races.count > 0
+    active_races.count.positive?
   end
 end

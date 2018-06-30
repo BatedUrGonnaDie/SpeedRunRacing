@@ -1,57 +1,60 @@
 = provide(:title, "#{@race.game.name} - #{@race.category.name}")
-.col-md-8
-  .col-md-8.col-xs-12
-    %h4
-      = link_to "#{@race.game.name}", game_path(@race.game)
-      = " - #{@race.category.name}"
-  = render partial: 'shared/race_buttons'
-  .col-md-8.col-xs-12
-    %h4
-      #race-status-text{class: race_color(@race)}
-        = @race.status_text
-  .col-md-4.col-xs-12
-    %h4
-      %span Race Time:
-      %span#race-duration.format-time{class: @race.in_progress? ? "updating-time" : "", data: {start_time: iso_time_string(@race.start_time)}}
-        = @race.started? ? @race.duration : "0:00"
+.row.d-block
+  .col-lg-8.col-xs-12.float-left
+    .row
+      .col-lg-8.col-xs-12
+        %h4
+          = link_to "#{@race.game.name}", game_path(@race.game)
+          = " - #{@race.category.name}"
+      = render partial: 'shared/race_buttons'
+    .row
+      .col-lg-4.col-xs-12
+        %h4
+          #race-status-text{class: race_color(@race)}
+            = @race.status_text
+      .col-lg-8.col-xs-12
+        %h4
+          %span Race Time:
+          %span#race-duration.format-time{class: @race.in_progress? ? "updating-time" : "", data: {start_time: iso_time_string(@race.start_time)}}
+            = @race.started? ? @race.duration : "0:00"
 
-.col-md-4.col-xs-12.pull-right
-  #entrants-list
-    .panel
-      .panel-heading.panel-title.center{data: {toggle: "collapse", target: '#entrants-table'}}
-        Entrants List
-      - show_list = @race.entrants.count <= 5 || @race.finished?
-      #entrants-table.panel-collapse.collapse{class: show_list ? 'in' : ''}
-        %table.panel-body.table.table-hover
-          %thead
-            %tr
-              %th Entrant
-              %th Ready?
-              %th Time
-              %th Place
-          %tbody
-            - @race.sorted_entrants.each do |e|
-              %tr{'id' => "entrant-id-#{e.id}", 'data-entrant-id' => e.id}
-                %td.name-column
-                  = e.user.display_name
-                %td.ready-column
-                  %i.glyphicon{class: e.ready ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger'}
-                %td.time-column
-                  .format-time>
-                    = e.completed? ? e.duration : '-'
-                %td.place-column
-                  .format-place>= e.place.present? ? e.place : '-'
+  .col-lg-4.col-xs-12.float-right
+    #entrants-list
+      .card
+        .card-header.text-center{data: {toggle: "collapse", target: '#entrants-table'}}
+          Entrants List
+        - show_list = @race.entrants.count <= 5 || @race.finished?
+        #entrants-table.collapse{class: show_list ? 'show' : ''}
+          %table.card-body.table.table-hover.text-center.mb-0.w-100
+            %thead
+              %tr
+                %th Entrant
+                %th Ready?
+                %th Time
+                %th Place
+            %tbody
+              - @race.sorted_entrants.each do |e|
+                %tr{'id' => "entrant-id-#{e.id}", 'data-entrant-id' => e.id}
+                  %td.name-column
+                    = e.user.display_name
+                  %td.ready-column
+                    %i.glyphicon{class: e.ready ? 'fas fa-check text-success' : 'fas fa-times text-danger'}
+                  %td.time-column
+                    .format-time>
+                      = e.completed? ? e.duration : '-'
+                  %td.place-column
+                    .format-place>= e.place.present? ? e.place : '-'
 
-.col-md-8.col-xs-12
-  #chat-box
-    #chat-menu.center Chat
-    %ol#message-list
-      - @chat_messages.includes(:user).each do |msg|
-        %li.chat-message= render partial: "shared/chat_message", locals: {chat_message: msg}
-  #message-input
-    %form#new-message-form{action: '#'}
-      %span
-        = label_tag "message-input-box", "Message Body Input", class: "sr-only"
-        = text_field_tag "message-input-box", nil, class: "form-control", placeholder: "Message...", disabled: current_user.nil?, autocomplete: 'off'
-      %span
-        = submit_tag "Send", class: "btn btn-primary", id: "btn-message-send", disabled: current_user.nil?
+  .col-lg-8.col-xs-12.float-left
+    #chat-box
+      #chat-menu.text-center Chat
+      %ol#message-list
+        - @chat_messages.includes(:user).each do |msg|
+          %li.chat-message= render partial: "shared/chat_message", locals: {chat_message: msg}
+    #message-input
+      %form#new-message-form{action: '#'}
+        %span
+          = label_tag "message-input-box", "Message Body Input", class: "sr-only"
+          = text_field_tag "message-input-box", nil, class: "form-control", placeholder: "Message...", disabled: current_user.nil?, autocomplete: 'off'
+        %span
+          = submit_tag "Send", class: "btn btn-primary", id: "btn-message-send", disabled: current_user.nil?

@@ -48,7 +48,7 @@ GEM
     api-pagination (4.7.0)
     arel (8.0.0)
     ast (2.4.0)
-    autoprefixer-rails (8.2.0)
+    autoprefixer-rails (8.6.4)
       execjs
     bcrypt (3.1.11)
     better_errors (2.4.0)
@@ -57,14 +57,16 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootstrap-kaminari-views (0.0.5)
+    bootstrap (4.1.1)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.12.9, < 2)
+      sass (>= 3.5.2)
+    bootstrap4-kaminari-views (1.0.0)
       kaminari (>= 0.13)
       rails (>= 3.1)
-    bootstrap-sass (3.3.7)
-      autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
-    bootswatch-rails (3.3.5)
-      railties (>= 3.1)
+    bootswatch (4.1.1)
+      autoprefixer-rails (>= 6.0.3)
+      sass (>= 3.5.2)
     builder (3.2.3)
     byebug (10.0.2)
     callsite (0.0.11)
@@ -72,7 +74,7 @@ GEM
       activesupport
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
-    crass (1.0.3)
+    crass (1.0.4)
     debug_inspector (0.0.3)
     delayed_job (4.1.4)
       activesupport (>= 3.0, < 5.2)
@@ -100,6 +102,8 @@ GEM
     ffi (1.9.23)
     figaro (1.1.1)
       thor (~> 0.14)
+    font-awesome-sass (5.0.13)
+      sassc (>= 1.11)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     gon (6.2.0)
@@ -123,7 +127,7 @@ GEM
       ruby_parser (~> 3.5)
     httparty (0.16.2)
       multi_xml (>= 0.5.2)
-    i18n (1.0.0)
+    i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
@@ -165,7 +169,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     nio4r (2.3.0)
-    nokogiri (1.8.2)
+    nokogiri (1.8.3)
       mini_portile2 (~> 2.3.0)
     oauth2 (1.4.0)
       faraday (>= 0.8, < 0.13)
@@ -186,6 +190,7 @@ GEM
     parser (2.5.0.5)
       ast (~> 2.4.0)
     pg (1.0.0)
+    popper_js (1.12.9)
     powerpack (0.1.1)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -193,7 +198,7 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     puma (3.11.3)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-contrib (2.0.1)
       rack (~> 2.0)
     rack-cors (1.0.2)
@@ -274,6 +279,10 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (1.11.4)
+      bundler
+      ffi (~> 1.9.6)
+      sass (>= 3.3.0)
     sexp_processor (4.10.1)
     simplecov (0.16.1)
       docile (~> 1.1)
@@ -323,14 +332,15 @@ DEPENDENCIES
   api-pagination
   better_errors
   binding_of_caller
-  bootstrap-kaminari-views
-  bootstrap-sass
-  bootswatch-rails
+  bootstrap
+  bootstrap4-kaminari-views
+  bootswatch
   byebug
   delayed_job_active_record
   devise
   factory_bot_rails
   figaro
+  font-awesome-sass
   gon
   haml-rails
   httparty
@@ -356,6 +366,9 @@ DEPENDENCIES
   turbolinks
   tzinfo-data
   uglifier
+
+RUBY VERSION
+   ruby 2.5.1p57
 
 BUNDLED WITH
    1.16.2

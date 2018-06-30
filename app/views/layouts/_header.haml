@@ -1,53 +1,46 @@
 %body
-  %header.navbar.navbar-static-top.navbar-inverse
-    .container
-      .navbar-header
-        %button.navbar-toggle.collapsed{type: "button", data: {toggle: "collapse", target: "#global-nav"}}
-          %span.sr-only Toggle navigation
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
+  %header
+    %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.mb-4
+      .container
         %a.navbar-brand{href: root_path}
           %span SpeedRunRacing
-      .collapse.navbar-collapse#global-nav
-        %ul.nav.navbar-nav
-          %li.dropdown
-            %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
-              Races
-              %span.caret
-            %ul.dropdown-menu{role: "menu"}
-              %li= link_to "Active Races", races_path
-              %li= link_to "Completed Races", completed_races_path
-          %li= link_to "Games", games_path
-          %li= link_to "FAQ", faq_path
-          %li.dropdown
-            %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
-              Misc
-              %span.caret
-            %ul.dropdown-menu{role: "menu"}
-              %li= link_to "Source", "https://github.com/batedurgonnadie/speedrunracing", target: :_blank
-        .col-sm-3.col-xs-12
-          %form.navbar-form{role: "search", action: "/search"}
-            .input-group
-              = text_field_tag :q, params[:q].present? ? params[:q] : nil, placeholder: "Search", class: "form-control"
-              .input-group-btn
-                %button.btn.btn-default{type: "submit"}
-                  %i.glyphicon.glyphicon-search
-        %ul.nav.navbar-nav.navbar-right
-          - if user_signed_in?
-            - if current_user.in_active_race? && (live_path = race_path(current_user.active_races.first)) != request.path
-              %li#live-race-button
-                %p.navbar-btn
-                  %a.btn.btn-primary{href: live_path} Live Race!
-            %li.dropdown
-              %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
-                = current_user.display_name
-                %span.caret
+        %button.navbar-toggler.collapsed{type: "button", data: {toggle: "collapse", target: "#global-nav"}}
+          %span.navbar-toggler-icon
+        .collapse.navbar-collapse#global-nav
+          %ul.navbar-nav.mr-auto
+            %li.nav-item.dropdown
+              %a.nav-link.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
+                Races
               %ul.dropdown-menu{role: "menu"}
-                %li= link_to "View Profile", user_public_profile_path(current_user)
-                %li.divider{role: "separator"}
-                %li= link_to "Edit Profile", edit_user_registration_path
-                %li= link_to "Log Out", destroy_user_session_path, method: :delete
-          - else
-            %li= link_to "Sign In", new_user_session_path
-            %li= link_to "Sign Up", new_user_registration_path
+                %li.dropdown-item= link_to "Active Races", races_path, class: 'nav-link'
+                %li.dropdown-item= link_to "Completed Races", completed_races_path, class: 'nav-link'
+            %li.nav-item= link_to "Games", games_path, class: 'nav-link'
+            %li.nav-item= link_to "FAQ", faq_path, class: 'nav-link'
+            %li.nav-item.dropdown
+              %a.nav-link.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
+                Misc
+              %ul.dropdown-menu{role: "menu"}
+                %li.dropdown-item= link_to "Source", "https://github.com/batedurgonnadie/speedrunracing", target: :_blank, class: 'nav-link'
+            .ml-lg-3
+              %form.form-inline{role: "search", action: "/search"}
+                .input-group
+                  = text_field_tag :q, params[:q].present? ? params[:q] : nil, placeholder: "Search", class: "form-control"
+                  .input-group-btn
+                    %button.btn.btn-primary{type: "submit"}
+                      %i.fas.fa-search
+          %ul.nav.navbar-nav.navbar-right
+            - if user_signed_in?
+              - if current_user.in_active_race? && (live_path = race_path(current_user.active_races.first)) != request.path
+                %li.navbar-item#live-race-button.mr-3
+                  %a.btn.btn-primary{href: live_path} Live Race!
+              %li.navbar-item.dropdown
+                %a.nav-link.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
+                  = current_user.display_name
+                %ul.dropdown-menu{role: "menu"}
+                  %li.dropdown-item= link_to "View Profile", user_public_profile_path(current_user), class: 'nav-link'
+                  %li.dropdown-divider
+                  %li.dropdown-item= link_to "Edit Profile", edit_user_registration_path, class: 'nav-link'
+                  %li.dropdown-item= link_to "Log Out", destroy_user_session_path, method: :delete, class: 'nav-link'
+            - else
+              %li.nav-item= link_to "Sign In", new_user_session_path, class: 'nav-link'
+              %li.nav-item= link_to "Sign Up", new_user_registration_path, class: 'nav-link'

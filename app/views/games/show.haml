@@ -1,20 +1,21 @@
 = provide(:title, @game.name)
 .row
-  %h2.col-md-9= "#{@game.name} (#{@game.shortname})"
-  %img.col-md-3{src: @game.cover_large}
+  %h2.col-lg-9= "#{@game.name} (#{@game.shortname})"
+  %img.col-lg-3{src: @game.cover_large}
 
-.col-md-12
-  #category-tabs
-    %ul.nav.nav-tabs
-      - @game.categories.order(:name).each_with_index do |c, i|
-        %li{'class' => "#{i==0 ? 'active' : ''}"}
-          %a{'href' => "##{c.id}", 'data-toggle' => 'tab'}= c.name
-    .tab-content
-      - @game.categories.each_with_index do |c, i|
-        - options = {description: "#{c.name} Races", id: "#{c.name}-race-table"}
-        .tab-pane{'id' => "#{c.id}", 'class' => "#{i==0 ? 'active' : ''}"}
-          - if current_user
-            %h3
-              %button{'class' => 'btn btn-default btn-create-race', 'data-category' => "#{c.id}"}
-                = "Create Race for #{c.name}"
-          = render partial: 'shared/race_table', locals: race_table_locals(:category_races, c.races.completed.newest, options)
+.row
+  .col-lg-12
+    #category-tabs
+      %ul.nav.nav-tabs
+        - @game.categories.order(:name).each_with_index do |c, i|
+          %li.nav-item
+            %a.nav-link{'href' => "##{c.id}", 'data-toggle' => 'tab', 'class' => "#{i==0 ? 'active' : ''}"}= c.name
+      .tab-content
+        - @game.categories.each_with_index do |c, i|
+          - options = {description: "#{c.name} Races", id: "#{c.name}-race-table"}
+          .tab-pane{'id' => "#{c.id}", 'class' => "#{i==0 ? 'active' : ''}"}
+            - if current_user
+              %h3
+                %button{'class' => 'btn btn-primary btn-create-race', 'data-category' => "#{c.id}"}
+                  = "Create Race for #{c.name}"
+            = render partial: 'shared/race_table', locals: race_table_locals(:category_races, c.races.completed.newest, options)

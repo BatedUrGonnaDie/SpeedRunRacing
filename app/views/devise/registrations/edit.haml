@@ -2,7 +2,7 @@
 %h2 Edit Profile
 
 .row
-  .col-md-offset-3.col-md-6.col-md-offset-3
+  .col-lg-offset-3.col-lg-6.col-lg-offset-3
     = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-horizontal' }) do |f|
       = devise_error_messages!
 
@@ -32,31 +32,31 @@
         = f.password_field :current_password, autocomplete: "off", class: "form-control"
 
       .form-group
-        = f.submit "Update", class: "btn btn-default"
+        = f.submit "Update", class: "btn btn-primary"
 
 .row
-  .col-md-6
-    .panel.panel-info
-      .panel-heading Link Twitch Account
-      .panel-body
+  .col-lg-6
+    .card
+      .card-header.bg-info Link Twitch Account
+      .card-body
         - if @current_user.twitch_name.present?
           ✓ Linked with Twitch as
           %b= @current_user.twitch_name
-          .pull-right
-            %i.btn.btn-default.disabled Not unlinkable
+          .float-right
+            %i.btn.btn-primary.disabled Not unlinkable
         - else
           You will not be able to particiapte in races until you link a Twitch account.
-      .panel-footer.center
+      .card-footer.text-center
         - if @current_user.twitch_name.present?
           %a.btn.btn-info{href: "https://twitch.tv/#{@current_user.twitch_name}", target: '_blank'} Visit my Twitch channel
         - else
           = button_to 'Link', '/auth/twitch', method: :get, class: 'btn btn-info'
 
-  .col-md-6
-    .panel.panel-danger
-      .panel-heading
+  .col-lg-6
+    .card
+      .card-header.bg-danger
         Delete my account
-      .panel-body
+      .card-body
         This is an irreversable action, only click the button if you are 100% sure you want to erase everything!
-      .panel-footer.center
+      .card-footer.text-center
         = button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger"

@@ -49,9 +49,10 @@ gem 'kaminari'
 gem 'slim-rails'
 
 # View styles
-gem 'bootstrap-kaminari-views'
-gem 'bootstrap-sass'
-gem 'bootswatch-rails'
+gem 'bootstrap'
+gem 'bootstrap4-kaminari-views'
+gem 'bootswatch'
+gem 'font-awesome-sass'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,8 +1,9 @@
 @import "bootswatch/cyborg/variables";
 
-@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootswatch/cyborg/bootswatch";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 @import "alertifyjs/build/css/alertify";
 
 @import "races";
@@ -25,14 +26,18 @@ footer {
     margin-top: 1em;
 }
 
-.panel-heading {
+.card-header {
     color: white;
-}
-
-.panel-footer {
-    background-color: inherit;
 }
 
 .question {
     margin-bottom: 2.5em;
+}
+
+.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
 }

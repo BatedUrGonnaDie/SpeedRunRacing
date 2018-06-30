@@ -16,8 +16,11 @@ Documentation:
 Style/EmptyMethod:
   EnforcedStyle: expanded
 
-Style/SpaceInsideHashLiteralBraces:
+Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
 Layout/EndOfLine:
   EnforcedStyle: lf
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never

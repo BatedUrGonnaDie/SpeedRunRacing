@@ -9,7 +9,7 @@ var format_place = function(place_string) {
   if (place_string === "-" || isNaN(place_string))
     return place_string;
   if (place_string < 0)
-    return "<i class='glyphicon glyphicon-remove text-danger' />";
+    return "<i class='fas fa-times text-danger' />";
   var suffix_hash = {1: "st", 2: "nd", 3: "rd"};
   var exceptions = [11, 12, 13];
   var suffix;

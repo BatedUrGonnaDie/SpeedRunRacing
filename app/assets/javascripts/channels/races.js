@@ -109,16 +109,16 @@ var update_entrant_tables = function(race) {
       row.find(".name-column").text(e.user.display_name);
       var cls;
       if (e.ready)
-        cls = "glyphicon glyphicon-ok text-success";
+        cls = "fas fa-check text-success";
       else
-        cls = "glyphicon glyphicon-remove text-danger";
+        cls = "fas fa-times text-danger";
       row.find(".ready-column > i").removeClass().addClass(cls);
       row.find(".time-column .format-time").html(format_time(e.duration || "-"));
       row.find(".place-column .format-place").html(format_place(e.place || "-"));
     } else {
       var $new_row = $("<tr />").attr("data-entrant-id", e.id).prop("id", "entrant-id-" + e.id);
       $new_row.append($("<td />").addClass("name-column").text(e.user.display_name));
-      $new_row.append($("<td />").addClass("ready-column").append($("<i />").addClass("glyphicon glyphicon-remove text-danger")));
+      $new_row.append($("<td />").addClass("ready-column").append($("<i />").addClass("fas fa-times text-danger")));
       $new_row.append($("<td />").addClass("time-column").append($("<div />").addClass("format-time").text("-")));
       $new_row.append($("<td />").addClass("place-column").append($("<div />").addClass("format-place").text("-")));
       $("#entrants-list tbody").append($new_row);

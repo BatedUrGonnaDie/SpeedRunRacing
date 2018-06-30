@@ -1,6 +1,6 @@
 = provide(:title, "User")
 - if @user.races.completed.empty?
-  %h3.center No races here ;-;
+  %h3.text-center No races here ;-;
 - else
   - options = {description: "#{@user.display_name}'s Races", id: "#{@user.username}-race-table"}
   = render partial: "shared/race_table", locals: race_table_locals(:user_races, @user.races.completed.newest, options)
