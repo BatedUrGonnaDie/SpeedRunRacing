@@ -23,6 +23,7 @@ class Entrant < ApplicationRecord
 
   def done(server_time)
     return false unless race.in_progress?
+    server_time = (Time.now.utc.to_f * 1000) unless server_time.present?
     update(finish_time: Time.parse(server_time), place: (race.entrants.completed.count + 1))
   end
 
