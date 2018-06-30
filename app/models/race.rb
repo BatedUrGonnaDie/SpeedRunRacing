@@ -73,7 +73,7 @@ class Race < ApplicationRecord
 
   def finish_if_possible
     return unless entrants.count >= 2 && entrants.count == entrants.finished.count
-    if entrants.completed.count > 0
+    if entrants.completed.count.positive?
       finish
     else
       # If everyone forfeit the race or were disqualified, delete the race from history
@@ -95,7 +95,7 @@ class Race < ApplicationRecord
       if x.place.nil?
         if y.place.nil?
           0
-        elsif y.place < 0
+        elsif y.place.negative?
           -1
         else
           1
@@ -103,14 +103,14 @@ class Race < ApplicationRecord
       elsif y.place.nil?
         if x.place.nil?
           0
-        elsif x.place < 0
+        elsif x.place.negative?
           1
         else
           -1
         end
-      elsif x.place < 0
+      elsif x.place.negative?
         1
-      elsif y.place < 0
+      elsif y.place.negative?
         -1
       else
         x.place <=> y.place
