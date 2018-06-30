@@ -4,7 +4,12 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.includes(:categories, :races).find_by!(shortname: params[:id])
+    @game = Game.includes(:categories, :races).find_by(shortname: params[:id])
+
+    return unless @game.nil?
+
+    @error = {resource: 'game shortname', name: params[:id]}
+    render 'shared/not_found'
   end
 
   def autocomplete

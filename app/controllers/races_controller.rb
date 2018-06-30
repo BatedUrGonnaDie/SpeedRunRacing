@@ -5,9 +5,15 @@ class RacesController < ApplicationController
 
   def show
     @race = Race.includes(:game, :category, :entrants, :users).find(params[:id])
-    @chat_messages = @race.chat_messages.includes(:user)
-    gon.race = @race
-    gon.chat_room = @race.chat_room
+
+    if @race.nil?
+      @chat_messages = @race.chat_messages.includes(:user)
+      gon.race = @race
+      gon.chat_room = @race.chat_room
+    else
+      @error = {resource: 'race', name: params[:id]}
+      render 'shared/not_found'
+    end
   end
 
   def completed

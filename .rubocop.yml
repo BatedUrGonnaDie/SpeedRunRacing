@@ -13,6 +13,9 @@ AllCops:
 Documentation:
   Enabled: false
 
+Rails:
+  Enabled: true
+
 Style/EmptyMethod:
   EnforcedStyle: expanded
 
