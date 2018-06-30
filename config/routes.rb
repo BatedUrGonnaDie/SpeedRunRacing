@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   resources :games, only: [:show, :index], constraints: {id: /.*/}
 
-  get '/search(?q=:q)', to: 'search#search', as: :search
+  get '/search', to: 'search#index', as: :search
 
   namespace :api do
     namespace :v1 do

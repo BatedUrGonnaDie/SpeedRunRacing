@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-  def search
+  def index
     if params[:q].present?
       @games = Game.basic_search(params[:q])
       @users = User.basic_search(params[:q])
