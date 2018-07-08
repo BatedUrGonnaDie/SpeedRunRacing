@@ -3,8 +3,8 @@ FactoryBot.define do
     transient do
       start_race false
     end
-    race
-    user
+    association :race
+    association :user, :linked_account
 
     after(:create) do |entrant, evaluator|
       entrant.race.start if evaluator.start_race
