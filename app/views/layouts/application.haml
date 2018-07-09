@@ -6,7 +6,7 @@
     %title= yield(:title) || 'SpeedRunRacing!'
     = stylesheet_link_tag 'application.css'
     = javascript_include_tag 'application.js', defer: Rails.env.production?
-    = javascript_pack_tag 'application.js', defer: Rails.env.production?
+    // = javascript_pack_tag 'application.js', defer: Rails.env.production?
     = csrf_meta_tags
     = render partial: 'shared/favicons'
     = content_for(:html_head)

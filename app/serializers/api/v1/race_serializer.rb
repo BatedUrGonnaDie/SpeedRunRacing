@@ -4,4 +4,8 @@ class Api::V1::RaceSerializer < Api::V1::ApplicationSerializer
   has_one :game, serializer: Api::V1::GameSerializer
   belongs_to :category, serializer: Api::V1::CategorySerializer
   has_many :entrants, serializer: Api::V1::EntrantSerializer
+
+  def id
+    object.id.to_s
+  end
 end

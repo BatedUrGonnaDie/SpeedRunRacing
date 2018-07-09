@@ -1,5 +1,5 @@
 class EntrantSerializer < ActiveModel::Serializer
-  attributes :id, :ready, :finish_time, :place, :duration, :created_at, :updated_at
+  attributes :id, :ready, :finish_time, :place, :duration
 
   belongs_to :user
 
