@@ -1,0 +1,59 @@
+{
+    "type": "object",
+    "required": [
+        "id",
+        "status_text",
+        "start_time",
+        "finish_time",
+        "created_at",
+        "updated_at",
+        "game",
+        "category",
+        "entrants"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "status_text": {
+            "type": {
+                "enum": [
+                    "Open Entry",
+                    "In Progress",
+                    "Ended"
+                ]
+            }
+        },
+        "start_time": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "finish_time": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "game": {
+            "$ref": "../../../models/api/v1/game.json"
+        },
+        "category": {
+            "$ref": "../../../models/api/v1/category.json"
+        },
+        "entrants": {
+            "type": "array",
+            "items": {
+                "$ref": "../../../models/api/v1/entrant.json"
+            }
+        }
+    }
+}

@@ -72,6 +72,8 @@ end
 group :test do
   gem 'action-cable-testing'
   gem 'factory_bot_rails'
+  gem 'json-schema'
+  gem 'json-schema-rspec'
   gem 'rspec-rails', require: false
   gem 'simplecov', require: false
 end

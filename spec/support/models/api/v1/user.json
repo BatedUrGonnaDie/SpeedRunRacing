@@ -1,0 +1,28 @@
+{
+    "type": "object",
+    "required": [
+        "id",
+        "username",
+        "display_name",
+        "created_at",
+        "updated_at"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "username": {
+            "type": "string"
+        },
+        "display_name": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string"
+        },
+        "updated_at": {
+            "type": "string"
+        }
+    }
+}

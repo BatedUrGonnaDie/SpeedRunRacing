@@ -1,0 +1,47 @@
+{
+    "type": "object",
+    "required": [
+        "id",
+        "srdc_id",
+        "name",
+        "shortname",
+        "cover_small",
+        "cover_large",
+        "weblink",
+        "created_at",
+        "updated_at"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "srdc_id": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "name": {
+            "type": "string"
+        },
+        "shortname": {
+            "type": "string"
+        },
+        "cover_small": {
+            "type": "string"
+        },
+        "cover_large": {
+            "type": "string"
+        },
+        "weblink": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string"
+        },
+        "updated_at": {
+            "type": "string"
+        }
+    }
+}

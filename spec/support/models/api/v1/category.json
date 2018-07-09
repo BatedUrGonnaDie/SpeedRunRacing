@@ -1,0 +1,35 @@
+{
+    "type": "object",
+    "required": [
+        "id",
+        "srdc_id",
+        "name",
+        "weblink",
+        "created_at",
+        "updated_at"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "srdc_id": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "name": {
+            "type": "string"
+        },
+        "weblink": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string"
+        },
+        "updated_at": {
+            "type": "string"
+        }
+    }
+}
