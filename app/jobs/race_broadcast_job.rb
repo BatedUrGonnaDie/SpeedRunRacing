@@ -11,9 +11,9 @@ class RaceBroadcastJob < ApplicationJob
 
   private
 
-  def serialize_race(r)
+  def serialize_race(run)
     ActiveModelSerializers::SerializableResource.new(
-      r,
+      run,
       include: ['entrants', 'entrants.user', 'game', 'category']
     ).as_json
   end
