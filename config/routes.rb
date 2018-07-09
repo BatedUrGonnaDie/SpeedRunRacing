@@ -25,15 +25,17 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/timesync', to: 'time#create', as: :timesync
 
-      get '/races', to: 'races#index'
-      get '/races/:race_id', to: 'races#show'
+      get '/races',        to: 'races#index'
+      get '/races/:race_id',  to: 'races#show'
 
-      get '/games', to: 'games#index'
-      get '/games/:game_shortname', to: 'games#show'
+      get '/games',                                   to: 'games#index'
+      get '/games/:shortname',                        to: 'games#show'
+      get '/games/:shortname/races',                  to: 'games#races'
+      get '/games/:shortname/categories/:name',       to: 'categories#show'
+      get '/games/:shortname/categories/:name/races', to: 'categories#races'
 
-      get '/categories/:category_name', to: 'categories#show'
-
-      get '/users/:username', to: 'user#show'
+      get '/users/:username',       to: 'users#show'
+      get '/users/:username/races', to: 'users#races'
     end
   end
 end
