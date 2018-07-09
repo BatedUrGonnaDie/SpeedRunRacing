@@ -3,7 +3,7 @@ class Race < ApplicationRecord
   belongs_to :category
   has_one :game, through: :category
   has_many :users, through: :entrants
-  has_one :chat_room
+  has_one :chat_room, dependent: :destroy
   has_many :chat_messages, through: :chat_room
 
   OPEN = 'Open Entry'.freeze
@@ -26,7 +26,7 @@ class Race < ApplicationRecord
 
   def entrant_for_user(user)
     return nil if user.nil?
-    entrants.where(user_id: user.id).try(:[], 0)
+    entrants.where(user_id: user.id).first
   end
 
   def user_twitch_ids
