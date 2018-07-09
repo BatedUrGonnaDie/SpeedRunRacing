@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/timesync', to: 'time#create', as: :timesync
 
-      get '/races',        to: 'races#index'
+      get '/races',           to: 'races#index'
       get '/races/:race_id',  to: 'races#show'
 
       get '/games',                                   to: 'games#index'
