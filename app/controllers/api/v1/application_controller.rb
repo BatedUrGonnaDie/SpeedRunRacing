@@ -1,12 +1,10 @@
 class Api::V1::ApplicationController < ActionController::API
-  include Rails::Pagination
-
   before_action :force_ssl, if: -> { Rails.env.production? }
 
   def not_found(resource, param_name)
     render status: 404, json: {
       status: 404,
-      error: "No #{resource} found for ID #{params[:param_name]}"
+      error: "No #{resource} found for ID #{params[param_name]}"
     }
   end
 
