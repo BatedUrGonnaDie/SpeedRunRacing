@@ -6,13 +6,14 @@ class RacesController < ApplicationController
   def show
     @race = Race.includes(:game, :category, :entrants, :users).find(params[:id])
 
-    if @race.nil?
+    if @race.present?
       @chat_messages = @race.chat_messages.includes(:user)
       gon.race = @race
       gon.chat_room = @race.chat_room
     else
       @error = {resource: 'race', name: params[:id]}
       render 'shared/not_found'
+      return
     end
   end
 
