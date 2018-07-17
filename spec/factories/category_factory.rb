@@ -3,6 +3,6 @@ FactoryBot.define do
     game
     name 'Any%'
     weblink 'https://www.speedrun.com/sms#Any%'
-    srdc_id 'n2y3r8do'
+    srdc_id
   end
 end

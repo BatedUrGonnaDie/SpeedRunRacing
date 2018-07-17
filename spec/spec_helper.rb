@@ -51,6 +51,7 @@ RSpec.configure do |config|
 
   config.include JSON::SchemaMatchers
   config.json_schemas = {
-    race: 'spec/support/views/api/v1/races/show.json'
+    race: 'spec/support/views/api/v1/races/show.json',
+    races: 'spec/support/views/api/v1/races/index.json'
   }
 end

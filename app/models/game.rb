@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  has_many :categories
+  has_many :categories, dependent: :destroy
   has_many :races, through: :categories
 
   validates :srdc_id, uniqueness: true

@@ -1,6 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RacesController do
+  describe '#index' do
+    context 'for an invalid race type' do
+      subject { get :index, params: {race_status: 'blah'} }
+
+      it 'returns a 400' do
+        expect(subject).to have_http_status 400
+      end
+    end
+
+    context 'for a valid race type' do
+      FactoryBot.create_list(:race, 5)
+      subject { get :index, params: {race_status: 'active'} }
+
+      it 'returns a 200' do
+        expect(subject).to have_http_status 200
+      end
+
+      it 'renders a race array schema' do
+        expect(subject.body).to match_json_schema(:races)
+      end
+    end
+  end
+
   describe '#show' do
     context 'for a nonexistent race' do
       subject { get :show, params: {race_id: '0'} }
