@@ -11,7 +11,10 @@ RSpec.describe Api::V1::RacesController do
     end
 
     context 'for a valid race type' do
-      FactoryBot.create_list(:race, 5)
+      before(:each) do
+        FactoryBot.create_list(:race, 5)
+      end
+
       subject { get :index, params: {race_status: 'active'} }
 
       it 'returns a 200' do
