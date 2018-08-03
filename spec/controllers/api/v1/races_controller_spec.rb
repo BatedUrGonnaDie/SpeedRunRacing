@@ -10,12 +10,35 @@ RSpec.describe Api::V1::RacesController do
       end
     end
 
-    context 'for a valid race type' do
-      before(:each) do
-        FactoryBot.create_list(:race, 5)
+    context 'for no race type' do
+      let(:races) { FactoryBot.create_list(:race, 5) }
+      subject { get :index }
+
+      it 'returns a 200' do
+        expect(subject).to have_http_status 200
       end
 
+      it 'renders a race array schema' do
+        expect(subject.body).to match_json_schema(:races)
+      end
+    end
+
+    context 'for the "active" race type' do
+      let(:races) { FactoryBot.create_list(:race, 5) }
       subject { get :index, params: {race_status: 'active'} }
+
+      it 'returns a 200' do
+        expect(subject).to have_http_status 200
+      end
+
+      it 'renders a race array schema' do
+        expect(subject.body).to match_json_schema(:races)
+      end
+    end
+
+    context 'for the "completed" race type' do
+      let(:races) { FactoryBot.create_list(:race, 5, :completed, with_entrants: true) }
+      subject { get :index, params: {race_status: 'completed'} }
 
       it 'returns a 200' do
         expect(subject).to have_http_status 200

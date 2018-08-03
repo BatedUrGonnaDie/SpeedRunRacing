@@ -29,7 +29,7 @@ RSpec.describe Entrant, type: :model do
     end
 
     context 'after finishing the race' do
-      let(:entrant) { FactoryBot.create(:entrant, :finished, start_race: true) }
+      let(:entrant) { FactoryBot.create(:entrant, completed: true, start_race: true) }
 
       it 'rejoins a race in progress after abandoning' do
         entrant.rejoin
