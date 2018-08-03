@@ -21,7 +21,7 @@ class Race < ApplicationRecord
 
   def contains_user?(user)
     return nil if user.nil?
-    users.map(&:id).include?(user.id)
+    users.pluck(:id).include?(user.id)
   end
 
   def entrant_for_user(user)
@@ -29,8 +29,12 @@ class Race < ApplicationRecord
     entrants.where(user_id: user.id).first
   end
 
+  def finished_entrants
+    entrants.where.not(place: nil).count
+  end
+
   def user_twitch_ids
-    users.map(&:twitch_id)
+    users.pluck(:twitch_id)
   end
 
   def started?
