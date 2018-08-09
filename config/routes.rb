@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  use_doorkeeper do
+    skip_controllers :applications, :authorized_applications
+  end
   root to: 'races#index'
   mount ActionCable.server => '/cable'
 
@@ -6,8 +9,15 @@ Rails.application.routes.draw do
 
   get '/faq', to: 'static#faq', as: :faq
 
-  devise_for :users
-  get '/users/:username', to: 'users#index', as: :user_public_profile
+  devise_for :users, path_names: { edit: 'settings' }
+  get    '/users/settings/api',                to: 'settings#api',                    as: :settings_api
+  get    '/users/applications/new',            to: 'applications#new',                as: :new_application
+  get    '/users/applications/:application',   to: 'applications#edit',               as: :edit_application
+  post   '/users/applications',                to: 'applications#create',             as: :applications
+  patch  '/users/applications/:application',   to: 'applications#update',             as: :update_application
+  delete '/users/applications/:application',   to: 'applications#destroy',            as: :application
+  delete '/users/authorizations/:application', to: 'authorized_applications#destroy', as: :authorization
+  get    '/users/:username',                   to: 'users#index',                     as: :user_public_profile
 
   get '/auth/failure',             to: 'twitch#failure'
   get '/auth/:provider/callback',  to: 'twitch#create'

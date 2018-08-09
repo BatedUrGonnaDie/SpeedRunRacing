@@ -14,8 +14,10 @@ gem 'api-pagination'
 gem 'sass-rails'
 gem 'uglifier'
 
-# Authentication
+# Authentication and Authorization
+gem 'cancancan'
 gem 'devise'
+gem 'doorkeeper'
 gem 'omniauth-oauth2'
 gem 'omniauth-twitch'
 

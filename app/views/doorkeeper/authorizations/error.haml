@@ -1,0 +1,13 @@
+= provide(:title, 'Authorize')
+- if current_user.nil?
+  %p You need to be signed in to view this page.
+- else
+  .row
+    .col-lg-offset-3.col-lg-6.col-lg-offset-3
+      .card
+        .card-header.bg-danger
+          Authorization Request Error
+        .card-body
+          %p
+            %big= t('doorkeeper.authorizations.error.title')
+          %p= @pre_auth.error_response.body[:error_description]

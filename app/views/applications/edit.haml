@@ -1,0 +1,19 @@
+= provide(:title, "Edit Application")
+- if current_user.nil?
+  %p You need to be signed in to view this page.
+- else
+  .card
+    .card-header.text-white= "Edit #{@application.name}"
+    .card-body
+      = form_for(@application, url: edit_application_path) do |f|
+        .form-group
+          %p
+            .row
+              .col-lg-8
+                = f.label :redirect_uri, "Redirect URI"
+                = f.text_field(:redirect_uri, class: 'form-control')
+          %p
+            .row
+              .col-lg-8
+                .input-group-btn
+                  = f.submit 'Save', class: 'btn btn-success'

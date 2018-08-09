@@ -3,6 +3,10 @@ class User < ApplicationRecord
   has_many :races, through: :entrants
   has_many :chat_messages
 
+  has_many :applications, class_name: 'Doorkeeper::Application', foreign_key: :owner_id
+  has_many :access_grants, class_name: 'Doorkeeper::AccessGrant', foreign_key: :resource_owner_id
+  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken', foreign_key: :resource_owner_id
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -1,0 +1,13 @@
+= provide(:title, 'Authorization Code')
+.row
+  .col-lg-12
+    .card
+      .card-header.text-white Authorization Code Created
+      .card-body
+        %p Here is your authorization code.
+        %p
+          .input-group
+            %input.form-control{id: 'code', type: 'text', value: params[:code], readonly: 1}
+
+        %p
+          In a production environment, users will be sent to your redirect_uri with a `code` parameter.
