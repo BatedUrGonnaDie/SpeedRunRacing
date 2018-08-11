@@ -12,7 +12,7 @@ class MessagesChannel < ApplicationCable::Channel
     return if current_user.blank?
     update_chat_room_instance
     msg = data['message']
-    return if msg.empty? || @chat_room.locked
+    return if msg.empty? || @chat_room.locked?
 
     chat_msg = ChatMessage.create(chat_room: @chat_room, user: current_user, body: msg)
     if chat_msg.valid?

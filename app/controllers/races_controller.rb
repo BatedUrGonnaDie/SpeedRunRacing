@@ -7,6 +7,7 @@ class RacesController < ApplicationController
     @race = Race.includes(:game, :category, :entrants, :users).find(params[:id])
 
     if @race.present?
+      @chat_room = @race.chat_room
       @chat_messages = @race.chat_messages.includes(:user)
       gon.race = @race
       gon.chat_room = @race.chat_room

@@ -54,7 +54,13 @@
     #message-input
       %form#new-message-form{action: '#'}
         %span
+          - if @chat_room.locked?
+            - disabled = true
+            - placeholder = 'LOCKED'
+          - else
+            - disabled = current_user.nil?
+            - placeholder = 'Message...'
           = label_tag "message-input-box", "Message Body Input", class: "sr-only"
-          = text_field_tag "message-input-box", nil, class: "form-control", placeholder: "Message...", disabled: current_user.nil?, autocomplete: 'off'
+          = text_field_tag "message-input-box", nil, class: "form-control", placeholder: placeholder, disabled: disabled, autocomplete: 'off'
         %span
-          = submit_tag "Send", class: "btn btn-primary", id: "btn-message-send", disabled: current_user.nil?
+          = submit_tag "Send", class: "btn btn-primary", id: "btn-message-send", disabled: disabled
