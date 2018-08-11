@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_044609) do
+ActiveRecord::Schema.define(version: 2018_08_11_124722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 2018_08_07_044609) do
     t.datetime "finish_time", precision: 6
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "creator_id"
     t.index ["category_id"], name: "index_races_on_category_id"
   end
 
@@ -170,4 +171,5 @@ ActiveRecord::Schema.define(version: 2018_08_07_044609) do
 
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "races", "users", column: "creator_id"
 end

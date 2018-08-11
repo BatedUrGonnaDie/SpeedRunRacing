@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :entrants
   has_many :races, through: :entrants
+  has_many :created_races, class_name: 'Race', foreign_key: :creator_id
   has_many :chat_messages
 
   has_many :applications, class_name: 'Doorkeeper::Application', foreign_key: :owner_id
@@ -13,7 +14,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable, :timeoutable
 
-  validates_uniqueness_of :username
+  validates :username, uniqueness: true
   validates_format_of :username, with: /^[a-zA-Z0-9_]*$/, multiline: true
   validates :username, length: {minimum: 3, maximum: 16}
   validates_with DisplayNameValidator
@@ -30,7 +31,19 @@ class User < ApplicationRecord
     races.active
   end
 
+  def active_created_races
+    created_races.active
+  end
+
   def in_active_race?
-    active_races.count.positive?
+    User.joins(:entrants).where(id: id, entrants: {place: nil}).count.positive?
+  end
+
+  def can_create_race?
+    can_enter_race? && active_created_races.count(&:started?).zero?
+  end
+
+  def can_enter_race?
+    twitch_id.present? && !in_active_race?
   end
 end

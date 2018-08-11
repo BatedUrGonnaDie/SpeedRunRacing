@@ -30,7 +30,7 @@
                       %i.fas.fa-search
           %ul.nav.navbar-nav.navbar-right
             - if user_signed_in?
-              - if current_user.in_active_race? && (live_path = race_path(current_user.active_races.first)) != request.path
+              - if current_user.in_active_race? && (live_path = race_path(current_user.active_race)) != request.path
                 %li.navbar-item#live-race-button.mr-3
                   %a.btn.btn-primary{href: live_path} Live Race!
               %li.navbar-item.dropdown

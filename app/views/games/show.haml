@@ -5,17 +5,16 @@
 
 .row
   .col-lg-12
-    #category-tabs
-      %ul.nav.nav-tabs
-        - @game.categories.order(:name).each_with_index do |c, i|
-          %li.nav-item
-            %a.nav-link{'href' => "##{c.id}", 'data-toggle' => 'tab', 'class' => "#{i==0 ? 'active' : ''}"}= c.name
-      .tab-content
-        - @game.categories.each_with_index do |c, i|
-          - options = {description: "#{c.name} Races", id: "#{c.name}-race-table"}
-          .tab-pane{'id' => "#{c.id}", 'class' => "#{i==0 ? 'active' : ''}"}
-            - if current_user
-              %h3
-                %button{'class' => 'btn btn-primary btn-create-race', 'data-category' => "#{c.id}"}
-                  = "Create Race for #{c.name}"
-            = render partial: 'shared/race_table', locals: race_table_locals(:category_races, c.races.completed.newest, options)
+    %ul.nav.nav-tabs.mb-3#categoryTabs{role: 'tablist'}
+      - @game.categories.order(:name).each_with_index do |c, i|
+        %li.nav-item
+          %a.nav-link{href: "#c#{c.id}", class: "#{i==0 ? 'active' : ''}", id: "#{c.id}-tab", role: 'tab', data: {toggle: 'tab'}}= c.name
+    .tab-content#categoryTabsContent
+      - @game.categories.order(:name).each_with_index do |c, i|
+        - options = {description: "#{c.name} Races", id: "#{c.name}-race-table"}
+        .tab-pane.fade{id: "c#{c.id}", class: "#{i==0 ? 'active show' : ''}", role: 'tabpanel'}
+          - if current_user.present?
+            %h3
+              %button{'class' => 'btn btn-primary btn-create-race', 'data-category' => "#{c.id}"}
+                = "Create Race for #{c.name}"
+          = render partial: 'shared/race_table', locals: race_table_locals(:category_races, c.races.completed.newest, options)

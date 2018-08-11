@@ -8,6 +8,10 @@ module ApplicationCable
       logger.add_tags 'ActionCable', log_tag
     end
 
+    def ability
+      @ability ||= Ability.new(current_user)
+    end
+
     protected
 
     def find_verified_user

@@ -12,6 +12,10 @@ class RacesChannel < ApplicationCable::Channel
     return if current_user.blank?
     update_race_instance
     return if @race.started?
+    if ability.cannot?(:enter, Race)
+      notify_user('race_join_failure', true, reason: 'Please make sure you have linked your twitch account and are not in another race.')
+      return
+    end
 
     entrant = Entrant.new(user: current_user, race: @race)
     if entrant.save

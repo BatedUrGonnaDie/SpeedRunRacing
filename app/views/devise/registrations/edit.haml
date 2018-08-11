@@ -3,14 +3,11 @@
 
 %ul.nav.nav-tabs.mb-3{id: 'settingsTabs', role: 'tablist'}
   %li.nav-item
-    %a.nav-link.active#general-tab{href: '#general', data: {toggle: 'tab'}}
-      General
+    %a.nav-link.active#general-tab{href: '#general', role: 'tab', data: {toggle: 'tab'}} General
   %li.nav-item
-    %a.nav-link#accounts-tab{href: '#accounts', data: {toggle: 'tab'}}
-      Accounts
+    %a.nav-link#accounts-tab{href: '#accounts', role: 'tab', data: {toggle: 'tab'}} Accounts
   %li.nav-item
-    %a.nav-link#api-tab{href: '#api', data: {toggle: 'tab'}}
-      API Access
+    %a.nav-link#api-tab{href: '#api', role: 'tab', data: {toggle: 'tab'}} API Access
 
 .tab-content#settingsTabsContent
   .tab-pane.fade.show.active#general{role: 'tabpanel'}
@@ -107,7 +104,6 @@
                         %td
                           = button_to authorization_path(app.id), class: 'btn btn-primary', method: :delete do
                             = icon('fas', 'times')
-
 
     .row
       .col-lg-12

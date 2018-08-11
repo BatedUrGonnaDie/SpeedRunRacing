@@ -7,7 +7,17 @@ class MainChannel < ApplicationCable::Channel
 
   def create_race(data)
     return if current_user.blank?
-    race = Race.new(category: Category.find(data['cat_id']))
+    if ability.cannot?(:create, Race)
+      NotificationRaceBroadcastJob.perform_later(
+        current_user,
+        nil,
+        'race_create_failure',
+        true,
+        reason: 'Error creating race, please make sure you have linked your twitch account and are not in another race!'
+      )
+      return
+    end
+    race = Race.new(category: Category.find(data['cat_id']), creator_id: current_user.id)
     if race.save
       ChatRoom.create(race: race)
       MainBroadcastJob.perform_later(

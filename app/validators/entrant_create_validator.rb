@@ -6,6 +6,6 @@ class EntrantCreateValidator < ActiveModel::Validator
   private
 
   def validate_entrant_record(entrant)
-    entrant.errors[:base] << "You're in another active race!" if entrant.user.active_races.count + 1 > 1
+    entrant.errors[:base] << "You're in another active race!" if entrant.user.in_active_race?
   end
 end

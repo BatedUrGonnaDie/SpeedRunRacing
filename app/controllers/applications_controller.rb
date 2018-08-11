@@ -19,6 +19,9 @@ class ApplicationsController < ApplicationController
   end
 
   def edit
+    if cannot?(:update, @application)
+      render :forbidden, status: 403
+    end
   end
 
   def update
