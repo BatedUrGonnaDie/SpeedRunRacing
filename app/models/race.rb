@@ -73,6 +73,7 @@ class Race < ApplicationRecord
     recalculate_places
     RaceBroadcastJob.perform_later(self, 'race_completed')
     MainBroadcastJob.perform_later('race_completed', self)
+    LockChatRoomJob.set(wait: 1.hour).perform_later(chat_room)
   end
 
   def finish_if_possible
