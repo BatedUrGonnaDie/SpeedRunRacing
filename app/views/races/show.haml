@@ -21,7 +21,7 @@
   .col-lg-4.col-xs-12.float-right
     #entrants-list
       .card
-        .card-header.text-center{data: {toggle: "collapse", target: '#entrants-table'}}
+        .card-header.text-center.dropdown-toggle{data: {toggle: "collapse", target: '#entrants-table'}}
           Entrants List
         - show_list = @race.entrants.count <= 5 || @race.finished?
         #entrants-table.collapse{class: show_list ? 'show' : ''}
