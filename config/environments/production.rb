@@ -73,7 +73,7 @@ Rails.application.configure do
     port: ENV['EMAIL_PORT'],
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV['EMAL_USERNAME'],
+    user_name: ENV['EMAIL_USERNAME'],
     password: ENV['EMAIL_PASSWORD']
   }
 
