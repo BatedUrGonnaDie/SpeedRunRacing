@@ -13,8 +13,6 @@
             %span is requesting these abilities:
           %p
             %ol
-              %li
-                %h5 See who you are on SpeedRunRacing
               - @pre_auth.scope.split(' ').each do |scope|
                 %li
                   %h5
@@ -33,6 +31,9 @@
             %span= link_to @pre_auth.client.application.owner.display_name, user_public_profile_path(@pre_auth.client.application.owner)
             %span . It currently has
             %span.text-info= " #{@pre_auth.client.application.access_tokens.count} active tokens."
+          %p
+            %span If authorized, you will be redirected to: 
+            %span= link_to @pre_auth.client.application.redirect_uri
 
         .card-footer
           .row
