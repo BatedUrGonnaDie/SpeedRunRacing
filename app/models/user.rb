@@ -27,8 +27,8 @@ class User < ApplicationRecord
     username
   end
 
-  def active_races
-    races.active
+  def active_race
+    races.active.find_by(entrants: {place: nil, user_id: id})
   end
 
   def active_created_races

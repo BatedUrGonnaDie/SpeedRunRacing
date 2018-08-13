@@ -9,10 +9,12 @@ class Race < ApplicationRecord
   OPEN = 'Open Entry'.freeze
   PROGRESS = 'In Progress'.freeze
   ENDED = 'Ended'.freeze
+  FORFEITED = 'All Forfeit'.freeze
+  INACTIVE = 'Inactivity Closure'.freeze
   ACTIVE_RACES = [Race::OPEN, Race::PROGRESS].freeze
 
-  scope :active, -> { includes(:game, :category, :entrants).where(status_text: Race::ACTIVE_RACES) }
-  scope :completed, -> { includes(:game, :category, :entrants).where(status_text: Race::ENDED) }
+  scope :active, -> { where(status_text: Race::ACTIVE_RACES) }
+  scope :completed, -> { where(status_text: Race::ENDED) }
   scope :newest, -> { order(finish_time: :desc) }
 
   def in_progress?
@@ -26,7 +28,7 @@ class Race < ApplicationRecord
 
   def entrant_for_user(user)
     return nil if user.nil?
-    entrants.where(user_id: user.id).first
+    entrants.find_by(user_id: user.id)
   end
 
   def finished_entrants
@@ -42,7 +44,7 @@ class Race < ApplicationRecord
   end
 
   def finished?
-    finish_time.present?
+    started? && finish_time.present?
   end
 
   def recalculate_places
@@ -82,7 +84,11 @@ class Race < ApplicationRecord
       finish
     else
       # If everyone forfeit the race or were disqualified, delete the race from history
-      destroy
+      update(
+        finish_time: Time.now.utc,
+        status_text: Race::FORFEITED
+      )
+      queue_deletion!
     end
   end
 
@@ -121,5 +127,11 @@ class Race < ApplicationRecord
         x.place <=> y.place
       end
     end
+  end
+
+  def queue_deletion!
+    RemoveRaceJob.set(wait: 15.minutes).perform_later(self)
+    RaceBroadcastJob.perform_later(self, 'race_deletion_queued')
+    MainBroadcastJob.perform_later('race_completed', self)
   end
 end

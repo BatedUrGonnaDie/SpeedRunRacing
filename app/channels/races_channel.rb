@@ -128,14 +128,14 @@ class RacesChannel < ApplicationCable::Channel
   end
 
   def notify_user(msg, error, extras = {})
-    NotificationRaceBroadcastJob.perform_later(current_user, @race, msg, error, extras)
+    NotificationRaceBroadcastJob.perform_now(current_user, @race, msg, error, extras)
   end
 
   def notify_race(msg)
-    RaceBroadcastJob.perform_later(@race, msg)
+    RaceBroadcastJob.perform_now(@race, msg)
   end
 
   def notify_main(status, extras = {})
-    MainBroadcastJob.perform_later(status, @race, extras)
+    MainBroadcastJob.perform_now(status, @race, extras)
   end
 end

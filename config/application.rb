@@ -29,5 +29,7 @@ module SpeedRunRacing
     end
 
     Rails.application.config.action_cable.disable_request_forgery_protection = true
+
+    config.active_job.queue_adapter = :delayed_job
   end
 end

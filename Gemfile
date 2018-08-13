@@ -44,6 +44,7 @@ gem 'turbolinks'
 gem 'webpacker'
 
 # Jobs
+gem 'daemons'
 gem 'delayed_job_active_record'
 
 # View Building

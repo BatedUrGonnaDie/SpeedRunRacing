@@ -14,7 +14,10 @@
         - options = {description: "#{c.name} Races", id: "#{c.name}-race-table"}
         .tab-pane.fade{id: "c#{c.id}", class: "#{i==0 ? 'active show' : ''}", role: 'tabpanel'}
           - if current_user.present?
-            %h3
+            %h3.center
               %button{'class' => 'btn btn-primary btn-create-race', 'data-category' => "#{c.id}"}
                 = "Create Race for #{c.name}"
-          = render partial: 'shared/race_table', locals: race_table_locals(:category_races, c.races.completed.newest, options)
+          - if c.races.completed.newest.count.positive?
+            = render partial: 'shared/race_table', locals: race_table_locals(:category_races, c.races.completed.newest, options)
+          - else
+            %h5.center No races for this category yet, be the first to run it!

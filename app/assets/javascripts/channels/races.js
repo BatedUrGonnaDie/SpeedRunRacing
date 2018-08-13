@@ -40,15 +40,18 @@ $(document).on("turbolinks:load", function() {
             $("#race-duration").data("start-time", data.race.start_time);
             break;
           case "race_completed":
-            $(".btn-join-race").addClass("hidden").removeClass("show");
-            $(".btn-part-race").addClass("hidden").removeClass("show");
-            $(".btn-unready-race").addClass("hidden").removeClass("show");
-            $(".btn-rejoin-race").addClass("hidden").removeClass("show");
-            $(".btn-abandon-race").addClass("hidden").removeClass("show");
-            $(".btn-done-race").addClass("hidden").removeClass("show");
-            $("#race-status-text").addClass("text-danger").removeClass("text-warning");
-            $("#race-status-text").html(data.race.status_text);
-            $("#race-duration").removeClass("updating-time");
+            end_race(data.race.status_text);
+            break;
+          case "race_deletion_queued":
+            var msg = "<div id='race-delete-alert' class='alert alert-danger' role='alert'>";
+            msg += "This race will be deleted in 15 minutes due to inactivity or all entrants forfeiting."
+            msg += "Chat will also be locked at that time.";
+            msg += "</div>";
+            $("noscript").before(msg)
+            end_race(data.race.status_text);
+            break;
+          case "race_deleted":
+            Turbolinks.visit("/", { action: "replace" })
             break;
           default:
             console.log("Default case shit yo");
@@ -156,3 +159,15 @@ var start_race = function(args) {
     $("#race-start-text").remove();
   }, 10000);
 };
+
+var end_race = function(status_text) {
+  $(".btn-join-race").addClass("hidden").removeClass("show");
+  $(".btn-part-race").addClass("hidden").removeClass("show");
+  $(".btn-unready-race").addClass("hidden").removeClass("show");
+  $(".btn-rejoin-race").addClass("hidden").removeClass("show");
+  $(".btn-abandon-race").addClass("hidden").removeClass("show");
+  $(".btn-done-race").addClass("hidden").removeClass("show");
+  $("#race-status-text").addClass("text-danger").removeClass("text-warning");
+  $("#race-status-text").html(status_text);
+  $("#race-duration").removeClass("updating-time");
+}

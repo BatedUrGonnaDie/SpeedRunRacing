@@ -8,6 +8,7 @@ A modern racing website for speedrunners to compete against eachother.
 - Ruby 2.3+
 - Postgres
 - Node/Yarn
+- Redis
 
 ### Setup
 1. `cp config/application.example.yml config/application.yml`
@@ -27,16 +28,4 @@ in browser racing~~ Completed
 5. ~~Finish last pages that have holes in them~~ Completed
 6. ~~Chat rooms and messages for race rooms~~ Completed (basic functionality done)
 7. Read-only developer JSON REST API
-8. Developer access to the websocket interface to allow write access to 3rd party applications
-
-dump from tests
-
-add x in time column on forfeits
-
-sort entrants table by place (FF anchor bottom) (completed in ruby already)
-
-easier to create races
-
-create race form
-
-
+8. ~~Developer access to the websocket interface to allow write access to 3rd party applications~~ Completed

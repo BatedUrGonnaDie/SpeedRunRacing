@@ -5,9 +5,9 @@ class Api::V1::RacesController < Api::V1::ApplicationController
   def index
     case @race_types
     when 'completed'
-      @races = Race.completed
+      @races = Race.includes(:game, :category, entrants: [:users]).completed
     when 'active'
-      @races = Race.active
+      @races = Race.includes(:game, :category, entrants: [:users]).active
     end
 
     render json: @races,
@@ -37,7 +37,7 @@ class Api::V1::RacesController < Api::V1::ApplicationController
   end
 
   def set_race
-    @race = Race.includes(:game, :category, :entrants).find(params[:race_id])
+    @race = Race.includes(:game, :category, entrants: [:users]).find(params[:race_id])
   rescue ActiveRecord::RecordNotFound
     not_found('race', :race_id)
   end

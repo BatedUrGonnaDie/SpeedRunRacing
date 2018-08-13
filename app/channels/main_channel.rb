@@ -8,7 +8,7 @@ class MainChannel < ApplicationCable::Channel
   def create_race(data)
     return if current_user.blank?
     if ability.cannot?(:create, Race)
-      NotificationRaceBroadcastJob.perform_later(
+      NotificationRaceBroadcastJob.perform_now(
         current_user,
         nil,
         'race_create_failure',
@@ -20,12 +20,12 @@ class MainChannel < ApplicationCable::Channel
     race = Race.new(category: Category.find(data['cat_id']), creator_id: current_user.id)
     if race.save
       ChatRoom.create(race: race)
-      MainBroadcastJob.perform_later(
+      MainBroadcastJob.perform_now(
         'race_created',
         race,
         html: ApplicationController.render(partial: 'races/active_race_td', locals: {race: race})
       )
-      NotificationRaceBroadcastJob.perform_later(
+      NotificationRaceBroadcastJob.perform_now(
         current_user,
         race,
         'race_create_success',
@@ -33,7 +33,7 @@ class MainChannel < ApplicationCable::Channel
         location: race_path(race)
       )
     else
-      NotificationRaceBroadcastJob.perform_later(
+      NotificationRaceBroadcastJob.perform_now(
         current_user,
         nil,
         'race_create_failure',

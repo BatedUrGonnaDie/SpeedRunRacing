@@ -1,10 +1,15 @@
 module RacesHelper
   def race_color(race)
-    if race.status_text == Race::OPEN
+    case race.status_text
+    when Race::OPEN
       'text-success'
-    elsif race.status_text == Race::PROGRESS
+    when Race::PROGRESS
       'text-warning'
-    elsif race.status_text == Race::ENDED
+    when Race::ENDED
+      'text-danger'
+    when Race::FORFEITED
+      'text-danger'
+    when Race::INACTIVE
       'text-danger'
     else
       raise

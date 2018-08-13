@@ -29,10 +29,10 @@ class MessagesChannel < ApplicationCable::Channel
   end
 
   def push_message(chat_msg, status)
-    MessageBroadcastJob.perform_later(@chat_room, chat_msg, status)
+    MessageBroadcastJob.perform_now(@chat_room, chat_msg, status)
   end
 
   def notify_user(msg, error, extras = {})
-    NotificationMessageBroadcastJob.perform_later(current_user, @chat_room, msg, error, extras)
+    NotificationMessageBroadcastJob.perform_now(current_user, @chat_room, msg, error, extras)
   end
 end

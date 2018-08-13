@@ -1,5 +1,5 @@
 class Entrant < ApplicationRecord
-  belongs_to :race
+  belongs_to :race, touch: true
   belongs_to :user
 
   validates_with EntrantCreateValidator, on: :create
