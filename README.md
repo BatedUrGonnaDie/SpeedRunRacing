@@ -17,6 +17,7 @@ A modern racing website for speedrunners to compete against eachother.
 4. `yarn install`
 5. `rake db:setup`
 6. (Optional) `rake sync_srdc` to retrieve all games and categores from speedrun.com
+7. `rails s` in one terminal, and then `rake jobs:work` in a separate terminal
 
 # Goals
 
