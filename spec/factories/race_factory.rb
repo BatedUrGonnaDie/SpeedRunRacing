@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :race do
     category
+    association :creator, factory: :user
 
     transient do
       with_entrants false
