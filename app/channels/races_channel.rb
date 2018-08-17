@@ -13,17 +13,21 @@ class RacesChannel < ApplicationCable::Channel
     update_race_instance
     return if @race.started?
     if ability.cannot?(:enter, Race)
-      notify_user('race_join_failure', true, reason: 'Please make sure you have linked your twitch account and are not in another race.')
+      notify_user(
+        current_user,
+        'race_join_failure', true,
+        reason: 'Please make sure you have linked your twitch account and are not in another race.'
+      )
       return
     end
 
     entrant = Entrant.new(user: current_user, race: @race)
     if entrant.save
       notify_race('race_entrants_updated')
-      notify_user('race_join_success', false)
+      notify_user(current_user, 'race_join_success', false)
       notify_main('race_entrants_updated')
     else
-      notify_user('race_join_failure', true, reason: get_errors_sentence(entrant))
+      notify_user(current_user, 'race_join_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
@@ -36,10 +40,10 @@ class RacesChannel < ApplicationCable::Channel
 
     if entrant.part
       notify_race('race_entrants_updated')
-      notify_user('race_part_success', false)
+      notify_user(current_user, 'race_part_success', false)
       notify_main('race_entrants_updated')
     else
-      notify_user('race_part_failure', true, reason: get_errors_sentence(entrant))
+      notify_user(current_user, 'race_part_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
@@ -52,10 +56,10 @@ class RacesChannel < ApplicationCable::Channel
 
     if entrant.part
       notify_race('race_entrants_updated')
-      notify_user('race_abandon_success', false)
+      notify_user(current_user, 'race_abandon_success', false)
       @race.finish_if_possible
     else
-      notify_user('race_abandon_failure', true, reason: get_errors_sentence(entrant))
+      notify_user(current_user, 'race_abandon_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
@@ -68,9 +72,9 @@ class RacesChannel < ApplicationCable::Channel
 
     if entrant.rejoin
       notify_race('race_entrants_updated')
-      notify_user('race_rejoin_success', false)
+      notify_user(current_user, 'race_rejoin_success', false)
     else
-      notify_user('race_rejoin_failure', true, reason: get_errors_sentence(entrant))
+      notify_user(current_user, 'race_rejoin_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
@@ -83,10 +87,10 @@ class RacesChannel < ApplicationCable::Channel
 
     if entrant.update(ready: true)
       notify_race('race_entrants_updated')
-      notify_user('race_ready_success', false)
+      notify_user(current_user, 'race_ready_success', false)
       @race.start_if_possible
     else
-      notify_user('race_ready_failure', true, reason: get_errors_sentence(entrant))
+      notify_user(current_user, 'race_ready_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
@@ -99,9 +103,9 @@ class RacesChannel < ApplicationCable::Channel
 
     if entrant.update(ready: false)
       notify_race('race_entrants_updated')
-      notify_user('race_unready_success', false)
+      notify_user(current_user, 'race_unready_success', false)
     else
-      notify_user('race_unready_failure', true, reason: get_errors_sentence(entrant))
+      notify_user(current_user, 'race_unready_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
@@ -114,10 +118,31 @@ class RacesChannel < ApplicationCable::Channel
 
     if entrant.done(data['server_time'])
       notify_race('race_entrants_updated')
-      notify_user('race_done_success', false)
+      notify_user(current_user, 'race_done_success', false)
       @race.finish_if_possible
     else
-      notify_user('race_done_failure', true, reason: get_errors_sentence(entrant))
+      notify_user(current_user, 'race_done_failure', true, reason: get_errors_sentence(entrant))
+    end
+  end
+
+  def kick_entrant(data)
+    return if current_user.blank?
+    update_race_instance
+    return if @race.started?
+    entrant = Entrant.find(data['entrant_id'])
+    return if entrant.nil?
+    if ability.cannot?(:kick, entrant)
+      notify_user(current_user, 'race_kick_failure', true, reason: 'User must be inactive for 10 minutes.')
+      return
+    end
+
+    if entrant.part
+      notify_race('race_entrants_updated')
+      notify_user(entrant.user, 'race_part_success', false)
+      notify_user(entrant.user, 'race_kick_inactive', false)
+      notify_main('race_entrants_updated')
+    else
+      notify_user(current_user, 'race_kick_failure', true, reason: get_errors_sentence(entrant))
     end
   end
 
@@ -127,12 +152,20 @@ class RacesChannel < ApplicationCable::Channel
     @race = Race.find(params['race_id'])
   end
 
-  def notify_user(msg, error, extras = {})
-    NotificationRaceBroadcastJob.perform_now(current_user, @race, msg, error, extras)
+  def notify_user(user, msg, error, extras = {})
+    NotificationRaceBroadcastJob.perform_now(user, @race, msg, error, extras)
   end
 
-  def notify_race(msg)
-    RaceBroadcastJob.perform_now(@race, msg)
+  def notify_race(msg, extras = {})
+    RaceBroadcastJob.perform_now(@race, msg, extras)
+    return unless msg == 'race_entrants_updated'
+
+    RaceBroadcastJob.perform_now(
+      @race,
+      'race_entrants_html',
+      entrants_html: ApplicationController.render(partial: 'races/entrants_table', locals: {race: @race}),
+      admin_html: ApplicationController.render(partial: 'races/admin_table', locals: {race: @race})
+    )
   end
 
   def notify_main(status, extras = {})

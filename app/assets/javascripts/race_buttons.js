@@ -1,8 +1,5 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
-
 $(document).on("turbolinks:load", function() {
-  $(".btn-create-race").each(function(index) {
+  $(".btn-create-race").each(function() {
     $(this).click(function() {
       App.main.create_race($(this).data("category"));
     });

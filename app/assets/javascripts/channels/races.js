@@ -20,9 +20,6 @@ $(document).on("turbolinks:load", function() {
       received: function(data) {
         // Called when there's incoming data on the websocket for this channel
         switch (data.update) {
-          case "race_entrants_updated":
-            update_entrant_tables(data.race);
-            break;
           case "race_started":
             $("header").after("<div id='race-start-dim'></div>");
             $("header").after("<div id='race-start-text'>RACE STARTING SOON</div>");
@@ -38,6 +35,13 @@ $(document).on("turbolinks:load", function() {
             });
             counter.start();
             $("#race-duration").data("start-time", data.race.start_time);
+            break;
+          case "race_entrants_updated":
+            break;
+          case "race_entrants_html":
+            $("#entrants-list").html(data.entrants_html)
+            $("#creator-controls").html(data.admin_html)
+            attach_admin_buttons();
             break;
           case "race_completed":
             end_race(data.race.status_text);
@@ -78,6 +82,10 @@ $(document).on("turbolinks:load", function() {
 
       unready: function() {
         this.perform("unready");
+      },
+
+      kick_entrant: function(entrant_id) {
+        this.perform("kick_entrant", {entrant_id: entrant_id});
       },
 
       done: function(server_time) {

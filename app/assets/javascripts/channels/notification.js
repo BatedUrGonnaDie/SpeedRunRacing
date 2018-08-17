@@ -81,6 +81,13 @@ $(document).on("turbolinks:load", function() {
             push_alert("Race couldn't be abandoned!<br>" + data.reason, "danger");
             break;
 
+          case "race_kick_inactive":
+            push_alert("You have been kicked by the race creator for inactivity.", "danger")
+            break;
+          case "race_kick_failure":
+            push_alert("Could not kick user!<br>" + data.reason, "danger");
+            break;
+
           case "chat_message_create_failure":
             push_alert("Error creating message!<br>" + data.reason, "danger");
             break;

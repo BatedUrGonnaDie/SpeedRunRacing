@@ -5,6 +5,7 @@ class Race < ApplicationRecord
   has_many :users, through: :entrants
   has_one :chat_room, dependent: :destroy
   has_many :chat_messages, through: :chat_room
+  belongs_to :creator, class_name: 'User', foreign_key: :creator_id, inverse_of: :created_races
 
   OPEN = 'Open Entry'.freeze
   PROGRESS = 'In Progress'.freeze
@@ -29,6 +30,11 @@ class Race < ApplicationRecord
   def entrant_for_user(user)
     return nil if user.nil?
     entrants.find_by(user_id: user.id)
+  end
+
+  def creator?(user)
+    return false if user.nil?
+    creator_id == user.id
   end
 
   def finished_entrants

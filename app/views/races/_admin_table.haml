@@ -1,0 +1,16 @@
+- shown_entrants = race.entrants - [race.entrant_for_user(race.creator)]
+.card
+  .card-header.text-center.dropdown-toggle{data: {toggle: 'collapse', target: '#creator-table'}}
+    Creator Controls
+  #creator-table.collapse{class: shown_entrants.length.positive? ? 'show' : ''}
+    %table.card-body.table-hover.text-center.mb-0.w-100
+      %thead
+        %th Entrant
+        %th Kick
+      %tbody
+        - shown_entrants.each do |e|
+          %tr
+            %td.name-column
+              = e.user.display_name
+            %td.kick-column
+              %button.btn-kick-entrant.btn.btn-danger{'data-entrant-id' => e.id}= icon('fas', 'times')
