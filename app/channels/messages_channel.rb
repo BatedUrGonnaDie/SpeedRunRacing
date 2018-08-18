@@ -25,7 +25,8 @@ class MessagesChannel < ApplicationCable::Channel
   private
 
   def update_chat_room_instance
-    @chat_room = ChatRoom.find(params['room_id'])
+    @chat_room ||= ChatRoom.find(params['room_id'])
+    @chat_room.reload
   end
 
   def push_message(chat_msg, status)

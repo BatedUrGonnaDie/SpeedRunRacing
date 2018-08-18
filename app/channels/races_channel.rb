@@ -149,7 +149,8 @@ class RacesChannel < ApplicationCable::Channel
   private
 
   def update_race_instance
-    @race = Race.find(params['race_id'])
+    @race ||= Race.find(params['race_id'])
+    @race.reload
   end
 
   def notify_user(user, msg, error, extras = {})
