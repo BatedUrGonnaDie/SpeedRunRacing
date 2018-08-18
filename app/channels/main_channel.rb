@@ -1,6 +1,4 @@
 class MainChannel < ApplicationCable::Channel
-  include Rails.application.routes.url_helpers
-
   def subscribed
     stream_from 'main_channel'
   end
@@ -30,7 +28,7 @@ class MainChannel < ApplicationCable::Channel
         race,
         'race_create_success',
         false,
-        location: race_path(race)
+        location: Rails.application.routes.url_helpers.race_path(race)
       )
     else
       NotificationRaceBroadcastJob.perform_now(
