@@ -4,18 +4,18 @@ FactoryBot.define do
     association :creator, factory: :user
 
     transient do
-      with_entrants false
+      with_entrants { false }
     end
 
     trait :started do
       start_time { Time.now.utc }
-      status_text Race::PROGRESS
+      status_text { Race::PROGRESS }
     end
 
     trait :completed do
       start_time  { Time.now.utc - 2.hours }
       finish_time { Time.now.utc }
-      status_text Race::ENDED
+      status_text { Race::ENDED }
     end
 
     after(:create) do |race, evaluator|

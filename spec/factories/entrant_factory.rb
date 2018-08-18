@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :entrant do
     transient do
-      start_race false
-      completed false
+      start_race { false }
+      completed { false }
     end
 
     association :race
@@ -13,7 +13,7 @@ FactoryBot.define do
 
       next unless evaluator.completed
       entrant.place = entrant.race.finished_entrants + 1
-      entrant.finish_time = entrant.race.start_time + 1.minutes
+      entrant.finish_time = entrant.race.start_time + 1.minute
     end
   end
 end
