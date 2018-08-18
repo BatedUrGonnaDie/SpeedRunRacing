@@ -59,14 +59,14 @@ $(document).on("turbolinks:load", function() {
 });
 
 const append_message = function(time, name, body) {
-  const list = $("#message-list");
-  const scroll = list.prop("scrollHeight") - list.scrollTop() == list.outerHeight();
+  const $list = $("#message-list");
+  const scroll = $list.prop("scrollHeight") - $list.scrollTop() == $list.outerHeight();
   const $new_item = $("<li />").addClass("chat-message");
   $new_item.append($("<span />").addClass("chat-timestamp").text(format_timestamp(time)));
   $new_item.append($("<span />").addClass("chat-name").text(name));
   $new_item.append($("<span />").text(": "));
   $new_item.append($("<span />").addClass("chat-body").text(body));
-  list.append($new_item);
+  $list.append($new_item);
   if (scroll)
-    list.animate({scrollTop: list.prop("scrollHeight")});
+    $list.animate({scrollTop: $list.prop("scrollHeight")});
 };
