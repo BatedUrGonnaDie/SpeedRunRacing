@@ -9,7 +9,7 @@ module ApplicationCable
     end
 
     def ability
-      @ability ||= Ability.new(current_user)
+      @ability = Ability.new(current_user)
     end
 
     protected
