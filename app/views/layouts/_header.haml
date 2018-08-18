@@ -20,7 +20,9 @@
               %a.nav-link.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
                 Misc
               %ul.dropdown-menu{role: "menu"}
-                %li.dropdown-item= link_to "Source Code", "https://github.com/batedurgonnadie/speedrunracing", target: :_blank, class: 'nav-link'
+                %li.dropdown-item
+                  %a.nav-link{href: 'https://github.com/batedurgonnadie/speedrunracing', target: '_blank'}
+                    = icon('fab', 'github', 'Source Code')
             .ml-lg-3
               %form.form-inline{role: "search", action: "/search"}
                 .input-group
