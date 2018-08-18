@@ -3,7 +3,7 @@ import { attach_admin_buttons } from "../admin_buttons"
 import { Countdown } from "../countdown"
 
 $(document).on("turbolinks:load", function() {
-  if (gon.race && gon.race.finished_time === null) {
+  if (gon.race && gon.race.finish_time === null) {
     App.races = App.cable.subscriptions.create({channel: "RacesChannel", race_id: gon.race.id}, {
       connected: function() {
         // Called when the subscription is ready for use on the server
