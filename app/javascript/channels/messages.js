@@ -41,8 +41,8 @@ $(document).on("page:before-change turbolinks:before-visit", function() {
 $(document).on("turbolinks:load", function() {
   if ($("#new-message-form").length) {
     $("#new-message-form").submit(function(e) {
-      var message_box = $("#message-input-box");
-      var message = message_box.val();
+      const message_box = $("#message-input-box");
+      const message = message_box.val();
       if ($.trim(message.length) > 1 && App.messages) {
         App.messages.send_message(message);
         message_box.val("");
@@ -52,16 +52,16 @@ $(document).on("turbolinks:load", function() {
     });
   }
 
-  var list = $("#message-list");
+  const list = $("#message-list");
   if (list.length) {
     list.scrollTop(list.prop("scrollHeight"));
   }
 });
 
-var append_message = function(time, name, body) {
-  var list = $("#message-list");
-  var scroll = list.prop("scrollHeight") - list.scrollTop() == list.outerHeight();
-  var $new_item = $("<li />").addClass("chat-message");
+const append_message = function(time, name, body) {
+  const list = $("#message-list");
+  const scroll = list.prop("scrollHeight") - list.scrollTop() == list.outerHeight();
+  const $new_item = $("<li />").addClass("chat-message");
   $new_item.append($("<span />").addClass("chat-timestamp").text(format_timestamp(time)));
   $new_item.append($("<span />").addClass("chat-name").text(name));
   $new_item.append($("<span />").text(": "));

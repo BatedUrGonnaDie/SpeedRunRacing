@@ -10,12 +10,4 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require popper
-//= require bootstrap-sprockets
-//= require turbolinks
-//= require moment/moment
-//= require timesync/dist/timesync
-//= require alertifyjs/build/alertify
 //= require_tree .

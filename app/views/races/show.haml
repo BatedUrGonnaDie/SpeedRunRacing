@@ -1,4 +1,7 @@
 = provide(:title, "#{@race.game.name} - #{@race.category.name}")
+- if @race.closed?
+  .alert.alert-danger#race-delete-alert{role: 'alert'}
+    This race has been closed and will be deleted soon.
 .row.d-block
   .col-lg-8.col-xs-12.float-left
     .row

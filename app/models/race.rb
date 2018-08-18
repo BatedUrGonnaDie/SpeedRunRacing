@@ -13,13 +13,19 @@ class Race < ApplicationRecord
   FORFEITED = 'All Forfeit'.freeze
   INACTIVE = 'Inactivity Closure'.freeze
   ACTIVE_RACES = [Race::OPEN, Race::PROGRESS].freeze
+  CLOSED_RACES = [Race::FORFEITED, Race::INACTIVE].freeze
 
   scope :active, -> { where(status_text: Race::ACTIVE_RACES) }
   scope :completed, -> { where(status_text: Race::ENDED) }
+  scope :closed, -> { where(status_text: Race::CLOSED_RACES) }
   scope :newest, -> { order(finish_time: :desc) }
 
   def in_progress?
     status_text == Race::PROGRESS
+  end
+
+  def closed?
+    CLOSED_RACES.include?(status_text)
   end
 
   def contains_user?(user)
@@ -64,7 +70,7 @@ class Race < ApplicationRecord
       start_time: Time.now.utc + 15.seconds,
       status_text: Race::PROGRESS
     )
-    RaceBroadcastJob.perform_later(self, 'race_started')
+    RaceBroadcastJob.perform_now(self, 'race_started')
     MainBroadcastJob.perform_later('race_started', self)
   end
 
@@ -79,7 +85,7 @@ class Race < ApplicationRecord
       status_text: Race::ENDED
     )
     recalculate_places
-    RaceBroadcastJob.perform_later(self, 'race_completed')
+    RaceBroadcastJob.perform_now(self, 'race_completed')
     MainBroadcastJob.perform_later('race_completed', self)
     LockChatRoomJob.set(wait: 1.hour).perform_later(chat_room)
   end

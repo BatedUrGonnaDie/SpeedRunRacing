@@ -1,11 +1,15 @@
+import { push_alert } from "../alerts"
+import { attach_admin_buttons } from "../admin_buttons"
+import { Countdown } from "../countdown"
+
 $(document).on("turbolinks:load", function() {
   if (gon.race) {
     App.races = App.cable.subscriptions.create({channel: "RacesChannel", race_id: gon.race.id}, {
       connected: function() {
         // Called when the subscription is ready for use on the server
         gon.race_channel_connected = true;
-        var name = "race_" + gon.race.id + "_time";
-        var time = localStorage.getItem(name);
+        const name = `race_${gon.race.id}_time`;
+        const time = localStorage.getItem(name);
         if (time !== null) {
           localStorage.removeItem(name);
           this.done(time);
@@ -23,7 +27,7 @@ $(document).on("turbolinks:load", function() {
           case "race_started":
             $("header").after("<div id='race-start-dim'></div>");
             $("header").after("<div id='race-start-text'>RACE STARTING SOON</div>");
-            var counter = new Countdown({
+            const counter = new Countdown({
               start_time: data.race.start_time,
               on_update_status: function(sec, options) {
                 if (sec > 10)
@@ -35,6 +39,7 @@ $(document).on("turbolinks:load", function() {
             });
             counter.start();
             $("#race-duration").data("start-time", data.race.start_time);
+            $("#creator-controls").remove();
             break;
           case "race_entrants_updated":
             break;
@@ -42,12 +47,13 @@ $(document).on("turbolinks:load", function() {
             $("#entrants-list").html(data.entrants_html)
             $("#creator-controls").html(data.admin_html)
             attach_admin_buttons();
+            $(document).trigger("race:updated");
             break;
           case "race_completed":
             end_race(data.race.status_text);
             break;
           case "race_deletion_queued":
-            var msg = "<div id='race-delete-alert' class='alert alert-danger' role='alert'>";
+            let msg = "<div id='race-delete-alert' class='alert alert-danger' role='alert'>";
             msg += "This race will be deleted in 15 minutes due to inactivity or all entrants forfeiting."
             msg += "Chat will also be locked at that time.";
             msg += "</div>";
@@ -112,45 +118,8 @@ $(document).on("page:before-change turbolinks:before-visit", function() {
   }
 });
 
-var update_entrant_tables = function(race) {
-  for (var i = 0; i < race.entrants.length; i++) {
-    var e = race.entrants[i];
-    var row = $("tr#entrant-id-" + e.id);
-    if (row.length){
-      row.find(".name-column").text(e.user.display_name);
-      var cls;
-      if (e.ready)
-        cls = "fas fa-check text-success";
-      else
-        cls = "fas fa-times text-danger";
-      row.find(".ready-column > i").removeClass().addClass(cls);
-      row.find(".time-column .format-time").html(format_time(e.duration || "-"));
-      row.find(".place-column .format-place").html(format_place(e.place || "-"));
-    } else {
-      var $new_row = $("<tr />").attr("data-entrant-id", e.id).prop("id", "entrant-id-" + e.id);
-      $new_row.append($("<td />").addClass("name-column").text(e.user.display_name));
-      $new_row.append($("<td />").addClass("ready-column").append($("<i />").addClass("fas fa-times text-danger")));
-      $new_row.append($("<td />").addClass("time-column").append($("<div />").addClass("format-time").text("-")));
-      $new_row.append($("<td />").addClass("place-column").append($("<div />").addClass("format-place").text("-")));
-      $("#entrants-list tbody").append($new_row);
-    }
-  }
-  if (race.entrants.length < $("#entrants-list tbody tr").length) {
-    var current_entrants = $.map($("#entrants-list tbody tr"), function(val, i) {
-      return val.dataset.entrantId;
-    });
-    var new_entrants = race.entrants.map(function(elem, i) {return "" + elem.id;});
-    var to_remove = $(current_entrants).not(new_entrants).get();
-    for (i = 0; i < to_remove.length; i++) {
-      var selector = "#entrants-list tbody tr#entrant-id-" + to_remove[i];
-      if ($(selector).length)
-        $(selector).remove();
-    }
-  }
-};
-
-var start_race = function(args) {
-  var race = args.data.race;
+const start_race = function(args) {
+  const race = args.data.race;
   $(".btn-join-race").addClass("hidden").removeClass("show");
   $(".btn-part-race").addClass("hidden").removeClass("show");
   $(".btn-ready-race").addClass("hidden").removeClass("show");
@@ -168,7 +137,7 @@ var start_race = function(args) {
   }, 10000);
 };
 
-var end_race = function(status_text) {
+const end_race = function(status_text) {
   $(".btn-join-race").addClass("hidden").removeClass("show");
   $(".btn-part-race").addClass("hidden").removeClass("show");
   $(".btn-unready-race").addClass("hidden").removeClass("show");

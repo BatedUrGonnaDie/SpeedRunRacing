@@ -9,7 +9,7 @@ $(document).on("turbolinks:load", function() {
       disconnected: function() {
         if ($("#disconnect-alert").length)
           return;
-        var msg = "<div id='disconnect-alert' class='alert alert-danger' role='alert'>";
+        let msg = "<div id='disconnect-alert' class='alert alert-danger' role='alert'>";
         msg += "Disconnected from the server, race commands will not go through until we reconnect.  ";
         msg += "Race finishes however will be queued and sent upon reconnection.";
         msg += "</div>";
@@ -21,7 +21,7 @@ $(document).on("turbolinks:load", function() {
       },
 
       received: function(data) {
-        var selector;
+        let selector;
         switch (data.status) {
           case "race_created":
             selector = "#active-race-table tbody";

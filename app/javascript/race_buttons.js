@@ -1,3 +1,7 @@
+import moment from "moment"
+
+import { ts } from "./time"
+
 $(document).on("turbolinks:load", function() {
   $(".btn-create-race").each(function() {
     $(this).click(function() {

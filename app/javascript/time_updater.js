@@ -1,4 +1,6 @@
-var global_time_updater;
+import { format_time, get_seconds_from_data_diff } from "./time"
+
+let global_time_updater;
 
 $(document).on("turbolinks:load", function() {
   if (!global_time_updater) {
@@ -7,10 +9,10 @@ $(document).on("turbolinks:load", function() {
   }
 });
 
-var update_time = function() {
+const update_time = function() {
   $(".updating-time").each(function() {
-    var start = $(this).data("start-time");
-    var time = get_seconds_from_data_diff(start);
+    const start = $(this).data("start-time");
+    const time = get_seconds_from_data_diff(start);
     $(this).html(format_time(time));
   });
 };

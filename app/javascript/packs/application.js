@@ -8,3 +8,24 @@
 // layout file, like app/views/layouts/application.html.erb
 
 console.log('Hello World from Webpacker')
+import "jquery"
+import Rails from 'rails-ujs';
+import Turbolinks from 'turbolinks'
+Rails.start()
+Turbolinks.start()
+
+import "bootstrap"
+
+import "../cable"
+import "../channels/main"
+import "../channels/messages"
+import "../channels/notification"
+import "../channels/races"
+
+import "../admin_buttons"
+import "../alerts"
+import "../countdown"
+import "../place"
+import "../race_buttons"
+import "../time"
+import "../time_updater"

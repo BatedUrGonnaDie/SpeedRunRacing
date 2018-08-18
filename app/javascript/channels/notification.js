@@ -1,3 +1,5 @@
+import { push_alert } from "../alerts"
+
 $(document).on("turbolinks:load", function() {
   if (gon.current_user_id && App.notification === undefined) {
     App.notification = App.cable.subscriptions.create("NotificationChannel", {

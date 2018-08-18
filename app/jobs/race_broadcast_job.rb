@@ -1,7 +1,7 @@
 class RaceBroadcastJob < ApplicationJob
   queue_as :default
 
-  def perform(race, status, extras)
+  def perform(race, status, extras = {})
     RacesChannel.broadcast_to(
       race,
       generate_msg(race, status, extras)
