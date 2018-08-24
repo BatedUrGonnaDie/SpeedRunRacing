@@ -39,8 +39,6 @@ gem 'rails'
 
 # Frontend Resources
 gem 'gon'
-gem 'jquery-rails'
-gem 'turbolinks'
 gem 'webpacker'
 
 # Jobs
