@@ -10,10 +10,10 @@ class Api::V1::RacesController < Api::V1::ApplicationController
       @races = Race.includes(:game, :category, entrants: [:users]).active
     end
 
-    render json: @races,
-           each_serializer: Api::V1::RaceSerializer,
-           adapter: :json,
-           include: ['entrants', 'entrants.user', 'game', 'category']
+    paginate json: @races,
+             each_serializer: Api::V1::RaceSerializer,
+             adapter: :json,
+             include: ['entrants', 'entrants.user', 'game', 'category']
   end
 
   def show
