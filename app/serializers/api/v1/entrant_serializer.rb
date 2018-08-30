@@ -10,4 +10,8 @@ class Api::V1::EntrantSerializer < Api::V1::ApplicationSerializer
   def id
     object.id.to_s
   end
+
+  def race_id
+    object.race_id.to_s
+  end
 end

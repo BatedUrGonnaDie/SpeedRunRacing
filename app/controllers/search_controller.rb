@@ -1,11 +1,11 @@
 class SearchController < ApplicationController
   def index
     if params[:q].present?
-      @games = Game.basic_search(params[:q])
-      @users = User.basic_search(params[:q])
+      @games = Game.search(params[:q])
+      @users = User.search(params[:q])
     else
-      @games = []
-      @users = []
+      @games = Game.none
+      @users = User.none
     end
   end
 end

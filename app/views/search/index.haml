@@ -21,7 +21,7 @@
                     %img{src: game.cover_small}
                   %td= link_to game.name, game_path(game)
                   %td= game.shortname
-                  %td= game.completed_races_count
+                  %td= game.completed_races.count
 
   .col-lg-6.col-md-12
     - if @users.empty?

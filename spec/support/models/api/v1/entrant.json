@@ -16,6 +16,9 @@
         "id": {
             "type": "string"
         },
+        "race_id": {
+            "type": "string"
+        },
         "ready": {
             "type": "boolean"
         },

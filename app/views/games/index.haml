@@ -17,6 +17,6 @@
               %img{src: game.cover_small}
             %td= link_to game.name, game_path(game)
             %td= game.shortname
-            %td= game.completed_races_count
+            %td= game.completed_races.count
   .mx-auto.mb-3
     = paginate @games, theme: 'twitter-bootstrap-4'

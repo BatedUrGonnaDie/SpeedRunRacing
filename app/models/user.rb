@@ -15,12 +15,14 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable
 
   validates :username, uniqueness: true
-  validates_format_of :username, with: /^[a-zA-Z0-9_]*$/, multiline: true
+  validates :username, format: {with: /^[a-zA-Z0-9_]*$/, multiline: true}
   validates :username, length: {minimum: 3, maximum: 16}
   validates_with DisplayNameValidator
 
-  def self.searchable_columns
-    [:username]
+  def self.search(term)
+    term.strip!
+    return User.none if term.blank?
+    fuzzy_search(username: term)
   end
 
   def to_param

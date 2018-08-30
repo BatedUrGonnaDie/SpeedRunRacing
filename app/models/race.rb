@@ -14,11 +14,14 @@ class Race < ApplicationRecord
   INACTIVE = 'Inactivity Closure'.freeze
   ACTIVE_RACES = [Race::OPEN, Race::PROGRESS].freeze
   CLOSED_RACES = [Race::FORFEITED, Race::INACTIVE].freeze
+  VALID_API_PARAMS = %w[completed active combined].freeze
 
   scope :active, -> { where(status_text: Race::ACTIVE_RACES) }
   scope :completed, -> { where(status_text: Race::ENDED) }
   scope :closed, -> { where(status_text: Race::CLOSED_RACES) }
   scope :newest, -> { order(finish_time: :desc) }
+
+  scope :by_game, ->(g) { joins(:category).where(categories: {game: g}) }
 
   def in_progress?
     status_text == Race::PROGRESS

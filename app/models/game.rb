@@ -4,15 +4,18 @@ class Game < ApplicationRecord
 
   validates :srdc_id, uniqueness: true
 
-  def self.searchable_columns
-    %i[name shortname]
+  def self.search(term)
+    term.strip!
+    return Game.none if term.blank?
+    exact_match = where('shortname ILIKE ?', term)
+    exact_match + fuzzy_search(name: term).where.not(id: exact_match.map(&:id))
   end
 
   def to_param
     shortname
   end
 
-  def completed_races_count
-    races.where(status_text: Race::ENDED).count
+  def completed_races
+    races.where(status_text: Race::ENDED)
   end
 end
