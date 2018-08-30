@@ -37,7 +37,7 @@ RSpec.describe Api::V1::RacesController do
     end
 
     context 'for the "completed" race type' do
-      let(:races) { FactoryBot.create_list(:race, 5, :completed, with_entrants: true) }
+      let(:races) { FactoryBot.create_list(:race, 5, :completed, :with_entrants) }
       subject { get :index, params: {race_status: 'completed'} }
 
       it 'returns a 200' do
@@ -60,15 +60,30 @@ RSpec.describe Api::V1::RacesController do
     end
 
     context 'for an existing race' do
-      let(:race) { FactoryBot.create(:race) }
-      subject { get :show, params: {race_id: race.id} }
+      context 'with no entrants' do
+        let(:race) { FactoryBot.create(:race) }
+        subject { get :show, params: {race_id: race.id} }
 
-      it 'returns a 200' do
-        expect(subject).to have_http_status 200
+        it 'returns a 200' do
+          expect(subject).to have_http_status 200
+        end
+
+        it 'renders a race schema' do
+          expect(subject.body).to match_json_schema(:race)
+        end
       end
 
-      it 'renders a race schema' do
-        expect(subject.body).to match_json_schema(:race)
+      context 'with entrants' do
+        let(:race) { FactoryBot.create(:race, :with_entrants) }
+        subject { get :show, params: {race_id: race.id} }
+
+        it 'returns a 200' do
+          expect(subject).to have_http_status 200
+        end
+
+        it 'renders a race schema' do
+          expect(subject.body).to match_json_schema(:race)
+        end
       end
     end
   end

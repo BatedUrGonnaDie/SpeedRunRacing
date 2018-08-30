@@ -14,9 +14,9 @@ FactoryBot.define do
     username
     password { '1234567890' }
     password_confirmation { '1234567890' }
-  end
 
-  trait :linked_account do
-    twitch_id { 1 }
+    trait :linked_account do
+      twitch_id { 1 }
+    end
   end
 end
