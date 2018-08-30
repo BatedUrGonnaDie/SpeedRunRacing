@@ -3,7 +3,7 @@ class Api::V1::ApplicationController < ActionController::API
 
   def not_found(resource, param_name)
     render status: :not_found, json: {
-      status: 404,
+      status: :not_found,
       error: "No #{resource} found for ID #{params[param_name]}"
     }
   end
@@ -18,7 +18,7 @@ class Api::V1::ApplicationController < ActionController::API
     response.set_header('Location', secure_uri.to_s)
 
     render status: :moved_permanently, json: {
-      status: 301,
+      status: :moved_permanently,
       error: "HTTPS is required to access SRR's API.",
       location: secure_uri
     }
