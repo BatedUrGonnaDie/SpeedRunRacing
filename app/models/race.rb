@@ -21,7 +21,8 @@ class Race < ApplicationRecord
   scope :closed, -> { where(status_text: Race::CLOSED_RACES) }
   scope :newest, -> { order(finish_time: :desc) }
 
-  scope :by_game, ->(g) { joins(:category).where(categories: {game: g}) }
+  scope :by_game, ->(game) { joins(:category).where(categories: {game: game}) }
+  scope :by_cat,  ->(cat) { where(category: cat) }
 
   def in_progress?
     status_text == Race::PROGRESS

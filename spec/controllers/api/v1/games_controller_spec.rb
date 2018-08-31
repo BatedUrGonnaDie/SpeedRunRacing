@@ -66,7 +66,7 @@ RSpec.describe Api::V1::GamesController do
       end
 
       it 'renders a race array schema' do
-        expect(subject.body).to match_json_schema(:games_races)
+        expect(subject.body).to match_json_schema(:races)
       end
     end
   end

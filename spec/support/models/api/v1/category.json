@@ -5,6 +5,8 @@
         "srdc_id",
         "name",
         "weblink",
+        "race_count",
+        "entrant_count",
         "created_at",
         "updated_at"
     ],
@@ -24,6 +26,12 @@
         },
         "weblink": {
             "type": "string"
+        },
+        "race_count": {
+            "type": "number"
+        },
+        "entrant_count": {
+            "type": "number"
         },
         "created_at": {
             "type": "string"
