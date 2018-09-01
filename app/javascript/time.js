@@ -65,4 +65,4 @@ const get_seconds_from_data_diff = function(date_string) {
   return (current.diff(start) / 1000);
 };
 
-export { ts, format_time, get_seconds_from_data_diff }
+export { ts, format_time, get_seconds_from_data_diff, format_timestamp }

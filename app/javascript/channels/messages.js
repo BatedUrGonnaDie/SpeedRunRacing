@@ -1,5 +1,7 @@
+import { format_timestamp } from "../time"
+
 $(document).on("turbolinks:load", function() {
-  if (gon.chat_room && gon.chat_room.locked === false) {
+  if (gon.chat_room && Boolean(gon.chat_room.locked) === false) {
     App.messages = App.cable.subscriptions.create({channel: "MessagesChannel", room_id: gon.chat_room.id}, {
       connected: function() {
         // Called when the subscription is ready for use on the server
