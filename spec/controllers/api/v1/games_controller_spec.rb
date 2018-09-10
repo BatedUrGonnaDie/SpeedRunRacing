@@ -5,7 +5,7 @@ RSpec.describe Api::V1::GamesController do
     context 'with no query' do
       subject { get :index }
 
-      it 'returns a 404' do
+      it 'returns a 400' do
         expect(subject).to have_http_status 400
       end
     end

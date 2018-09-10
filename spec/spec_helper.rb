@@ -55,5 +55,6 @@ RSpec.configure do |config|
     races: 'spec/support/views/api/v1/races/index.json',
     game: 'spec/support/views/api/v1/games/show.json',
     games: 'spec/support/views/api/v1/games/index.json',
+    user: 'spec/support/views/api/v1/users/show.json'
   }
 end

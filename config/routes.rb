@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       get '/games',                                             to: 'games#index'
       get '/games/:shortname',                                  to: 'games#show'
       get '/games/:shortname/races',                            to: 'games#races'
-      get '/games/:shortname/categories/:category_id/races', to: 'games/categories#races'
+      get '/games/:shortname/categories/:category_id/races',    to: 'games/categories#races'
 
       get '/users/:username',       to: 'users#show'
       get '/users/:username/races', to: 'users#races'
