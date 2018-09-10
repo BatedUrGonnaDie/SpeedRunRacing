@@ -37,4 +37,7 @@
                 - else
                   = "-"
             - if cols.include?(:finished)
-              %td.time-since-column.format-past= iso_time_string(race.start_time)
+              - if race.finished?
+                %td.time-since-column.format-past= iso_time_string(race.start_time)
+              - else
+                %td.time-since-column= race.status_text
