@@ -10,6 +10,7 @@
           %th Name
           %th Shortname
           %th # of Races
+          %th # of Active Races
       %tbody
         - @games.each do |game|
           %tr
@@ -17,6 +18,7 @@
               %img{src: game.cover_small}
             %td= link_to game.name, game_path(game)
             %td= game.shortname
-            %td= game.completed_races.count
+            %td= game.races.completed.count
+            %td= game.races.active.count
   .mx-auto.mb-3
     = paginate @games, theme: 'twitter-bootstrap-4'

@@ -15,8 +15,4 @@ class Game < ApplicationRecord
   def to_param
     shortname
   end
-
-  def completed_races
-    races.where(status_text: Race::ENDED)
-  end
 end
