@@ -14,6 +14,7 @@ $(document).on("turbolinks:load race:updated", function() {
 
   $(".format-past").each(function() {
     const time = format_past($(this).html());
+    if (time === null) return;
     $(this).html(time);
   });
 
@@ -45,6 +46,8 @@ const format_time = function(time_string) {
 };
 
 const format_past = function(date_string) {
+  const time = moment(date_string).fromNow();
+  if (!time.isValid()) return null;
   return moment(date_string).fromNow();
 };
 
