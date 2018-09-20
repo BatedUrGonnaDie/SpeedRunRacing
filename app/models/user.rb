@@ -22,6 +22,7 @@ class User < ApplicationRecord
   def self.search(term)
     term.strip!
     return User.none if term.blank?
+
     fuzzy_search(username: term)
   end
 

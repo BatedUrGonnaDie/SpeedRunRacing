@@ -34,16 +34,19 @@ class Race < ApplicationRecord
 
   def contains_user?(user)
     return nil if user.nil?
+
     users.pluck(:id).include?(user.id)
   end
 
   def entrant_for_user(user)
     return nil if user.nil?
+
     entrants.find_by(user_id: user.id)
   end
 
   def creator?(user)
     return false if user.nil?
+
     creator_id == user.id
   end
 
@@ -70,7 +73,8 @@ class Race < ApplicationRecord
 
   def start
     return if started?
-    update(
+
+    update!(
       start_time: Time.now.utc + 15.seconds,
       status_text: Race::PROGRESS
     )
@@ -84,7 +88,8 @@ class Race < ApplicationRecord
 
   def finish
     return unless in_progress?
-    update(
+
+    update!(
       finish_time: entrants.order('entrants.place DESC').limit(1).first.finish_time,
       status_text: Race::ENDED
     )
@@ -96,11 +101,12 @@ class Race < ApplicationRecord
 
   def finish_if_possible
     return unless entrants.count >= 2 && entrants.count == entrants.finished.count
+
     if entrants.completed.count.positive?
       finish
     else
       # If everyone forfeit the race or were disqualified, delete the race from history
-      update(
+      update!(
         finish_time: Time.now.utc,
         status_text: Race::FORFEITED
       )
@@ -110,6 +116,7 @@ class Race < ApplicationRecord
 
   def duration
     return nil unless started?
+
     if finished?
       (finish_time - start_time)
     else
@@ -121,16 +128,16 @@ class Race < ApplicationRecord
     entrants.sort do |x, y|
       if x.place.nil?
         if y.place.nil?
-          0
+          x_ready = x.ready? ? 1 : 0
+          y_ready = y.ready? ? 1 : 0
+          y_ready <=> x_ready
         elsif y.place.negative?
           -1
         else
           1
         end
       elsif y.place.nil?
-        if x.place.nil?
-          0
-        elsif x.place.negative?
+        if x.place.negative?
           1
         else
           -1
