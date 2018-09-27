@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  rolify
   has_many :entrants
   has_many :races, through: :entrants
   has_many :created_races, class_name: 'Race', foreign_key: :creator_id

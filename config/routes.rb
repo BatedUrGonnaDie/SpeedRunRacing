@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  namespace :admin do
+      resources :users
+      resources :categories
+      resources :chat_messages
+      resources :chat_rooms
+      resources :entrants
+      resources :games
+      resources :races
+
+      root to: "users#index"
+    end
   use_doorkeeper do
     skip_controllers :applications, :authorized_applications
   end

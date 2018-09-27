@@ -20,6 +20,7 @@ gem 'devise'
 gem 'doorkeeper'
 gem 'omniauth-oauth2'
 gem 'omniauth-twitch'
+gem 'rolify'
 
 # Configuration
 gem 'figaro'
@@ -46,6 +47,7 @@ gem 'daemons'
 gem 'delayed_job_active_record'
 
 # View Building
+gem 'administrate'
 gem 'haml-rails'
 gem 'kaminari'
 gem 'slim-rails'
