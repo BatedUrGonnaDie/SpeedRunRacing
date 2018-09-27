@@ -46,9 +46,9 @@ const format_time = function(time_string) {
 };
 
 const format_past = function(date_string) {
-  const time = moment(date_string).fromNow();
+  const time = moment(date_string);
   if (!time.isValid()) return null;
-  return moment(date_string).fromNow();
+  return time.fromNow();
 };
 
 const format_timestamp = function(date_string) {
