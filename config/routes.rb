@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   get '/faq', to: 'static#faq', as: :faq
 
   devise_for :users, path_names: { edit: 'settings' }
-  get    '/users/settings/api',                to: 'settings#api',                    as: :settings_api
   get    '/users/applications/new',            to: 'applications#new',                as: :new_application
   get    '/users/applications/:application',   to: 'applications#edit',               as: :edit_application
   post   '/users/applications',                to: 'applications#create',             as: :applications

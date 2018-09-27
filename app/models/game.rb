@@ -8,6 +8,7 @@ class Game < ApplicationRecord
   def self.search(term)
     term.strip!
     return Game.none if term.blank?
+
     exact_match = where('shortname ILIKE ?', term)
     exact_match + fuzzy_search(name: term).where.not(id: exact_match.map(&:id))
   end
