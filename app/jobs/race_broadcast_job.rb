@@ -2,10 +2,17 @@ class RaceBroadcastJob < ApplicationJob
   queue_as :default
 
   def perform(race, status, extras = {})
-    RacesChannel.broadcast_to(
-      race,
-      generate_msg(race, status, extras)
-    )
+    if race.is_a?(String)
+      ActionCable.server.broadcast(
+        race,
+        generate_msg(race, status, extras)
+      )
+    else
+      RacesChannel.broadcast_to(
+        race,
+        generate_msg(race, status, extras)
+      )
+    end
   end
 
   private

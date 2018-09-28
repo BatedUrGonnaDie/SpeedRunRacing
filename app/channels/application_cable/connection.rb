@@ -1,9 +1,9 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
-    identified_by :current_user
+    identified_by :current_user, :onsite
 
     def connect
-      self.current_user = find_verified_user
+      self.current_user, self.onsite = find_verified_user
       log_tag = current_user.try(:id) || SecureRandom.hex
       logger.add_tags 'ActionCable', log_tag
     end
@@ -21,9 +21,9 @@ module ApplicationCable
         user = User.find_by(id: access_token.try(:resource_owner_id))
         reject_unauthorized_connection if user.nil?
 
-        user
+        [user, false]
       else
-        env['warden'].user
+        [env['warden'].user, true]
       end
     end
   end

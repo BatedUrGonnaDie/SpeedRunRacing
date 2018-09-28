@@ -4,8 +4,8 @@
     %meta{content: 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}/
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
     %title= yield(:title) || 'SpeedRunRacing!'
-    = stylesheet_link_tag 'application.css'
-    = javascript_pack_tag 'application.js'
+    = stylesheet_link_tag 'application.css', data: {turbolinks_track: 'reload'}
+    = javascript_pack_tag 'application.js', data: {turbolinks_track: 'reload'}
     = csrf_meta_tags
     = render partial: 'shared/favicons'
     = content_for(:html_head)

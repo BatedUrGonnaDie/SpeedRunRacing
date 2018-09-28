@@ -2,6 +2,7 @@ class RacesChannel < ApplicationCable::Channel
   def subscribed
     update_race_instance
     stream_for(@race)
+    stream_from("races:#{@race.to_gid_param}:onsite") if onsite
   end
 
   def unsubscribed
@@ -10,8 +11,10 @@ class RacesChannel < ApplicationCable::Channel
 
   def join_race
     return if current_user.blank?
+
     update_race_instance
     return if @race.started?
+
     if ability.cannot?(:enter, Race)
       notify_user(
         current_user,
@@ -33,8 +36,10 @@ class RacesChannel < ApplicationCable::Channel
 
   def part_race
     return if current_user.blank?
+
     update_race_instance
     return if @race.started?
+
     entrant = Entrant.find_by(race: @race, user: current_user)
     return if entrant.nil?
 
@@ -49,8 +54,10 @@ class RacesChannel < ApplicationCable::Channel
 
   def abandon_race
     return if current_user.blank?
+
     update_race_instance
     return unless @race.in_progress?
+
     entrant = Entrant.find_by(race: @race, user: current_user)
     return if entrant.nil?
 
@@ -65,8 +72,10 @@ class RacesChannel < ApplicationCable::Channel
 
   def rejoin_race
     return if current_user.blank?
+
     update_race_instance
     return unless @race.in_progress?
+
     entrant = Entrant.find_by(race: @race, user: current_user)
     return if entrant.nil?
 
@@ -80,8 +89,10 @@ class RacesChannel < ApplicationCable::Channel
 
   def ready
     return if current_user.blank?
+
     update_race_instance
     return if @race.started?
+
     entrant = Entrant.find_by(user: current_user, race: @race)
     return if entrant.nil?
 
@@ -96,8 +107,10 @@ class RacesChannel < ApplicationCable::Channel
 
   def unready
     return if current_user.blank?
+
     update_race_instance
     return if @race.started?
+
     entrant = Entrant.find_by(user: current_user, race: @race)
     return if entrant.nil?
 
@@ -111,8 +124,10 @@ class RacesChannel < ApplicationCable::Channel
 
   def done(data)
     return if current_user.blank?
+
     update_race_instance
     return unless @race.in_progress?
+
     entrant = Entrant.find_by(user: current_user, race: @race)
     return if entrant.nil?
 
@@ -127,10 +142,13 @@ class RacesChannel < ApplicationCable::Channel
 
   def kick_entrant(data)
     return if current_user.blank?
+
     update_race_instance
     return if @race.started?
+
     entrant = Entrant.find(data['entrant_id'])
     return if entrant.nil?
+
     if ability.cannot?(:kick, entrant)
       notify_user(current_user, 'race_kick_failure', true, reason: 'User must be inactive for 10 minutes.')
       return
@@ -159,10 +177,10 @@ class RacesChannel < ApplicationCable::Channel
 
   def notify_race(msg, extras = {})
     RaceBroadcastJob.perform_now(@race, msg, extras)
-    return unless msg == 'race_entrants_updated'
+    return unless msg == 'race_entrants_updated' && onsite
 
     RaceBroadcastJob.perform_now(
-      @race,
+      "races:#{@race.to_gid_param}:onsite",
       'race_entrants_html',
       entrants_html: ApplicationController.render(partial: 'races/entrants_table', locals: {race: @race}),
       admin_html: ApplicationController.render(partial: 'races/admin_table', locals: {race: @race})
