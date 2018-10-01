@@ -177,7 +177,7 @@ class RacesChannel < ApplicationCable::Channel
 
   def notify_race(msg, extras = {})
     RaceBroadcastJob.perform_now(@race, msg, extras)
-    return unless msg == 'race_entrants_updated' && onsite
+    return unless msg == 'race_entrants_updated'
 
     RaceBroadcastJob.perform_now(
       "races:#{@race.to_gid_param}:onsite",
