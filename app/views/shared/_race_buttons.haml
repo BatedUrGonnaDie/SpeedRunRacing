@@ -7,14 +7,14 @@
 - done_class = @race.in_progress? && current_entrant ? 'show' : 'hidden'
 - rejoin_class = @race.in_progress? && current_entrant && current_entrant.finished? ? 'show' : 'hidden'
 
-.col-lg-2.col-sm-6
+.col-lg-2.col-xs-6
   %button.btn.btn-success.btn-join-race{class: join_class, disabled: @race.in_progress? || current_user.nil?}
     Join Race
   %button.btn.btn-danger.btn-part-race{class: part_class}
     Part Race
   %button.btn.btn-danger.btn-abandon-race{class: abandon_class} Abandon
   %button.btn.btn-danger.btn-rejoin-race{class: rejoin_class} Rejoin
-.col-lg-2.col-sm-6
+.col-lg-2.col-xs-6
   %button.btn.btn-success.btn-ready-race{class: ready_class, disabled: !current_entrant.present?}
     Ready Up
   %button.btn.btn-danger.btn-unready-race{class: unready_class}
