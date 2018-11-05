@@ -14,6 +14,7 @@ class Entrant < ApplicationRecord
 
   def part
     return false if race.finished?
+
     if race.started?
       update(place: Entrant::FORFEITED, finish_time: nil)
     else
@@ -23,12 +24,14 @@ class Entrant < ApplicationRecord
 
   def done(server_time = nil)
     return false unless race.in_progress?
+
     server_time = (Time.now.utc.to_f * 1000).to_s if server_time.nil?
     update(finish_time: Time.parse(server_time).utc, place: (race.entrants.completed.count + 1))
   end
 
   def rejoin
     return false unless race.in_progress?
+
     update_success = update(place: nil, finish_time: nil)
     race.recalculate_places
     update_success
@@ -49,6 +52,7 @@ class Entrant < ApplicationRecord
 
   def duration
     return nil if !race.started? || finish_time.nil?
+
     (finish_time - race.start_time)
   end
 end
