@@ -1,6 +1,0 @@
-= provide(:title, 'SpeedRunRacing!')
-- if @races.blank?
-  %h4 There seems to be no races going on right now, why not create one!
-  Races can be created from the games page so head on over to your favorite games page.
-- else
-  = render partial: 'shared/race_table', locals: race_table_locals(:active_races, @races)

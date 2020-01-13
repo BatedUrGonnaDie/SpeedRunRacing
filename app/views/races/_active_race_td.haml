@@ -1,7 +1,0 @@
-%tr{id: "race-id-#{race.id}", data: {race_id: race.id}}
-  %td.cover-column
-    %img{src: race.game.cover_small}
-  %td.game-cat-column= link_to "#{race.game.name} - #{race.category.name}", race_path(race)
-  %td.entrants-column= race.entrants.count
-  %td.status-column{class: race_color(race)}= race.status_text
-  %td.duration-column= "-"
